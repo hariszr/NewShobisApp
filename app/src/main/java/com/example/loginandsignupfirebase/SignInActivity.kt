@@ -31,7 +31,7 @@ class SignInActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        startActivity(Intent(this, ProfileEditActivity::class.java))
+                        startActivity(Intent(this, HomeActivity::class.java))
                         Toast.makeText(this, "Sign In Successfully", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -48,7 +48,7 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
 
         if (firebaseAuth.currentUser != null){
-            startActivity(Intent(this, ProfileEditActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
             Toast.makeText(this, "Welcomeback", Toast.LENGTH_SHORT).show()
         }
     }

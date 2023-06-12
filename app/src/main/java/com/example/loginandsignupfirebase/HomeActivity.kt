@@ -16,5 +16,9 @@ class HomeActivity : AppCompatActivity() {
         binding.profileSIV.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+
+        binding.createNewCV.setOnClickListener {
+            startActivity(Intent(this, NewTraceabilityActivity::class.java))
+        }
     }
 }

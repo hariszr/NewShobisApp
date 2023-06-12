@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LoginAndSignUpFirebase</string>
+
+    <style name="toastCustom">
+        <item name="stColorBackground">@color/grey_mid</item>
+        <item name="stTextColor">@color/white</item>
+    </style>
 </resources>

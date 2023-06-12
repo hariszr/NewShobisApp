@@ -79,11 +79,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
               <ImageView
+                  android:id="@+id/back_profileIV"
                   android:layout_width="40dp"
                   android:layout_height="40dp"
                   android:padding="5dp"
                   android:layout_alignParentStart="true"
-                  android:src="@drawable/ic_arrow_back"/>
+                  android:background="@drawable/bg_back"/>
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"

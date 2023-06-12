@@ -4,14 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.loginandsignupfirebase.databinding.ActivityProfileEditBinding
 import com.example.loginandsignupfirebase.model.UserModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -19,7 +17,7 @@ import java.util.*
 
 class ProfileEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileEditBinding
-    private lateinit var auth : FirebaseAuth
+    private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var storage : FirebaseStorage
     private var selectedImg : Uri? = null
@@ -37,10 +35,10 @@ class ProfileEditActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance()
         storage = FirebaseStorage.getInstance()
-        auth = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-        val auth = auth.currentUser
+        val auth = firebaseAuth.currentUser
 
         binding.emailProfileET.setText(auth?.email)
         binding.nameProfileET.setText(auth?.displayName)
@@ -93,15 +91,15 @@ class ProfileEditActivity : AppCompatActivity() {
 
     private fun uploadInfo(imgUrl: String) {
         val user = UserModel(
-            auth.uid.toString(),
-            auth.currentUser?.email.toString(),
+            firebaseAuth.uid.toString(),
+            firebaseAuth.currentUser?.email.toString(),
             binding.nameProfileET.text.toString(),
             binding.ageProfileET.text.toString(),
             imgUrl)
 
 
         database.reference.child("users")
-            .child(auth.uid.toString())
+            .child(firebaseAuth.uid.toString())
             .setValue(user)
             .addOnSuccessListener {
                 Toast.makeText(this, "Profile Saved", Toast.LENGTH_SHORT).show()

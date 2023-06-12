@@ -1,11 +1,13 @@
 package com.example.loginandsignupfirebase
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
+import io.github.muddz.styleabletoast.StyleableToast
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
@@ -32,14 +34,14 @@ class SignInActivity : AppCompatActivity() {
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
                         startActivity(Intent(this, HomeActivity::class.java))
-                        Toast.makeText(this, "Sign In Successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Sign In Successfully!", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
 
             } else {
-                Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Empty Fields Are not Allowed !", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -49,7 +51,7 @@ class SignInActivity : AppCompatActivity() {
 
         if (firebaseAuth.currentUser != null){
             startActivity(Intent(this, HomeActivity::class.java))
-            Toast.makeText(this, "Welcomeback", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Hi", Toast.LENGTH_SHORT).show()
         }
     }
 }

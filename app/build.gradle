@@ -60,4 +60,8 @@ dependencies {
 
     //Image Picker and Crop
     implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    //Toast Custom
+    implementation 'io.github.muddz:styleabletoast:2.4.0'
+
 }

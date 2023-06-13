@@ -58,16 +58,16 @@ class ProfileEditActivity : AppCompatActivity() {
 
         binding.saveProfileBtn.setOnClickListener {
 
-//            if (binding.emailProfileET.text!!.isEmpty()){
-//                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
-//                binding.emailProfileET.requestFocus()
-//            } else if (binding.nameProfileET.text!!.isEmpty()){
-//                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
-//                binding.nameProfileET.requestFocus()
-//            } else if (binding.ageProfileET.text!!.isEmpty()){
-//                Toast.makeText(this, "Please enter your age", Toast.LENGTH_SHORT).show()
-//                binding.ageProfileET.requestFocus()
-            if (selectedImg == null){
+            if (binding.emailProfileET.text!!.isEmpty()){
+                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
+
+            } else if (binding.nameProfileET.text!!.isEmpty()){
+                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
+
+            } else if (binding.ageProfileET.text!!.isEmpty()) {
+                Toast.makeText(this, "Please enter your age", Toast.LENGTH_SHORT).show()
+
+            } else if (selectedImg == null){
                 Toast.makeText(this, "Please insert your photo", Toast.LENGTH_SHORT).show()
             } else
                 uploadData()
@@ -103,7 +103,7 @@ class ProfileEditActivity : AppCompatActivity() {
             .setValue(user)
             .addOnSuccessListener {
                 Toast.makeText(this, "Profile Saved", Toast.LENGTH_SHORT).show()
-//                startActivity(Intent(this, ProfileEditActivity::class.java))
+                startActivity(Intent(this, ProfileActivity::class.java))
             }
     }
 

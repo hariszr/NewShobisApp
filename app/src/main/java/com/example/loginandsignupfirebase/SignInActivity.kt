@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
-import io.github.muddz.styleabletoast.StyleableToast
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding

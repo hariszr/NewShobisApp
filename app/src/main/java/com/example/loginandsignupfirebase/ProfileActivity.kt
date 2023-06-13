@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.loginandsignupfirebase.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
-import io.github.muddz.styleabletoast.StyleableToast
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -40,7 +39,7 @@ class ProfileActivity : AppCompatActivity() {
                 .setPositiveButton("Yes") {dialogInterface, it ->
                 firebaseAuth.signOut()
                 startActivity(Intent(this, SignInActivity::class.java))
-                    StyleableToast.makeText(this, "Sign Out Successfully", Toast.LENGTH_SHORT, R.style.toastCustom).show()
+                    Toast.makeText(this, "Sign Out Successfully", Toast.LENGTH_SHORT).show()
             }
                 .show()
         }

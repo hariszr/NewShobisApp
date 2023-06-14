@@ -37,11 +37,12 @@ class ProfileActivity : AppCompatActivity() {
                     dialogInterface.cancel()
             }
                 .setPositiveButton("Yes") {dialogInterface, it ->
-                firebaseAuth.signOut()
-                startActivity(Intent(this, SignInActivity::class.java))
+                    firebaseAuth.signOut()
+                    startActivity(Intent(this, SignInActivity::class.java))
                     Toast.makeText(this, "Sign Out Successfully", Toast.LENGTH_SHORT).show()
+                    finish()
             }
-                .show()
+                    .show()
         }
     }
 }

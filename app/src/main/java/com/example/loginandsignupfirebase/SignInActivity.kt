@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private var backPressedTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,17 @@ class SignInActivity : AppCompatActivity() {
 
         if (firebaseAuth.currentUser != null){
             startActivity(Intent(this, HomeActivity::class.java))
-            Toast.makeText(this, "Hi", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Hi Bang", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        if (backPressedTime + 4000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+            finishAffinity()
+        } else {
+            Toast.makeText(this, "Press back again to Exit", Toast.LENGTH_SHORT).show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }

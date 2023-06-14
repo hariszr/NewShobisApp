@@ -88,6 +88,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
                 }.addOnFailureListener { e ->
                     Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
                 }
+            dialog.dismiss()
         }
 
     }

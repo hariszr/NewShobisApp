@@ -74,8 +74,10 @@ class ProfileEditActivity : AppCompatActivity() {
         }
 
         binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
         }
+
+
     }
 
     private fun uploadData() {

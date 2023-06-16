@@ -1,17 +1,15 @@
 package com.example.loginandsignupfirebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
-import com.example.loginandsignupfirebase.databinding.ActivityHomeBinding
 import com.example.loginandsignupfirebase.databinding.ActivityNewTraceabilityBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.values
 import java.text.DateFormat
 import java.util.Calendar
 
@@ -79,10 +77,11 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
             val dataClass = DataClass(pid, farmer, variety, weight, currentDate)
 
-            FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child(pid)
+            FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid").child(pid)
                 .setValue(dataClass).addOnCompleteListener { task ->
                     if (task.isSuccessful){
                         Toast.makeText(this, "Created", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, TraceabilityListActivity::class.java))
                         finish()
                     }
                 }.addOnFailureListener { e ->

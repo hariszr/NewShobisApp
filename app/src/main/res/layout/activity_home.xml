@@ -81,7 +81,8 @@
                 app:cardCornerRadius="20dp"
                 app:cardElevation="5dp"
                 app:cardBackgroundColor="@color/purple_2"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -128,7 +129,8 @@
                 app:cardElevation="5dp"
                 app:cardBackgroundColor="@color/purple_2"
                 app:cardUseCompatPadding="true"
-                android:clickable="true">
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"

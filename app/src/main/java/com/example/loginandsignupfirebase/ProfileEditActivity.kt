@@ -102,6 +102,7 @@ class ProfileEditActivity : AppCompatActivity() {
 
         database.reference.child("users")
             .child(firebaseAuth.uid.toString())
+            .child("Profile Users")
             .setValue(user)
             .addOnSuccessListener {
                 Toast.makeText(this, "Profile Saved", Toast.LENGTH_SHORT).show()

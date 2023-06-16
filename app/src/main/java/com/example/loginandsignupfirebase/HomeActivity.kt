@@ -26,6 +26,9 @@ class HomeActivity : AppCompatActivity() {
         binding.createNewCV.setOnClickListener {
             startActivity(Intent(this, NewTraceabilityActivity::class.java))
         }
+        binding.shTraceabilityCV.setOnClickListener {
+            startActivity(Intent(this, TraceabilityListActivity::class.java))
+        }
         firebaseAuth = FirebaseAuth.getInstance()
     }
 

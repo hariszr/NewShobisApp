@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/header_bg_gradient">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/header_bg_gradient"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="8dp"
+            tools:ignore="MissingConstraints">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/back_ProductListIV"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="5dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_back"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Detail Product"
+                    android:textStyle="bold|normal"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageDetail"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:src="@drawable/ic_empty_photos"
+        android:layout_marginTop="5dp"
+        android:scaleType="fitXY"
+        android:padding="8dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/farmerDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Farmer"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:padding="20dp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/varietyDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Farmer"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:padding="20dp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/weightDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Farmer"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:padding="20dp"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

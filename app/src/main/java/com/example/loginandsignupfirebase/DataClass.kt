@@ -14,4 +14,8 @@ class DataClass {
         this.dataWeight = dataWeight
         this.dataDate = dataDate
     }
+
+    constructor(){
+
+    }
 }

@@ -51,12 +51,15 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:22.0.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
-    implementation 'com.google.firebase:firebase-storage-ktx:20.2.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
+    //splash screen
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 
     //Image Picker and Crop
     implementation 'com.github.dhaval2404:imagepicker:2.1'
@@ -67,5 +70,17 @@ dependencies {
     //To Glide recyclerView
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+
+    //Generate and Scan QR Code with zxing
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+
+    //Scan QR
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
+//    implementation 'com.google.zxing:core:3.5.0'
+//    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
+//    implementation 'com.github.androidmads:QRGenerator:1.0.1'
+//    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 
 }

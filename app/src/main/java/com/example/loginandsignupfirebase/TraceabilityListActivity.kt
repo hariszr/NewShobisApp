@@ -32,13 +32,17 @@ class TraceabilityListActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
 
+        binding.addFAB.setOnClickListener {
+            startActivity(Intent(this, NewTraceabilityActivity::class.java))
+        }
+
         binding.backProductListIV.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
 
         val gridLayoutManager= GridLayoutManager(this, 1)
-        binding.listTraceabilityRV.layoutManager = gridLayoutManager
+        binding.listTraceRecyclerView.layoutManager = gridLayoutManager
 
         val builder = AlertDialog.Builder(this)
         builder.setCancelable(false)
@@ -49,14 +53,13 @@ class TraceabilityListActivity : AppCompatActivity() {
 //        val pid = databaseReference!!.get().
 
         dataList = ArrayList()
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
-        linearLayoutManager.reverseLayout = true
-        linearLayoutManager.stackFromEnd = true
-
-        binding.listTraceabilityRV.layoutManager = linearLayoutManager
+        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        linearLayoutManager.reverseLayout = false
+        linearLayoutManager.stackFromEnd = false
+        binding.listTraceRecyclerView.layoutManager = linearLayoutManager
 
         adapter = ListAdapter(this, dataList)
-        binding.listTraceabilityRV.adapter = adapter
+        binding.listTraceRecyclerView.adapter = adapter
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid")
         dialog.show()
 
@@ -72,7 +75,8 @@ class TraceabilityListActivity : AppCompatActivity() {
                         dataList.add(dataClass)
                     }
                 }
-                binding.listTraceabilityRV.setHasFixedSize(true)
+                dataList.sortByDescending { it.dataDate }
+                binding.listTraceRecyclerView.setHasFixedSize(true)
                 adapter.notifyDataSetChanged()
                 dialog.dismiss()
             }
@@ -80,7 +84,6 @@ class TraceabilityListActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
                 dialog.dismiss()
             }
-
         })
     }
 }

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/itemListRecyclerCV"
+    android:id="@+id/itemTraceRecyclerViewCV"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
     android:layout_marginHorizontal="10dp"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/itemRecImageSIV"
+            android:id="@+id/itemRecQrCodeSIV"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:src="@drawable/ic_empty_photos"
@@ -33,7 +33,7 @@
             android:textSize="20sp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/itemRecImageSIV"/>
+            android:layout_toEndOf="@id/itemRecQrCodeSIV"/>
         <TextView
             android:id="@+id/itemRecWeightTV"
             android:layout_width="70dp"
@@ -62,7 +62,7 @@
             android:text="Variety"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:layout_toEndOf="@id/itemRecImageSIV"
+            android:layout_toEndOf="@id/itemRecQrCodeSIV"
             android:layout_below="@id/itemRecPIDTV"
             android:layout_marginStart="20dp"
             android:maxLines="2"

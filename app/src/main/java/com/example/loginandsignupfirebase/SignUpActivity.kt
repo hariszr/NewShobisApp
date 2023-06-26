@@ -21,6 +21,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
+            finish()
         }
         binding.button.setOnClickListener {
             val email = binding.emailEt.text.toString()

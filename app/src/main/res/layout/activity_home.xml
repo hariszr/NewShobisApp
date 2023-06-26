@@ -173,6 +173,7 @@
         android:gravity="center">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/scanCV"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:cardCornerRadius="50dp"

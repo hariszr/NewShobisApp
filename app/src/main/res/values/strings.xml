@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoginAndSignUpFirebase</string>
+    <string name="app_name">ShobisApp</string>
 
     <style name="toastCustom">
         <item name="stColorBackground">@color/grey_mid</item>

@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class ListAdapter(private val context:android.content.Context, private val dataList:List<DataClass>): RecyclerView.Adapter<MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_traceabbility_list, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_traceability, parent, false)
         return MyViewHolder(view)
     }
 
@@ -23,16 +21,17 @@ class ListAdapter(private val context:android.content.Context, private val dataL
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-//        Glide.with(context).load(dataList[position].dataImage).into(holder.recImage)
+//        Glide.with(context).load(dataList[position].dataQrCode).into(holder.itemRecQrCode)
         holder.itemRecPID.text = dataList[position].pid
         holder.itemRecVariety.text = dataList[position].dataVariety
         holder.itemRecWeight.text = dataList[position].dataWeight
 
-        holder.itemListRecycler.setOnClickListener {
+        holder.itemRec.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("Farmer", dataList[holder.adapterPosition].dataFarmer)
             intent.putExtra("Variety", dataList[holder.adapterPosition].dataVariety)
             intent.putExtra("Weight", dataList[holder.adapterPosition].dataWeight)
+//            intent.putExtra("QrCode", dataList[holder.adapterPosition].dataQrCode)
             context.startActivity(intent)
         }
     }
@@ -40,15 +39,15 @@ class ListAdapter(private val context:android.content.Context, private val dataL
 }
 
 class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-    var itemListRecycler : CardView
-    var itemRecImage : ImageView
+    var itemRec : CardView
+    var itemRecQrCode : ImageView
     var itemRecPID : TextView
     var itemRecWeight : TextView
     var itemRecVariety : TextView
 
     init {
-        itemListRecycler = itemView.findViewById(R.id.itemListRecyclerCV)
-        itemRecImage = itemView.findViewById(R.id.itemRecImageSIV)
+        itemRec = itemView.findViewById(R.id.itemTraceRecyclerViewCV)
+        itemRecQrCode = itemView.findViewById(R.id.itemRecQrCodeSIV)
         itemRecPID = itemView.findViewById(R.id.itemRecPIDTV)
         itemRecWeight = itemView.findViewById(R.id.itemRecWeightTV)
         itemRecVariety = itemView.findViewById(R.id.itemRecVarietyTV)

@@ -4,6 +4,7 @@ import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -12,11 +13,24 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private var backPressedTime = 0L
+    val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            println("Exit 0")
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                finishAffinity()
+            } else {
+                Toast.makeText(this@SignInActivity, "Press again to exit",
+                    Toast.LENGTH_SHORT).show()
+            }
+            backPressedTime = System.currentTimeMillis()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -35,6 +49,7 @@ class SignInActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         startActivity(Intent(this, HomeActivity::class.java))
                         Toast.makeText(this, "Sign In Successfully!", Toast.LENGTH_SHORT).show()
+                        finish()
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
@@ -53,15 +68,5 @@ class SignInActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeActivity::class.java))
             Toast.makeText(this, "Hi Bang", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onBackPressed() {
-        if (backPressedTime + 4000 > System.currentTimeMillis()) {
-            super.onBackPressed()
-            finishAffinity()
-        } else {
-            Toast.makeText(this, "Press back again to Exit", Toast.LENGTH_SHORT).show()
-        }
-        backPressedTime = System.currentTimeMillis()
     }
 }

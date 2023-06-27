@@ -1,157 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
+    android:orientation="vertical"
     tools:context=".ProfileActivity">
 
-<!--  <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--      android:id="@+id/edit_profileFAB"-->
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:layout_marginStart="350dp"-->
-<!--      android:layout_marginTop="40dp"-->
-<!--      android:clickable="true"-->
-<!--      android:contentDescription="TODO"-->
-<!--      app:backgroundTint="#FFFFFF"-->
-<!--      app:fabCustomSize="30dp"-->
-<!--      app:fabSize="mini"-->
-<!--      app:maxImageSize="18dp"-->
-<!--      app:srcCompat="@drawable/profile_edit"/>-->
-
-<!--  <TextView-->
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="match_parent"-->
-<!--      android:text="Profile"-->
-<!--      android:layout_marginVertical="350dp"-->
-<!--      android:layout_centerInParent="true"/>-->
-
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="match_parent"
-          android:layout_height="335dp"
-          android:background="@drawable/top_background_gradient">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-  </ScrollView>
-
-  
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:orientation="vertical"
-          tools:ignore="MissingConstraints">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="?actionBarSize"
-              android:orientation="horizontal"
-              android:gravity="center"
-              android:padding="8dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-              <ImageView
-                  android:id="@+id/back_profileIV"
-                  android:layout_width="35dp"
-                  android:layout_height="35dp"
-                  android:padding="5dp"
-                  android:layout_alignParentStart="true"
-                  android:src="@drawable/ic_back"
-                  android:background="?attr/selectableItemBackgroundBorderless"
-                  android:layout_centerVertical="true"/>
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_centerHorizontal="true"
-                  android:layout_centerVertical="true"
-                  android:text="Profile"
-                  android:textStyle="bold|normal"
-                  android:textColor="@color/white"
-                  android:textSize="18sp"/>
-            </RelativeLayout>
-
-          </LinearLayout>
-
-        </LinearLayout>
-
-        <include layout="@layout/item_image"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/edit_profileBtn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_round_1"
-            android:text="Edit Profile"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:layout_marginTop="45dp"
-            android:clickable="true"/>
-
-        <include layout="@layout/item_email"/>
-        <include layout="@layout/item_phone"/>
-        <include layout="@layout/item_address"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="202dp"
-              android:orientation="vertical"
-              android:gravity="center"
-              android:padding="10dp">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sign_outBtn"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_round_2"
-                android:text="Sign Out"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="20dp"/>
-          </LinearLayout>
-
-        </LinearLayout>
-
-      </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/profile_screen">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-  </ScrollView>
+    <!--  <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--      android:id="@+id/edit_profileFAB"-->
+    <!--      android:layout_width="wrap_content"-->
+    <!--      android:layout_height="wrap_content"-->
+    <!--      android:layout_marginStart="350dp"-->
+    <!--      android:layout_marginTop="40dp"-->
+    <!--      android:clickable="true"-->
+    <!--      android:contentDescription="TODO"-->
+    <!--      app:backgroundTint="#FFFFFF"-->
+    <!--      app:fabCustomSize="30dp"-->
+    <!--      app:fabSize="mini"-->
+    <!--      app:maxImageSize="18dp"-->
+    <!--      app:srcCompat="@drawable/profile_edit"/>-->
+
+    <!--  <TextView-->
+    <!--      android:layout_width="wrap_content"-->
+    <!--      android:layout_height="match_parent"-->
+    <!--      android:text="Profile"-->
+    <!--      android:layout_marginVertical="350dp"-->
+    <!--      android:layout_centerInParent="true"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/back_profileIV"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_back"
+                        android:focusable="true"
+                        android:contentDescription="TODO" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="Profile"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold|normal" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profile_showSIV"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9"
+                    android:elevation="8dp"
+                    android:src="@drawable/profile_person"
+                    app:shapeAppearance="@style/circular" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Full Name"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold|normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Actor"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="20dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/edit_profileBtn"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_round_1"
+                        android:clickable="true"
+                        android:text="Edit Profile"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/forget_passwordBtn"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:background="@drawable/btn_round_1"
+                        android:clickable="true"
+                        android:text="Forget Password"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|bottom"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="MissingConstraints">
+
+                    <include layout="@layout/item_email" />
+
+                    <include layout="@layout/item_phone" />
+
+                    <include layout="@layout/item_address" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="10dp"
+                    android:gravity="center"
+                    android:layout_marginVertical="70dp"
+                    android:layout_marginHorizontal="12dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/sign_outBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_round_2"
+                        android:text="Sign Out"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:ignore="MissingConstraints" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -15,7 +15,8 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"/>
+        android:focusable="true"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/qrCodeIV"

@@ -34,6 +34,7 @@ class TraceabilityListActivity : AppCompatActivity() {
 
         binding.addFAB.setOnClickListener {
             startActivity(Intent(this, NewTraceabilityActivity::class.java))
+            finish()
         }
 
         binding.backProductListIV.setOnClickListener {
@@ -66,10 +67,8 @@ class TraceabilityListActivity : AppCompatActivity() {
         eventListener = databaseReference!!.addValueEventListener(object : ValueEventListener{
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 dataList.clear()
                 for (itemSnapshot in snapshot.children){
-
                     val dataClass = itemSnapshot.getValue(DataClass::class.java)
                     if (dataClass != null){
                         dataList.add(dataClass)

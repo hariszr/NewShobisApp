@@ -38,8 +38,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseref = FirebaseDatabase.getInstance().getReference("Product")
-
+        firebaseref = FirebaseDatabase.getInstance().getReference("users")
 
 //        val activityResultLauncher = registerForActivityResult<Intent, ActivityResult>(
 //            ActivityResultContracts.StartActivityForResult()){ result ->
@@ -118,7 +117,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
         count+=1
         println("${count} 1 URL unduhan gambar: $imageURL")
-        FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid").child(pid)
+        firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid)
             .setValue(dataClass).addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     Toast.makeText(this, "Created", Toast.LENGTH_SHORT).show()

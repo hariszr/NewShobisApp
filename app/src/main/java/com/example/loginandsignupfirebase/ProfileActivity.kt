@@ -5,21 +5,37 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import com.example.loginandsignupfirebase.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var builder: Builder
+    private lateinit var firebaseref : DatabaseReference
+
+    val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            startActivity(Intent(this@ProfileActivity, HomeActivity::class.java))
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
+        println("INIT")
         builder = Builder(this)
         firebaseAuth = FirebaseAuth.getInstance()
+        firebaseref = Firebase.database.reference
+
+        fetchUserData()
 
         binding.backProfileIV.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
@@ -44,5 +60,38 @@ class ProfileActivity : AppCompatActivity() {
             }
                 .show()
         }
+    }
+
+    private fun fetchUserData() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+            .setView(R.layout.layout_progress)
+        val dialog = builder.create()
+        dialog.show()
+
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+        val auth = firebaseAuth.currentUser
+        binding.emailTV.text = auth?.email
+
+        firebaseref.child("users").child(userID).child("Profile Users").get()
+            .addOnSuccessListener {
+
+                dialog.show()
+//                val email = it.child("email").value?.toString().orEmpty()
+                val fullName = it.child("fullName").value?.toString().orEmpty()
+                val phone = it.child("phone").value?.toString().orEmpty()
+                val address = it.child("address").value?.toString().orEmpty()
+
+                if (fullName.isNotBlank()) binding.fullNameTV.text = fullName
+                if (phone.isNotBlank()) binding.phoneTV.text = phone
+                if (address.isNotBlank()) binding.addressTV.text = address
+
+                println("nama :${address}")
+
+                dialog.dismiss()
+            }. addOnFailureListener {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }
     }
 }

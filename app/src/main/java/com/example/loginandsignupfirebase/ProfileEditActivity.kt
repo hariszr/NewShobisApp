@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import com.example.loginandsignupfirebase.databinding.ActivityProfileEditBinding
 import com.example.loginandsignupfirebase.model.UserModel
@@ -24,10 +25,27 @@ class ProfileEditActivity : AppCompatActivity() {
     private lateinit var dialog : AlertDialog.Builder
     private lateinit var databaseReference: DatabaseReference
 
+    val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (binding.fullNameProfileET.text!!.isEmpty()) {
+                dialog.setTitle("Profile is empty!")
+                    .setMessage("Please, user profile can't be empty ")
+                    .setCancelable(false)
+                    .setNegativeButton("Yes") {dialogInterface, it ->
+                        dialogInterface.cancel()
+                    }
+                    .show()
+            } else {
+                finish()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
         dialog = AlertDialog.Builder(this)
             .setMessage("Updating Profile...")
@@ -40,8 +58,9 @@ class ProfileEditActivity : AppCompatActivity() {
 
         val auth = firebaseAuth.currentUser
 
-        binding.emailProfileET.setText(auth?.email)
-        binding.nameProfileET.setText(auth?.displayName)
+        binding.fullNameProfileET.setText(auth?.displayName)
+
+        displayEditProfile()
 
         binding.editFAB.setOnClickListener {
 //            val intent = Intent()
@@ -58,26 +77,82 @@ class ProfileEditActivity : AppCompatActivity() {
 
         binding.saveProfileBtn.setOnClickListener {
 
-            if (binding.emailProfileET.text!!.isEmpty()){
-                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
+            if (binding.fullNameProfileET.text!!.isEmpty()){
+                binding.fullNameProfileET.error = "Please enter your name"
 
-            } else if (binding.nameProfileET.text!!.isEmpty()){
-                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
+            } else if (binding.phoneProfileET.text!!.isEmpty()) {
+                binding.phoneProfileET.error = "Please enter your phone"
 
-            } else if (binding.ageProfileET.text!!.isEmpty()) {
-                Toast.makeText(this, "Please enter your age", Toast.LENGTH_SHORT).show()
+            } else if (binding.addressProfileET.text!!.isEmpty()) {
+                binding.phoneProfileET.error = "Please enter your address"
 
             } else if (selectedImg == null){
-                Toast.makeText(this, "Please insert your photo", Toast.LENGTH_SHORT).show()
+//                Snackbar.make(it, "Please select your photo", Snackbar.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please select your photo", Toast.LENGTH_SHORT).show()
             } else
                 uploadData()
+//                updateProfile()
         }
-
         binding.backBtn.setOnClickListener {
+            checkCloseBtn()
+        }
+    }
+
+    private fun checkCloseBtn() {
+        if (binding.fullNameProfileET.text!!.isEmpty()) {
+            dialog.setTitle("Profile is empty!")
+                .setMessage("Please, user profile can't be empty ")
+                .setCancelable(false)
+                .setNegativeButton("Yes") {dialogInterface, it ->
+                    dialogInterface.cancel()
+                }
+                .show()
+        } else {
             finish()
         }
+    }
+
+    private fun displayEditProfile() {
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+
+        databaseReference.child(userID).child("Profile Users").get()
+            .addOnSuccessListener {
+
+                val fullName = it.child("fullName").value?.toString().orEmpty()
+                val phone = it.child("phone").value?.toString().orEmpty()
+                val address = it.child("address").value?.toString().orEmpty()
+
+                if (fullName.isNotBlank()) binding.fullNameProfileET.setText(fullName)
+                if (phone.isNotBlank()) binding.phoneProfileET.setText(phone)
+                if (address.isNotBlank()) binding.addressProfileET.setText(address)
 
 
+            }.addOnFailureListener {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+    private fun updateProfile() {
+//        val email = binding.emailProfileET.text.toString()
+        val fullName = binding.fullNameProfileET.text.toString()
+        val phone = binding.phoneProfileET.text.toString()
+        val address = binding.addressProfileET.text.toString()
+//        val fullName = binding.fullNameProfileET!!.text.toString()
+
+        val editMap = mapOf(
+//            "email" to email,
+            "fullName" to fullName,
+            "phone" to phone,
+            "address" to address
+        )
+
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+
+        databaseReference.child(userID).child("Profile Users").updateChildren(editMap)
+        Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, ProfileActivity::class.java))
+        finish()
     }
 
     private fun uploadData() {
@@ -95,8 +170,9 @@ class ProfileEditActivity : AppCompatActivity() {
         val user = UserModel(
             firebaseAuth.uid.toString(),
             firebaseAuth.currentUser?.email.toString(),
-            binding.nameProfileET.text.toString(),
-            binding.ageProfileET.text.toString(),
+            binding.fullNameProfileET.text.toString(),
+            binding.phoneProfileET.text.toString(),
+            binding.addressProfileET.text.toString(),
             imgUrl)
 
 
@@ -107,6 +183,7 @@ class ProfileEditActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(this, "Profile Saved", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, ProfileActivity::class.java))
+                finish()
             }
     }
 

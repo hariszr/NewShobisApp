@@ -41,13 +41,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email_profile_ET"
+            android:id="@+id/fullName_profile_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email">
+            android:hint="Full Name">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -60,10 +60,11 @@
         android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name_profile_ET"
+            android:id="@+id/phone_profile_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name">
+            android:hint="Phone"
+            android:inputType="number">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -76,10 +77,11 @@
         android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/age_profile_ET"
+            android:id="@+id/address_profile_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Age">
+            android:hint="Address"
+            android:inputType="text">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -94,7 +96,7 @@
         android:textSize="14sp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:backgroundTint="@color/purple_2" />
+        android:backgroundTint="@color/salem_1" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back_btn"
@@ -105,6 +107,6 @@
         android:textSize="14sp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:backgroundTint="@color/purple_2" />
+        android:backgroundTint="@color/salem_1" />
 
 </LinearLayout>

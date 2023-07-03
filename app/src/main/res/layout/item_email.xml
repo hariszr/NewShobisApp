@@ -36,6 +36,7 @@
                 android:layout_gravity="center"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/emailTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="123@gmail.com"

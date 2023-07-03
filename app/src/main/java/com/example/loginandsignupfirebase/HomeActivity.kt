@@ -9,12 +9,16 @@ import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var builder: AlertDialog.Builder
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseref : DatabaseReference
     private var backPressedTime = 0L
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -35,6 +39,10 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
+        firebaseref = Firebase.database.reference
+
+        fetchUserDataHome()
+
         binding.scanCV.setOnClickListener {
             startActivity(Intent(this, ScanQRActivity::class.java))
         }
@@ -50,6 +58,21 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, TraceabilityListActivity::class.java))
         }
         firebaseAuth = FirebaseAuth.getInstance()
+    }
+
+    private fun fetchUserDataHome() {
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+
+        firebaseref.child("users").child(userID).child("Profile Users").get()
+            .addOnSuccessListener {
+
+                val fullName = it.child("fullName").value?.toString().orEmpty()
+
+                if (fullName.isNotBlank()) binding.fullNameHomeTV.text = fullName
+
+            }. addOnFailureListener {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

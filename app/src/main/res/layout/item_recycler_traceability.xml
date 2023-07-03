@@ -36,22 +36,23 @@
             android:layout_toEndOf="@id/itemRecQrCodeSIV"/>
         <TextView
             android:id="@+id/itemRecWeightTV"
-            android:layout_width="70dp"
+            android:layout_width="50dp"
             android:layout_height="30dp"
             android:text="Weight"
             android:layout_toEndOf="@id/itemRecVarietyTV"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="50dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16sp"/>
         <TextView
-            android:layout_width="45dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
             android:text="gram"
             android:layout_toEndOf="@id/itemRecWeightTV"
             android:layout_marginTop="50dp"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="0dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16sp"/>

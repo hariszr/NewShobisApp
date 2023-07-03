@@ -101,6 +101,7 @@
                     app:shapeAppearance="@style/circular" />
 
                 <TextView
+                    android:id="@+id/fullNameTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -168,6 +169,7 @@
                 android:gravity="center|bottom"
                 android:orientation="vertical">
 
+<!--                item email, phone, and address-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -175,11 +177,159 @@
                     android:orientation="vertical"
                     tools:ignore="MissingConstraints">
 
-                    <include layout="@layout/item_email" />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRadius="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="3dp">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="2dp"
+                                    android:src="@drawable/ic_email"
+                                    android:layout_marginStart="5dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Email Address"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/grey_mid"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"/>
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/emailTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="123@gmail.com"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+                                android:layout_marginStart="30sp"
+                                android:layout_marginBottom="15dp"/>
+                        </LinearLayout>
 
-                    <include layout="@layout/item_phone" />
+                    </androidx.cardview.widget.CardView>
 
-                    <include layout="@layout/item_address" />
+                    <androidx.cardview.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRadius="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="3dp">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="2dp"
+                                    android:src="@drawable/ic_phone"
+                                    android:layout_marginStart="5dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Phone Number"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/grey_mid"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"/>
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/phoneTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="+62 851 0896 1234"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:layout_marginStart="30sp"
+                                android:layout_marginBottom="15dp"/>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRadius="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="3dp">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="2dp"
+                                    android:src="@drawable/ic_address"
+                                    android:layout_marginStart="5dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Address"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/grey_mid"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+                                <TextView
+                                    android:id="@+id/addressTV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Your address"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/black"
+                                    android:textSize="17sp"
+                                    android:layout_marginStart="28sp"
+                                    android:layout_marginBottom="15dp"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 

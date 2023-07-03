@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.example.loginandsignupfirebase.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -80,10 +81,12 @@ class ProfileActivity : AppCompatActivity() {
                 dialog.show()
 //                val email = it.child("email").value?.toString().orEmpty()
                 val fullName = it.child("fullName").value?.toString().orEmpty()
+                val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
                 val phone = it.child("phone").value?.toString().orEmpty()
                 val address = it.child("address").value?.toString().orEmpty()
 
                 if (fullName.isNotBlank()) binding.fullNameTV.text = fullName
+                if (imageUrl.isNotBlank()) Glide.with(this).load(imageUrl).into(binding.profileShowSIV)
                 if (phone.isNotBlank()) binding.phoneTV.text = phone
                 if (address.isNotBlank()) binding.addressTV.text = address
 

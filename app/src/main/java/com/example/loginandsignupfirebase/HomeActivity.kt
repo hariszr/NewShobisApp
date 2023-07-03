@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.loginandsignupfirebase.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -61,14 +62,26 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun fetchUserDataHome() {
+
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setCancelable(false)
+            .setView(R.layout.layout_progress)
+        val dialog = builder.create()
+        dialog.show()
+
         val userID = FirebaseAuth.getInstance().currentUser!!.uid
 
         firebaseref.child("users").child(userID).child("Profile Users").get()
             .addOnSuccessListener {
+                dialog.show()
 
                 val fullName = it.child("fullName").value?.toString().orEmpty()
+                val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
 
                 if (fullName.isNotBlank()) binding.fullNameHomeTV.text = fullName
+                if (imageUrl.isNotBlank()) Glide.with(this).load(imageUrl).into(binding.profileSIV)
+
+                dialog.dismiss()
 
             }. addOnFailureListener {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()

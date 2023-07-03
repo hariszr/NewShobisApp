@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.example.loginandsignupfirebase.databinding.ActivityProfileEditBinding
 import com.example.loginandsignupfirebase.model.UserModel
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -22,6 +23,7 @@ class ProfileEditActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var storage : FirebaseStorage
     private var selectedImg : Uri? = null
+    private var imageUrl : Uri? = null
     private lateinit var dialog : AlertDialog.Builder
     private lateinit var databaseReference: DatabaseReference
 
@@ -74,7 +76,14 @@ class ProfileEditActivity : AppCompatActivity() {
                 .maxResultSize(1080, 1080)
                 .start()
         }
+        saveBtn(imageUrl.toString())
 
+        binding.backBtn.setOnClickListener {
+            checkCloseBtn()
+        }
+    }
+
+    private fun saveBtn(imageUrl: String) {
         binding.saveProfileBtn.setOnClickListener {
 
             if (binding.fullNameProfileET.text!!.isEmpty()){
@@ -86,15 +95,12 @@ class ProfileEditActivity : AppCompatActivity() {
             } else if (binding.addressProfileET.text!!.isEmpty()) {
                 binding.phoneProfileET.error = "Please enter your address"
 
-            } else if (selectedImg == null){
-//                Snackbar.make(it, "Please select your photo", Snackbar.LENGTH_SHORT).show()
-                Toast.makeText(this, "Please select your photo", Toast.LENGTH_SHORT).show()
-            } else
-                uploadData()
+            }
+//            else if (selectedImg == null || imageUrl == null) {
+//                Toast.makeText(this, "Please Selected your photo", Toast.LENGTH_SHORT).show()
+//            }
+            uploadData(imageUrl)
 //                updateProfile()
-        }
-        binding.backBtn.setOnClickListener {
-            checkCloseBtn()
         }
     }
 
@@ -119,10 +125,15 @@ class ProfileEditActivity : AppCompatActivity() {
             .addOnSuccessListener {
 
                 val fullName = it.child("fullName").value?.toString().orEmpty()
+                val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
                 val phone = it.child("phone").value?.toString().orEmpty()
                 val address = it.child("address").value?.toString().orEmpty()
 
                 if (fullName.isNotBlank()) binding.fullNameProfileET.setText(fullName)
+                if (imageUrl.isNotBlank()) {
+                    Glide.with(this).load(imageUrl).into(binding.profileSIV)
+                    saveBtn(imageUrl)
+                }
                 if (phone.isNotBlank()) binding.phoneProfileET.setText(phone)
                 if (address.isNotBlank()) binding.addressProfileET.setText(address)
 
@@ -138,7 +149,6 @@ class ProfileEditActivity : AppCompatActivity() {
         val fullName = binding.fullNameProfileET.text.toString()
         val phone = binding.phoneProfileET.text.toString()
         val address = binding.addressProfileET.text.toString()
-//        val fullName = binding.fullNameProfileET!!.text.toString()
 
         val editMap = mapOf(
 //            "email" to email,
@@ -155,25 +165,30 @@ class ProfileEditActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun uploadData() {
-        val reference = storage.reference.child("Profile").child(Date().time.toString())
-        reference.putFile(selectedImg!!).addOnCompleteListener{
-            if (it.isSuccessful) {
-                reference.downloadUrl.addOnSuccessListener { task ->
-                    uploadInfo(task.toString())
+    private fun uploadData(imageUrl: String) {
+        if (selectedImg != null) {
+            val reference = storage.reference.child("Profile").child(Date().time.toString())
+            reference.putFile(selectedImg!!).addOnCompleteListener{
+                if (it.isSuccessful) {
+                    reference.downloadUrl.addOnSuccessListener { task ->
+                        uploadInfo(task.toString())
+                    }
                 }
             }
+        } else {
+            uploadInfo(imageUrl)
         }
+
     }
 
-    private fun uploadInfo(imgUrl: String) {
+    private fun uploadInfo(imageUrl: String) {
         val user = UserModel(
             firebaseAuth.uid.toString(),
             firebaseAuth.currentUser?.email.toString(),
             binding.fullNameProfileET.text.toString(),
             binding.phoneProfileET.text.toString(),
             binding.addressProfileET.text.toString(),
-            imgUrl)
+            imageUrl)
 
 
         database.reference.child("users")
@@ -195,6 +210,7 @@ class ProfileEditActivity : AppCompatActivity() {
             if (data.data != null) {
                 selectedImg = data.data!!
                 binding.profileSIV.setImageURI(selectedImg)
+
                 Toast.makeText(this, "Upload image profile success", Toast.LENGTH_SHORT).show()
             }
         }

@@ -134,16 +134,14 @@ class ProfileEditActivity : AppCompatActivity() {
                     Glide.with(this).load(imageUrl).into(binding.profileSIV)
                     saveBtn(imageUrl)
                 }
+
                 if (phone.isNotBlank()) binding.phoneProfileET.setText(phone)
                 if (address.isNotBlank()) binding.addressProfileET.setText(address)
-
 
             }.addOnFailureListener {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
     }
-
-
     private fun updateProfile() {
 //        val email = binding.emailProfileET.text.toString()
         val fullName = binding.fullNameProfileET.text.toString()
@@ -211,7 +209,7 @@ class ProfileEditActivity : AppCompatActivity() {
                 selectedImg = data.data!!
                 binding.profileSIV.setImageURI(selectedImg)
 
-                Toast.makeText(this, "Upload image profile success", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Upload image profile success", Toast.LENGTH_SHORT).show()
             }
         }
     }

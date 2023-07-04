@@ -215,28 +215,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom|center">
+        android:gravity="bottom|center"
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/scanCV"
             android:layout_width="115dp"
             android:layout_height="115dp"
-            app:cardCornerRadius="80dp"
-            app:cardElevation="8dp"
+            android:layout_marginBottom="50dp"
             android:clickable="true"
-            android:layout_marginBottom="50dp">
+            app:cardCornerRadius="80dp"
+            app:cardElevation="8dp">
 
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/ic_qrscanner"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_qrscanner" />
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--        android:id="@+id/profileFAB"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

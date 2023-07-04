@@ -2,8 +2,12 @@ package com.example.loginandsignupfirebase
 
 import android.app.AlertDialog.Builder
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -38,6 +42,10 @@ class ProfileActivity : AppCompatActivity() {
 
         fetchUserData()
 
+        binding.changePasswordBtn.setOnClickListener {
+            changePasswordTask()
+        }
+
         binding.backProfileIV.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
         }
@@ -60,6 +68,48 @@ class ProfileActivity : AppCompatActivity() {
                     finishAffinity()
             }
                 .show()
+        }
+    }
+
+    private fun changePasswordTask() {
+        val builder = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.dialog_changepass, null)
+        val userEmail = view.findViewById<EditText>(R.id.editBox)
+        val auth = firebaseAuth.currentUser
+        userEmail.setText(auth?.email)
+
+        builder.setView(view)
+        val dialog = builder.create()
+
+        view.findViewById<Button>(R.id.sendBtn).setOnClickListener {
+            compareEmail(userEmail)
+            dialog.dismiss()
+        }
+
+        view.findViewById<Button>(R.id.cancelBtn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        if (dialog.window != null) {
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
+        }
+        dialog.show()
+    }
+
+    private fun compareEmail(email: EditText) {
+        if (email.text.isEmpty()){
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
+            return
+        }
+        firebaseAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener {task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Check your email", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener {
+//            Toast.makeText(this, "your email is wrong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 

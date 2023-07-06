@@ -51,20 +51,28 @@ class SignInActivity : AppCompatActivity() {
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
 
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
-
-                firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                        Toast.makeText(this, "Sign In Successfully!", Toast.LENGTH_SHORT).show()
-                        finish()
-                    } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+            if (email.isNotEmpty()) {
+                binding.emailLayout.error = null
+                if(pass.isNotEmpty()) {
+                    binding.passwordLayout.error = null
+                    firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            startActivity(Intent(this, HomeActivity::class.java))
+                            Toast.makeText(this, "Sign In Successfully!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
+                } else {
+                    binding.passwordLayout.error = "Password can't be empty"
+//                    if (pass.isNotEmpty()) binding.passwordLayout.error = null
                 }
 
             } else {
-                Toast.makeText(this, "Empty Fields Are not Allowed !", Toast.LENGTH_SHORT).show()
+                binding.emailLayout.error = "Email can't be empty"
+//                if (email.isNotEmpty()) binding.emailLayout.error = null
+//                Toast.makeText(this, "Empty Fields Are not Allowed !", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -117,7 +125,7 @@ override fun onStart() {
 
     if (firebaseAuth.currentUser != null) {
         startActivity(Intent(this, HomeActivity::class.java))
-        Toast.makeText(this, "Hi Bang", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "Hi Bang", Toast.LENGTH_SHORT).show()
     }
 }
 }

@@ -28,24 +28,44 @@ class SignUpActivity : AppCompatActivity() {
             val pass = binding.passET.text.toString()
             val confirmPass = binding.confirmPassEt.text.toString()
 
-            if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()) {
-                if (pass == confirmPass) {
+            if (email.isNotEmpty()) {
+                binding.emailLayout.error = null
+                if (pass.isNotEmpty()) {
+                    binding.passwordLayout.error = null
+                    if (confirmPass.isNotEmpty()) {
+                        binding.confirmPasswordLayout.error = null
+                        if (pass == confirmPass) {
 
-                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            val intent = Intent(this, SignInActivity::class.java)
-                            startActivity(intent)
-                            Toast.makeText(this, "Sign Up Successfully", Toast.LENGTH_SHORT).show()
+                            firebaseAuth.createUserWithEmailAndPassword(email, pass)
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        val intent = Intent(this, SignInActivity::class.java)
+                                        startActivity(intent)
+                                        Toast.makeText(
+                                            this,
+                                            "Sign Up Successfully",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    } else {
+                                        Toast.makeText(
+                                            this,
+                                            it.exception.toString(),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
                         } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Password is not matching", Toast.LENGTH_SHORT).show()
                         }
+                    } else {
+                        binding.confirmPasswordLayout.error = "Confirm password is required"
                     }
-
                 } else {
-                    Toast.makeText(this, "Password is not matching", Toast.LENGTH_SHORT).show()
+                    binding.passwordLayout.error = "Password is required"
+//                    Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
+                binding.emailLayout.error = "Email is required"
             }
         }
     }

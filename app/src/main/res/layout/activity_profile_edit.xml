@@ -38,19 +38,16 @@
         app:srcCompat="@drawable/profile_edit" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Actor"
         android:layout_marginTop="10dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/fullName_profile_ET"
+        <AutoCompleteTextView
+            android:id="@+id/dropDown_LevelUser"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Full Name">
-
-        </com.google.android.material.textfield.TextInputEditText>
-
+            android:layout_height="match_parent"
+            android:inputType="none"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,16 +55,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fullName_profile_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gender"
+        android:layout_marginTop="10dp">
+        <AutoCompleteTextView
+            android:id="@+id/dropDown_Gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phone_profile_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone"
             android:inputType="number">
-
         </com.google.android.material.textfield.TextInputEditText>
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -75,16 +95,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/address_profile_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
             android:inputType="text">
-
         </com.google.android.material.textfield.TextInputEditText>
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

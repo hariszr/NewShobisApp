@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -61,7 +62,7 @@ class ProfileEditActivity : AppCompatActivity() {
         val auth = firebaseAuth.currentUser
 
         binding.fullNameProfileET.setText(auth?.displayName)
-
+        displayDropDownGender()
         displayEditProfile()
 
         binding.editFAB.setOnClickListener {
@@ -69,13 +70,9 @@ class ProfileEditActivity : AppCompatActivity() {
 //            intent.action = Intent.ACTION_GET_CONTENT
 //            intent.type = "image/*"
 //            startActivityForResult(intent,1)
+            alertPhotoProfileEdit()
+            }
 
-            ImagePicker.with(this)
-                .crop()
-                .compress(1024)
-                .maxResultSize(1080, 1080)
-                .start()
-        }
         saveBtn(imageUrl.toString())
 
         binding.backBtn.setOnClickListener {
@@ -83,11 +80,121 @@ class ProfileEditActivity : AppCompatActivity() {
         }
     }
 
+    private fun displayDropDownGender() {
+        val itemsGender = listOf("Male", "Female")
+        val adapterGender = ArrayAdapter(this, R.layout.list_item_dropdown, itemsGender)
+        binding.dropDownGender.setAdapter(adapterGender)
+
+        val itemsLevel = listOf("Land Trader", "Collectors", "Wholesalers", "Traditional Central Market", "Traditional Market", "Modern Market", "E-Commerce", "Consumers")
+        val adapterLevel = ArrayAdapter(this, R.layout.list_item_dropdown, itemsLevel)
+        binding.dropDownLevelUser.setAdapter(adapterLevel)
+    }
+
+    private fun alertPhotoProfileEdit() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Change photo profile")
+        builder.setMessage("Edit or delete photo profile")
+        builder.setCancelable(true)
+
+        builder.setPositiveButton("edit") {_, _ ->
+            ImagePicker.with(this)
+                .crop()
+                .compress(1024)
+                .maxResultSize(1080, 1080)
+                .start()
+        }
+
+        builder.setNegativeButton("delete") {_, _ ->
+            deletePhotoProfile()
+        }
+            .show()
+    }
+
+    private fun deletePhotoProfile() {
+
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+
+        databaseReference.child(userID).child("Profile Users").child("imageUrl").removeValue()
+        binding.profileSIV.setImageDrawable(null)
+        binding.profileSIV.setImageURI(null)
+
+        checkCloseBtn()
+//
+//        if (binding.profileSIV.toString().isEmpty()) {
+//            val drawableResId = binding.profileSIV.drawable.constantState
+//
+//            binding.profileSIV.setOnClickListener {
+//                drawableResId?.let { resId ->
+//                    binding.profileSIV.setImageResource(resId.hashCode())
+//                }
+//            }
+//        }
+
+//        val defaultDrawable = binding.profileSIV.drawable
+//        binding.profileSIV.setImageDrawable(defaultDrawable)
+
+    }
+
+    private fun checkCloseBtn() {
+        if (binding.fullNameProfileET.text!!.isEmpty()) {
+            dialog.setTitle("Profile is empty!")
+                .setMessage("Please, user profile can't be empty ")
+                .setCancelable(true)
+                .setNegativeButton("Yes") {dialogInterface, it ->
+                    dialogInterface.cancel()
+                }
+                .show()
+        } else {
+            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun displayEditProfile() {
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+
+        val itemsGender = listOf("Male", "Female")
+        val adapterGender = ArrayAdapter(this, R.layout.list_item_dropdown, itemsGender)
+
+        databaseReference.child(userID).child("Profile Users").get()
+            .addOnSuccessListener {
+
+                val levelUser = it.child("levelUser").value?.toString().orEmpty()
+                val fullName = it.child("fullName").value?.toString().orEmpty()
+                val gender = it.child("gender").value?.toString().orEmpty()
+                val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
+                val phone = it.child("phone").value?.toString().orEmpty()
+                val address = it.child("address").value?.toString().orEmpty()
+
+                if (levelUser.isNotBlank()) binding.dropDownLevelUser.setText(levelUser)
+                if (fullName.isNotBlank()) binding.fullNameProfileET.setText(fullName)
+                if (gender.isNotBlank()) {
+                    binding.dropDownGender.setText(gender)
+                    binding.dropDownGender.setAdapter(adapterGender)
+                }
+                if (imageUrl.isNotBlank()) {
+                    Glide.with(this).load(imageUrl).into(binding.profileSIV)
+                    saveBtn(imageUrl)
+                }
+                if (phone.isNotBlank()) binding.phoneProfileET.setText(phone)
+                if (address.isNotBlank()) binding.addressProfileET.setText(address)
+
+            }.addOnFailureListener {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun saveBtn(imageUrl: String) {
         binding.saveProfileBtn.setOnClickListener {
 
-            if (binding.fullNameProfileET.text!!.isEmpty()){
+            if (binding.dropDownLevelUser.text!!.isEmpty()) {
+                binding.dropDownLevelUser.error = "Please enter your name"
+
+            } else if (binding.fullNameProfileET.text!!.isEmpty()){
                 binding.fullNameProfileET.error = "Please enter your name"
+
+            } else if (binding.dropDownGender.text!!.isEmpty()) {
+                binding.dropDownGender.error = "Please enter your phone"
 
             } else if (binding.phoneProfileET.text!!.isEmpty()) {
                 binding.phoneProfileET.error = "Please enter your phone"
@@ -102,45 +209,6 @@ class ProfileEditActivity : AppCompatActivity() {
             uploadData(imageUrl)
 //                updateProfile()
         }
-    }
-
-    private fun checkCloseBtn() {
-        if (binding.fullNameProfileET.text!!.isEmpty()) {
-            dialog.setTitle("Profile is empty!")
-                .setMessage("Please, user profile can't be empty ")
-                .setCancelable(false)
-                .setNegativeButton("Yes") {dialogInterface, it ->
-                    dialogInterface.cancel()
-                }
-                .show()
-        } else {
-            finish()
-        }
-    }
-
-    private fun displayEditProfile() {
-        val userID = FirebaseAuth.getInstance().currentUser!!.uid
-
-        databaseReference.child(userID).child("Profile Users").get()
-            .addOnSuccessListener {
-
-                val fullName = it.child("fullName").value?.toString().orEmpty()
-                val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
-                val phone = it.child("phone").value?.toString().orEmpty()
-                val address = it.child("address").value?.toString().orEmpty()
-
-                if (fullName.isNotBlank()) binding.fullNameProfileET.setText(fullName)
-                if (imageUrl.isNotBlank()) {
-                    Glide.with(this).load(imageUrl).into(binding.profileSIV)
-                    saveBtn(imageUrl)
-                }
-
-                if (phone.isNotBlank()) binding.phoneProfileET.setText(phone)
-                if (address.isNotBlank()) binding.addressProfileET.setText(address)
-
-            }.addOnFailureListener {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-            }
     }
     private fun updateProfile() {
 //        val email = binding.emailProfileET.text.toString()
@@ -180,10 +248,13 @@ class ProfileEditActivity : AppCompatActivity() {
     }
 
     private fun uploadInfo(imageUrl: String) {
+
         val user = UserModel(
             firebaseAuth.uid.toString(),
             firebaseAuth.currentUser?.email.toString(),
             binding.fullNameProfileET.text.toString(),
+            binding.dropDownLevelUser.text.toString(),
+            binding.dropDownGender.text.toString(),
             binding.phoneProfileET.text.toString(),
             binding.addressProfileET.text.toString(),
             imageUrl)

@@ -112,6 +112,7 @@
                     android:textStyle="bold|normal" />
 
                 <TextView
+                    android:id="@+id/actorTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -169,7 +170,7 @@
                 android:gravity="center|bottom"
                 android:orientation="vertical">
 
-<!--                item email, phone, and address-->
+<!--                item email, gender, phone, and address-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -216,6 +217,54 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:hint="123@gmail.com"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+                                android:layout_marginStart="30sp"
+                                android:layout_marginBottom="15dp"/>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRadius="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="3dp">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="2dp"
+                                    android:src="@drawable/ic_gender"
+                                    android:layout_marginStart="5dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Gender"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/grey_mid"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"/>
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/genderTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="Gender"
                                 android:textStyle="bold"
                                 android:textColor="@color/black"
                                 android:textSize="17sp"

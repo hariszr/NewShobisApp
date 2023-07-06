@@ -57,7 +57,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.signOutBtn.setOnClickListener {
             builder.setTitle("Sign Out!")
                 .setMessage("Are you sure to Sign Out?")
-                .setCancelable(false)
+                .setCancelable(true)
                 .setNegativeButton("No") {dialogInterface, it ->
                     dialogInterface.cancel()
             }
@@ -130,12 +130,16 @@ class ProfileActivity : AppCompatActivity() {
 
                 dialog.show()
 //                val email = it.child("email").value?.toString().orEmpty()
+                val levelUser = it.child("levelUser").value?.toString().orEmpty()
                 val fullName = it.child("fullName").value?.toString().orEmpty()
+                val gender = it.child("gender").value?.toString().orEmpty()
                 val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
                 val phone = it.child("phone").value?.toString().orEmpty()
                 val address = it.child("address").value?.toString().orEmpty()
 
+                if (levelUser.isNotBlank()) binding.actorTV.text = levelUser
                 if (fullName.isNotBlank()) binding.fullNameTV.text = fullName
+                if (gender.isNotBlank()) binding.genderTV.text = gender
                 if (imageUrl.isNotBlank()) Glide.with(this).load(imageUrl).into(binding.profileShowSIV)
                 if (phone.isNotBlank()) binding.phoneTV.text = phone
                 if (address.isNotBlank()) binding.addressTV.text = address

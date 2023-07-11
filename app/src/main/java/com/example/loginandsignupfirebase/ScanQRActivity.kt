@@ -15,11 +15,10 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.loginandsignupfirebase.databinding.ActivityScanQractivityBinding
+import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.text.DateFormat
-import java.util.*
 
 private const val CAMERA_REQUEST_CODE = 101
 
@@ -89,22 +88,38 @@ class ScanQRActivity : AppCompatActivity() {
             .get().addOnSuccessListener {
                 println("Hasil: ${pid}")
                 if (pid.isNotEmpty()) {
-                    val currentDate = it.child("dataDate").value.toString()
-                    val farmer = it.child("dataFarmer").value.toString()
+
                     val imageURL = it.child("dataQrCode").value.toString()
                     val variety = it.child("dataVariety").value.toString()
                     val weight = it.child("dataWeight").value.toString()
+                    val grade = it.child("dataGrade").value.toString()
+                    val price = it.child("dataPrice").value.toString()
+
+
+                    val farmer = it.child("dataFarmer").value.toString()
+                    val day = it.child("dataDay").value.toString()
+                    val area = it.child("dataPlantingArea").value.toString()
+                    val fertilizer = it.child("dataFertilizer").value.toString()
+                    val pesticides = it.child("dataPesticides").value.toString()
+
+
+                    val dateCreate = it.child("dataDate").value.toString()
+
+                    val notes = it.child("dataNotes").value.toString()
 
                     println("imageURL : $imageURL")
 
                     Toast.makeText(this@ScanQRActivity, "Data Read Successfully", Toast.LENGTH_SHORT).show()
 
-                    val dataClass = DataClass(pid, farmer, variety, weight, currentDate, imageURL)
+                    val dataClassNewAdd = DataClassNewAdd(
+                        pid, imageURL, variety, weight, grade, price,
+                        farmer, day, area, fertilizer, pesticides, dateCreate, notes
+                    )
 
                     count+=1
                     println("${count} 1 URL unduhan gambar: $imageURL")
                     firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid)
-                        .setValue(dataClass).addOnCompleteListener { task ->
+                        .setValue(dataClassNewAdd).addOnCompleteListener { task ->
                             if (task.isSuccessful){
                                 Toast.makeText(this, "Created", Toast.LENGTH_SHORT).show()
                                 Toast.makeText(this@ScanQRActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
@@ -116,7 +131,6 @@ class ScanQRActivity : AppCompatActivity() {
                         }.addOnFailureListener { e ->
                             Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
                         }
-
                 }
                 Log.e("Firebase", "Got Value ${it.key}")
 //                Toast.makeText(this@ScanQRActivity, "User doesn't exist", Toast.LENGTH_SHORT).show()

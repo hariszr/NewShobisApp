@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.loginandsignupfirebase.databinding.ActivityTraceabilityListBinding
+import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 
 class TraceabilityListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTraceabilityListBinding
-    private lateinit var dataList: ArrayList<DataClass>
+    private lateinit var dataList: ArrayList<DataClassNewAdd>
     private lateinit var adapter: ListAdapter
     private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var database: FirebaseDatabase
@@ -69,12 +70,12 @@ class TraceabilityListActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()
                 for (itemSnapshot in snapshot.children){
-                    val dataClass = itemSnapshot.getValue(DataClass::class.java)
-                    if (dataClass != null){
-                        dataList.add(dataClass)
+                    val dataClassNewAdd = itemSnapshot.getValue(DataClassNewAdd::class.java)
+                    if (dataClassNewAdd != null){
+                        dataList.add(dataClassNewAdd)
                     }
                 }
-                dataList.sortByDescending { it.dataDate }
+                dataList.sortByDescending { it.dataDateCreate }
                 binding.listTraceRecyclerView.setHasFixedSize(true)
                 adapter.notifyDataSetChanged()
                 dialog.dismiss()

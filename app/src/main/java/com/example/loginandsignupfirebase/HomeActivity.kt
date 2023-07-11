@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.createNewCV.setOnClickListener {
-            startActivity(Intent(this, NewTraceabilityActivity::class.java))
+            startActivity(Intent(this, AddTraceabilityActivity::class.java))
         }
         binding.shTraceabilityCV.setOnClickListener {
             startActivity(Intent(this, TraceabilityListActivity::class.java))

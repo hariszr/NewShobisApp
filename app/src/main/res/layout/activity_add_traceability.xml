@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Create New Traceability"
+                android:text="Add Data Traceability"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|normal" />
@@ -57,16 +57,6 @@
             android:paddingHorizontal="10dp"
             tools:ignore="MissingConstraints">
 
-            <ImageView
-                android:id="@+id/shallot_ImageIV"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_empty_photos"
-                tools:ignore="MissingConstraints"
-                android:contentDescription="TODO" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,41 +68,46 @@
                 android:textStyle="normal" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/varietyLayout"
+                android:id="@+id/arriveDateLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Shallot Variety"
+                android:hint="Product Arrived Date"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/varietyEt"
+                    android:id="@+id/arriveDateEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_label"
+                    android:drawableEnd="@drawable/ic_date"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:cursorVisible="false"
+                    android:focusableInTouchMode="false"
                     android:drawablePadding="12dp"
                     android:inputType="text"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/weightLayout"
+                android:id="@+id/incomingWeightLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Product Weight (gram)"
+                android:hint="Product Weight Upon Arrival (gram)"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/weightEt"
+                    android:id="@+id/incomingWeightEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_label"
@@ -147,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Price ( per Kg)"
+                android:hint="Price (per Kg)"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -156,154 +151,150 @@
                     android:id="@+id/priceEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789"
                     android:drawableStart="@drawable/ic_label"
                     android:drawablePadding="12dp"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:digits="0123456789"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Shallot Plating Information:"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginBottom="12dp"
-                android:textColor="@color/grey_mid"
-                android:textSize="17sp"
-                android:textStyle="normal" />
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/farmerLayout"
+                android:id="@+id/outgoingWeightLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Farmer Name"
+                android:hint="Outgoing Product Weight (gram)"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/farmerEt"
+                    android:id="@+id/outgoingWeightEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_label"
                     android:drawablePadding="12dp"
-                    android:inputType="text"
-                    android:maxLines="1" />
+                    android:inputType="numberDecimal|numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/harvestTimeLayout"
+                android:id="@+id/weightLossLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Harvest Time (day)"
+                android:hint="Process Weight Loss (gram)"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/harvestTimeEt"
+                    android:id="@+id/weightLossEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_label"
                     android:drawablePadding="12dp"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:inputType="numberDecimal|numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/areaLayout"
+                android:id="@+id/outgoingDateLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Planting Area"
+                android:hint="Product Outgoing Date"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/areaEt"
+                    android:id="@+id/outgoingDateEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_label"
+                    android:drawableEnd="@drawable/ic_date"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:cursorVisible="false"
+                    android:focusableInTouchMode="false"
                     android:drawablePadding="12dp"
-                    android:inputType="text"
+                    android:inputType="datetime"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fertilizerLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:hint="The Type of Fertilizer Used"
-                app:boxStrokeColor="@color/salem_1"
-                app:errorEnabled="true"
-                app:hintTextColor="@color/salem_1">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/fertilizerLayout"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:layout_marginEnd="12dp"-->
+<!--                android:hint="The Type of Fertilizer Used"-->
+<!--                app:boxStrokeColor="@color/salem_1"-->
+<!--                app:errorEnabled="true"-->
+<!--                app:hintTextColor="@color/salem_1">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fertilizerEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_label"
-                    android:drawablePadding="12dp"
-                    android:inputType="text"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/fertilizerEt"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableStart="@drawable/ic_label"-->
+<!--                    android:drawablePadding="12dp"-->
+<!--                    android:inputType="text"-->
+<!--                    android:maxLines="1" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pesticidesLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:hint="Type of Pesticides Used"
-                app:boxStrokeColor="@color/salem_1"
-                app:errorEnabled="true"
-                app:hintTextColor="@color/salem_1">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/pesticidesLayout"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:layout_marginEnd="12dp"-->
+<!--                android:hint="Type of Pesticides Used"-->
+<!--                app:boxStrokeColor="@color/salem_1"-->
+<!--                app:errorEnabled="true"-->
+<!--                app:hintTextColor="@color/salem_1">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/pesticidesEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_label"
-                    android:drawablePadding="12dp"
-                    android:inputType="text"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/pesticidesEt"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableStart="@drawable/ic_label"-->
+<!--                    android:drawablePadding="12dp"-->
+<!--                    android:inputType="text"-->
+<!--                    android:maxLines="1" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/noteLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:hint="Notes"
-                app:boxStrokeColor="@color/salem_1"
-                app:errorEnabled="true"
-                app:hintTextColor="@color/salem_1">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/noteLayout"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:layout_marginEnd="12dp"-->
+<!--                android:hint="Notes"-->
+<!--                app:boxStrokeColor="@color/salem_1"-->
+<!--                app:errorEnabled="true"-->
+<!--                app:hintTextColor="@color/salem_1">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/noteEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:inputType="textMultiLine"
-                    android:maxLines="6"
-                    android:gravity="top"/>
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/noteEt"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="180dp"-->
+<!--                    android:inputType="textMultiLine"-->
+<!--                    android:maxLines="6"-->
+<!--                    android:gravity="top"/>-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+
+
+
             <!--        <androidx.appcompat.widget.AppCompatButton-->
             <!--            android:id="@+id/generateTraceabilityBtn"-->
             <!--            android:layout_width="match_parent"-->
@@ -317,7 +308,7 @@
             <!--            android:textColor="@android:color/white" />-->
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/createTraceabilityBtn"
+                android:id="@+id/addDataTraceabilityBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -325,7 +316,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@color/salem_1"
                 android:padding="12dp"
-                android:text="Create Traceability"
+                android:text="Add Data Traceability"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 

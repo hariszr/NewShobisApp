@@ -82,12 +82,12 @@ class ProfileEditActivity : AppCompatActivity() {
 
     private fun displayDropDownGender() {
         val itemsGender = listOf("Male", "Female")
-        val adapterGender = ArrayAdapter(this, R.layout.list_item_dropdown, itemsGender)
-        binding.dropDownGender.setAdapter(adapterGender)
+        val adapterGender = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGender)
+        binding.genderDropDown.setAdapter(adapterGender)
 
         val itemsLevel = listOf("Land Trader", "Collectors", "Wholesalers", "Traditional Central Market", "Traditional Market", "Modern Market", "E-Commerce", "Consumers")
-        val adapterLevel = ArrayAdapter(this, R.layout.list_item_dropdown, itemsLevel)
-        binding.dropDownLevelUser.setAdapter(adapterLevel)
+        val adapterLevel = ArrayAdapter(this, R.layout.item_list_dropdown, itemsLevel)
+        binding.levelUserDropDown.setAdapter(adapterLevel)
     }
 
     private fun alertPhotoProfileEdit() {
@@ -154,7 +154,7 @@ class ProfileEditActivity : AppCompatActivity() {
         val userID = FirebaseAuth.getInstance().currentUser!!.uid
 
         val itemsGender = listOf("Male", "Female")
-        val adapterGender = ArrayAdapter(this, R.layout.list_item_dropdown, itemsGender)
+        val adapterGender = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGender)
 
         databaseReference.child(userID).child("Profile Users").get()
             .addOnSuccessListener {
@@ -166,11 +166,11 @@ class ProfileEditActivity : AppCompatActivity() {
                 val phone = it.child("phone").value?.toString().orEmpty()
                 val address = it.child("address").value?.toString().orEmpty()
 
-                if (levelUser.isNotBlank()) binding.dropDownLevelUser.setText(levelUser)
+                if (levelUser.isNotBlank()) binding.levelUserDropDown.setText(levelUser)
                 if (fullName.isNotBlank()) binding.fullNameProfileET.setText(fullName)
                 if (gender.isNotBlank()) {
-                    binding.dropDownGender.setText(gender)
-                    binding.dropDownGender.setAdapter(adapterGender)
+                    binding.genderDropDown.setText(gender)
+                    binding.genderDropDown.setAdapter(adapterGender)
                 }
                 if (imageUrl.isNotBlank()) {
                     Glide.with(this).load(imageUrl).into(binding.profileSIV)
@@ -187,14 +187,14 @@ class ProfileEditActivity : AppCompatActivity() {
     private fun saveBtn(imageUrl: String) {
         binding.saveProfileBtn.setOnClickListener {
 
-            if (binding.dropDownLevelUser.text!!.isEmpty()) {
-                binding.dropDownLevelUser.error = "Please enter your name"
+            if (binding.levelUserDropDown.text!!.isEmpty()) {
+                binding.levelUserDropDown.error = "Please enter your name"
 
             } else if (binding.fullNameProfileET.text!!.isEmpty()){
                 binding.fullNameProfileET.error = "Please enter your name"
 
-            } else if (binding.dropDownGender.text!!.isEmpty()) {
-                binding.dropDownGender.error = "Please enter your phone"
+            } else if (binding.genderDropDown.text!!.isEmpty()) {
+                binding.genderDropDown.error = "Please enter your phone"
 
             } else if (binding.phoneProfileET.text!!.isEmpty()) {
                 binding.phoneProfileET.error = "Please enter your phone"
@@ -253,8 +253,8 @@ class ProfileEditActivity : AppCompatActivity() {
             firebaseAuth.uid.toString(),
             firebaseAuth.currentUser?.email.toString(),
             binding.fullNameProfileET.text.toString(),
-            binding.dropDownLevelUser.text.toString(),
-            binding.dropDownGender.text.toString(),
+            binding.levelUserDropDown.text.toString(),
+            binding.genderDropDown.text.toString(),
             binding.phoneProfileET.text.toString(),
             binding.addressProfileET.text.toString(),
             imageUrl)

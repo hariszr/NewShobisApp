@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -15,7 +14,6 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.loginandsignupfirebase.databinding.ActivityScanQractivityBinding
-import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -61,8 +59,9 @@ class ScanQRActivity : AppCompatActivity() {
                         Toast.makeText(this@ScanQRActivity,
                             "Scan result: ${it.text}", Toast.LENGTH_SHORT).show()
                         println("Hasil langsung: ${it.text}")
-                        val pid = it.text
-                        readAndSaveDataToFirebase(pid)
+                        val getPID = it.text
+                        val addTraceabilityActivity = AddTraceabilityActivity()
+                        addTraceabilityActivity.initCopy(getPID)
                         startActivity(Intent(this@ScanQRActivity, TraceabilityListActivity::class.java))
                         finish()
                     }
@@ -83,61 +82,61 @@ class ScanQRActivity : AppCompatActivity() {
         }
     }
 
-    private fun readAndSaveDataToFirebase(pid: String) {
-        firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid)
-            .get().addOnSuccessListener {
-                println("Hasil: ${pid}")
-                if (pid.isNotEmpty()) {
-
-                    val imageURL = it.child("dataQrCode").value.toString()
-                    val variety = it.child("dataVariety").value.toString()
-                    val weight = it.child("dataWeight").value.toString()
-                    val grade = it.child("dataGrade").value.toString()
-                    val price = it.child("dataPrice").value.toString()
-
-
-                    val farmer = it.child("dataFarmer").value.toString()
-                    val day = it.child("dataDay").value.toString()
-                    val area = it.child("dataPlantingArea").value.toString()
-                    val fertilizer = it.child("dataFertilizer").value.toString()
-                    val pesticides = it.child("dataPesticides").value.toString()
-
-
-                    val dateCreate = it.child("dataDate").value.toString()
-
-                    val notes = it.child("dataNotes").value.toString()
-
-                    println("imageURL : $imageURL")
-
-                    Toast.makeText(this@ScanQRActivity, "Data Read Successfully", Toast.LENGTH_SHORT).show()
-
-                    val dataClassNewAdd = DataClassNewAdd(
-                        pid, imageURL, variety, weight, grade, price,
-                        farmer, day, area, fertilizer, pesticides, dateCreate, notes
-                    )
-
-                    count+=1
-                    println("${count} 1 URL unduhan gambar: $imageURL")
-                    firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid)
-                        .setValue(dataClassNewAdd).addOnCompleteListener { task ->
-                            if (task.isSuccessful){
-                                Toast.makeText(this, "Created", Toast.LENGTH_SHORT).show()
-                                Toast.makeText(this@ScanQRActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
-                                count+=1
-                                println("${count} 2 URL unduhan gambar: $imageURL")
-                                startActivity(Intent(this, TraceabilityListActivity::class.java))
-                                finish()
-                            }
-                        }.addOnFailureListener { e ->
-                            Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
-                        }
-                }
-                Log.e("Firebase", "Got Value ${it.key}")
-//                Toast.makeText(this@ScanQRActivity, "User doesn't exist", Toast.LENGTH_SHORT).show()
-
-            }.addOnFailureListener {
-                Toast.makeText(this@ScanQRActivity, "Failed", Toast.LENGTH_SHORT).show()
-            }
+    private fun readAndSaveDataToFirebase(getPID: String) {
+//        firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(getPID)
+//            .get().addOnSuccessListener {
+//                println("Hasil: ${getPID}")
+//                if (getPID.isNotEmpty()) {
+//
+//                    val imageURL = it.child("dataQrCode").value.toString()
+//                    val variety = it.child("dataVariety").value.toString()
+//                    val weight = it.child("dataWeight").value.toString()
+//                    val grade = it.child("dataGrade").value.toString()
+//                    val price = it.child("dataPrice").value.toString()
+//
+//
+//                    val farmer = it.child("dataFarmer").value.toString()
+//                    val day = it.child("dataDay").value.toString()
+//                    val area = it.child("dataPlantingArea").value.toString()
+//                    val fertilizer = it.child("dataFertilizer").value.toString()
+//                    val pesticides = it.child("dataPesticides").value.toString()
+//
+//
+//                    val dateCreate = it.child("dataDate").value.toString()
+//
+//                    val notes = it.child("dataNotes").value.toString()
+//
+//                    println("imageURL : $imageURL")
+//
+//                    Toast.makeText(this@ScanQRActivity, "Data Read Successfully", Toast.LENGTH_SHORT).show()
+//
+//                    val dataClassNewAdd = DataClassNewAdd(
+//                        getPID, imageURL, variety, weight, grade, price,
+//                        farmer, day, area, fertilizer, pesticides, dateCreate, notes
+//                    )
+//
+//                    count+=1
+//                    println("${count} 1 URL unduhan gambar: $imageURL")
+//                    firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(getPID)
+//                        .setValue(dataClassNewAdd).addOnCompleteListener { task ->
+//                            if (task.isSuccessful){
+//                                Toast.makeText(this, "Created", Toast.LENGTH_SHORT).show()
+//                                Toast.makeText(this@ScanQRActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
+//                                count+=1
+//                                println("${count} 2 URL unduhan gambar: $imageURL")
+//                                startActivity(Intent(this, TraceabilityListActivity::class.java))
+//                                finish()
+//                            }
+//                        }.addOnFailureListener { e ->
+//                            Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
+//                        }
+//                }
+//                Log.e("Firebase", "Got Value ${it.key}")
+////                Toast.makeText(this@ScanQRActivity, "User doesn't exist", Toast.LENGTH_SHORT).show()
+//
+//            }.addOnFailureListener {
+//                Toast.makeText(this@ScanQRActivity, "Failed", Toast.LENGTH_SHORT).show()
+//            }
     }
 
     override fun onResume() {

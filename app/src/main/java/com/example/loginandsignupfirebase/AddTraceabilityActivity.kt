@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,11 +12,11 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivityAddTraceabilityBinding
 import com.example.loginandsignupfirebase.model.DataClassAdd
-import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -34,11 +35,12 @@ import java.util.*
 
 class AddTraceabilityActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddTraceabilityBinding
-    private lateinit var firebaseAuth : FirebaseAuth
-    private lateinit var firebaseref : DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseref: DatabaseReference
     private var imageURL: String? = null
     private var count = 0
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTraceabilityBinding.inflate(layoutInflater)
@@ -68,8 +70,6 @@ class AddTraceabilityActivity : AppCompatActivity() {
             updateLabel2(myCalendar2)
         }
 
-
-
         binding.arriveDateEt.setOnClickListener {
             DatePickerDialog(
                 this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -93,6 +93,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun saveData() {
 //        val storageReference = FirebaseStorage.getInstance().reference.child("Product QR Code")
 //                .child(uri!!.lastPathSegment!!)
@@ -107,15 +108,60 @@ class AddTraceabilityActivity : AppCompatActivity() {
         dialog.dismiss()
     }
 
-    private fun uploadData(){
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun uploadData(): String {
 
         val newProductID = firebaseref.push()
         val pid = newProductID.key!!
 
         val qrCodeBitMap = generateQrCode(pid)
         saveQrCodeToStorage(pid, qrCodeBitMap)
+
+        return pid
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun initCopy(oldPID: String) {
+        val newPID = uploadData()
+
+        val sourceRef = firebaseref.child(oldPID)
+        val destinationRef = firebaseref.child(newPID)
+
+        copyData(sourceRef, destinationRef) {
+            // Panggil callback setelah semua data berhasil disalin
+            println("Data berhasil disalin")
+        }
+    }
+
+    fun copyData(sourceRef: DatabaseReference, destinationRef: DatabaseReference, callback: () -> Unit) {
+        sourceRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                destinationRef.setValue(dataSnapshot.value) { databaseError, _ ->
+                    if (databaseError == null) {
+                        for (childSnapshot in dataSnapshot.children) {
+                            val sourceChildRef = childSnapshot.ref
+                            val destinationChildRef = destinationRef.child(childSnapshot.key!!)
+                            copyData(sourceChildRef, destinationChildRef) {
+                                // Panggil callback setelah semua data berhasil disalin
+                                println("Data berhasil disalin")
+                                callback.invoke()
+                            }
+                        }
+                    } else {
+                        println("Failed to copy data: ${databaseError.message}")
+                        callback.invoke()
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("Failed to read data: ${databaseError.message}")
+                callback.invoke()
+            }
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     fun uploadData(pid: String) {
 
         val arriveDate = binding.arriveDateEt.text.toString()
@@ -135,23 +181,73 @@ class AddTraceabilityActivity : AppCompatActivity() {
         )
 
         val oldUserID = "-N_2Zl97LUTDlEGwEZ0t"
-        val newUserID = "-N_2qBgFt1I65iLCMYIG"
+        val newUserID = "-N_2qBgFt1I65iLCMYJW"
 
-        val oldUserRef = firebaseref.child(oldUserID)
-        oldUserRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userData = snapshot.getValue(DataClassNewAdd::class.java)
 
-                val newUserRef = firebaseref.child(newUserID)
-                newUserRef.setValue(userData)
-                    .addOnSuccessListener {
-                        Log.d("Firebase", "Data copied successfully from $oldUserID to $newUserID")
 
-                        count += 1
-                        println("${count} 1 URL unduhan gambar: $imageURL")
-                        firebaseref.child(newUserID).child(dateCreate).setValue(dataClassAdd).addOnCompleteListener { task ->
+//        val startDate = LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0, 0) // Tanggal dan waktu awal
+//        val endDate = LocalDateTime.of(2023, Month.DECEMBER, 31, 23, 59, 59) // Tanggal dan waktu akhir
+//
+//        fun generateNewPath(oldPath: String): String {
+//            val pathComponents = oldPath.split(" ")
+//            val tanggal = pathComponents[1]
+//            val jam = pathComponents[2]
+//            val newTanggal = "new_" + tanggal
+//            val newJam = "new_" + jam
+//            return "data/$newTanggal $newJam"
+//        }
+//
+//        var currentDate = startDate
+//
+//        while (currentDate <= endDate) {
+//            val currentTanggal = currentDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+//            val currentJam = currentDate.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+//            val oldPath = "data/$currentTanggal $currentJam"
+//            val newPath = generateNewPath(oldPath)
+//
+//            val oldRef = firebaseref.child(oldUserID).child(oldPath)
+//            val newRef = firebaseref.child(newUserID).child(newPath)
+//
+//            oldRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    val data = dataSnapshot.getValue(DataClassAdd::class.java)
+//
+//                    newRef.setValue(data).addOnSuccessListener {
+//                        Log.d("Firebase", "Data copied successfully from $oldPath to $newPath")
+//                    }.addOnFailureListener { exception ->
+//                        Log.e("Firebase", "Failed to copy data from $oldPath to $newPath: ${exception.message}")
+//                    }
+//                }
+//
+//                override fun onCancelled(databaseError: DatabaseError) {
+//                    Log.e("Firebase", "Failed to read data from $oldPath: ${databaseError.message}")
+//                }
+//            })
+//
+//            currentDate = currentDate.plusSeconds(1) // Atur interval sesuai kebutuhan
+//
+//        }
+
+//        val oldUserRef = firebaseref.child(oldUserID)
+//        oldUserRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                val newAddData = snapshot.getValue(DataClassNewAdd::class.java)
+//                val newUserRef = firebaseref.child(newUserID)
+
+//                newUserRef.setValue(newAddData).addOnSuccessListener {
+//                    Log.d("Firebase", "Data copied successfully from $oldUserID to $newUserID")
+
+                    count += 1
+                    println("${count} 1 URL unduhan gambar: $imageURL")
+                    firebaseref.child(newUserID).child(dateCreate).setValue(dataClassAdd)
+                        .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                Toast.makeText(this@AddTraceabilityActivity, "Created", Toast.LENGTH_SHORT).show()
+
+                                Toast.makeText(
+                                    this@AddTraceabilityActivity,
+                                    "Created",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 Toast.makeText(
                                     this@AddTraceabilityActivity,
                                     "get $imageURL successfully from firebase",
@@ -159,22 +255,35 @@ class AddTraceabilityActivity : AppCompatActivity() {
                                 ).show()
                                 count += 1
                                 println("${count} 2 URL unduhan gambar: $imageURL")
-                                startActivity(Intent(this@AddTraceabilityActivity, TraceabilityListActivity::class.java))
+                                startActivity(
+                                    Intent(
+                                        this@AddTraceabilityActivity,
+                                        TraceabilityListActivity::class.java
+                                    )
+                                )
                                 finish()
                             }
                         }.addOnFailureListener { e ->
-                            Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
-                        }
+                        Toast.makeText(
+                            this@AddTraceabilityActivity,
+                            e.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    .addOnFailureListener { exception ->
-                        Log.e("Firebase", "Failed to copy data from $oldUserID to $newUserID: ${exception.message}")
-                    }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase", "Failed to read data from $oldUserID: ${error.message}")            }
-
-        })
+//                }
+//                    .addOnFailureListener { exception ->
+//                        Log.e(
+//                            "Firebase",
+//                            "Failed to copy data from $oldUserID to $newUserID: ${exception.message}"
+//                        )
+//                    }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.e("Firebase", "Failed to read data from $oldUserID: ${error.message}")
+//            }
+//
+//        })
     }
 
     private fun generateQrCode(pid: String): Bitmap {
@@ -194,6 +303,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun saveQrCodeToStorage(pid: String, qrCodeBitmap: Bitmap) {
         val storage = FirebaseStorage.getInstance()
         val storageRef = storage.reference
@@ -249,6 +359,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
         val simpleDateFormat = SimpleDateFormat(myFormat, Locale.UK)
         binding.arriveDateEt.setText(simpleDateFormat.format(myCalendar.time))
     }
+
     private fun updateLabel2(myCalendar2: Calendar) {
         val myFormat = "dd-MM-yyyy"
         val simpleDateFormat = SimpleDateFormat(myFormat, Locale.UK)

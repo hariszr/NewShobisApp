@@ -28,10 +28,22 @@ class ListAdapter(private val context:android.content.Context, private val dataL
 
         holder.itemRec.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("Farmer", dataList[holder.adapterPosition].dataFarmer)
+            intent.putExtra("PID", dataList[holder.adapterPosition].pid)
             intent.putExtra("Variety", dataList[holder.adapterPosition].dataVariety)
             intent.putExtra("Weight", dataList[holder.adapterPosition].dataWeight)
-//            intent.putExtra("QrCode", dataList[holder.adapterPosition].dataQrCode)
+            intent.putExtra("Grade", dataList[holder.adapterPosition].dataGrade)
+            intent.putExtra("Price", dataList[holder.adapterPosition].dataPrice)
+
+            intent.putExtra("Farmer", dataList[holder.adapterPosition].dataFarmer)
+            intent.putExtra("Day", dataList[holder.adapterPosition].dataDay)
+            intent.putExtra("Area", dataList[holder.adapterPosition].dataPlantingArea)
+            intent.putExtra("Fertilizer", dataList[holder.adapterPosition].dataFertilizer)
+            intent.putExtra("Pesticides", dataList[holder.adapterPosition].dataPesticides)
+
+            intent.putExtra("Date", dataList[holder.adapterPosition].dataDateCreate)
+
+            intent.putExtra("Note", dataList[holder.adapterPosition].dataNotes)
+            intent.putExtra("QrCode", dataList[holder.adapterPosition].dataQrCode)
             context.startActivity(intent)
         }
     }

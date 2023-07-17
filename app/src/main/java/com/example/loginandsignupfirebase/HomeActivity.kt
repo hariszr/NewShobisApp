@@ -41,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
         firebaseref = Firebase.database.reference
+        firebaseAuth = FirebaseAuth.getInstance()
 
         fetchUserDataHome()
 
@@ -58,7 +59,6 @@ class HomeActivity : AppCompatActivity() {
         binding.shTraceabilityCV.setOnClickListener {
             startActivity(Intent(this, TraceabilityListActivity::class.java))
         }
-        firebaseAuth = FirebaseAuth.getInstance()
     }
 
     private fun fetchUserDataHome() {

@@ -36,6 +36,7 @@ import java.util.*
 class AddTraceabilityActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddTraceabilityBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseRefServer: DatabaseReference
     private lateinit var firebaseref: DatabaseReference
     private var imageURL: String? = null
     private var count = 0
@@ -47,7 +48,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseref = FirebaseDatabase.getInstance().getReference("pid server")
+        firebaseRefServer = FirebaseDatabase.getInstance().getReference("pid server")
+        firebaseref = FirebaseDatabase.getInstance().getReference("users")
 
         displayDropDownGrade()
         binding.priceEt.setMaskingMoney("Rp. ")
@@ -59,8 +61,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
             updateLabel(myCalendar)
-
         }
+
         val myCalendar2 = Calendar.getInstance()
         val datePicker2 = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             myCalendar2.set(Calendar.YEAR, year)
@@ -71,17 +73,15 @@ class AddTraceabilityActivity : AppCompatActivity() {
         }
 
         binding.arriveDateEt.setOnClickListener {
-            DatePickerDialog(
-                this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            val dPicker = DatePickerDialog(this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
+            dPicker.datePicker.maxDate = System.currentTimeMillis()
+            dPicker.show()
         }
 
         binding.outgoingDateEt.setOnClickListener {
-            DatePickerDialog(
-                this, datePicker2, myCalendar2.get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH),
-                myCalendar2.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            val dPicker = DatePickerDialog(this, datePicker2, myCalendar2.get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH), myCalendar2.get(Calendar.DAY_OF_MONTH))
+            dPicker.datePicker.minDate = System.currentTimeMillis()
+            dPicker.show()
         }
 
         binding.closeBtn.setOnClickListener {
@@ -89,7 +89,13 @@ class AddTraceabilityActivity : AppCompatActivity() {
         }
 
         binding.addDataTraceabilityBtn.setOnClickListener {
-            saveData()
+            val builder = AlertDialog.Builder(this@AddTraceabilityActivity)
+            builder.setCancelable(false).setView(R.layout.layout_progress)
+            val dialog = builder.create()
+            dialog.show()
+            initCopy()
+//            saveData()
+            dialog.dismiss()
         }
     }
 
@@ -98,18 +104,10 @@ class AddTraceabilityActivity : AppCompatActivity() {
 //        val storageReference = FirebaseStorage.getInstance().reference.child("Product QR Code")
 //                .child(uri!!.lastPathSegment!!)
 
-        val builder = AlertDialog.Builder(this@AddTraceabilityActivity)
-        builder.setCancelable(false)
-            .setView(R.layout.layout_progress)
-        val dialog = builder.create()
-        dialog.show()
-
-        uploadData()
-        dialog.dismiss()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun uploadData(): String {
+    private fun makeProductID(): String {
 
         val newProductID = firebaseref.push()
         val pid = newProductID.key!!
@@ -121,19 +119,26 @@ class AddTraceabilityActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun initCopy(oldPID: String) {
-        val newPID = uploadData()
+    fun initCopy() {
+        val newPID = makeProductID()
+        println("NewPID : $newPID")
+        val oldPID = "-N_YKsSbJ2P-BH36uc21"
 
-        val sourceRef = firebaseref.child(oldPID)
-        val destinationRef = firebaseref.child(newPID)
+        val sourceRef = firebaseRefServer.child(oldPID)
+        val destinationRefServer = firebaseRefServer.child(newPID)
+        val destinationRef = firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(newPID)
 
+        copyDataServer(sourceRef, destinationRefServer) {
+            // Panggil callback setelah semua data berhasil disalin
+            println("Successfully copied data to server")
+        }
         copyData(sourceRef, destinationRef) {
             // Panggil callback setelah semua data berhasil disalin
-            println("Data berhasil disalin")
+            println("Successfully copied data to server")
         }
     }
 
-    fun copyData(sourceRef: DatabaseReference, destinationRef: DatabaseReference, callback: () -> Unit) {
+    private fun copyData(sourceRef: DatabaseReference, destinationRef: DatabaseReference, callback: () -> Unit) {
         sourceRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 destinationRef.setValue(dataSnapshot.value) { databaseError, _ ->
@@ -141,9 +146,37 @@ class AddTraceabilityActivity : AppCompatActivity() {
                         for (childSnapshot in dataSnapshot.children) {
                             val sourceChildRef = childSnapshot.ref
                             val destinationChildRef = destinationRef.child(childSnapshot.key!!)
-                            copyData(sourceChildRef, destinationChildRef) {
+                            copyDataServer(sourceChildRef, destinationChildRef) {
                                 // Panggil callback setelah semua data berhasil disalin
-                                println("Data berhasil disalin")
+                                println("Successfully copied data to users")
+                                callback.invoke()
+                            }
+                        }
+                    } else {
+                        println("Failed to copy data: ${databaseError.message}")
+                        callback.invoke()
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("Failed to read data: ${databaseError.message}")
+                callback.invoke()
+            }
+        })
+    }
+
+    fun copyDataServer(sourceRef: DatabaseReference, destinationRefServer: DatabaseReference, callback: () -> Unit) {
+        sourceRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                destinationRefServer.setValue(dataSnapshot.value) { databaseError, _ ->
+                    if (databaseError == null) {
+                        for (childSnapshot in dataSnapshot.children) {
+                            val sourceChildRef = childSnapshot.ref
+                            val destinationChildRef = destinationRefServer.child(childSnapshot.key!!)
+                            copyDataServer(sourceChildRef, destinationChildRef) {
+                                // Panggil callback setelah semua data berhasil disalin
+                                println("Successfully copied data to server")
                                 callback.invoke()
                             }
                         }
@@ -180,8 +213,9 @@ class AddTraceabilityActivity : AppCompatActivity() {
             outgoingWeight, weightLoss, outgoingDate, dateCreate,
         )
 
-        val oldUserID = "-N_2Zl97LUTDlEGwEZ0t"
-        val newUserID = "-N_2qBgFt1I65iLCMYJW"
+//        val oldUserID = "-N_2Zl97LUTDlEGwEZ0t"
+//        val newUserID = "-N_X2uRf1b1N5Q8HT2HT"
+        val newUserID = pid
 
 
 
@@ -239,36 +273,19 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
                     count += 1
                     println("${count} 1 URL unduhan gambar: $imageURL")
-                    firebaseref.child(newUserID).child(dateCreate).setValue(dataClassAdd)
+                    firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid).child(dateCreate).setValue(dataClassAdd)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
 
-                                Toast.makeText(
-                                    this@AddTraceabilityActivity,
-                                    "Created",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                Toast.makeText(
-                                    this@AddTraceabilityActivity,
-                                    "get $imageURL successfully from firebase",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Toast.makeText(this@AddTraceabilityActivity, "Created", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@AddTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
                                 count += 1
                                 println("${count} 2 URL unduhan gambar: $imageURL")
-                                startActivity(
-                                    Intent(
-                                        this@AddTraceabilityActivity,
-                                        TraceabilityListActivity::class.java
-                                    )
-                                )
+                                startActivity(Intent(this@AddTraceabilityActivity, TraceabilityListActivity::class.java))
                                 finish()
                             }
                         }.addOnFailureListener { e ->
-                        Toast.makeText(
-                            this@AddTraceabilityActivity,
-                            e.message.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
                     }
 //                }
 //                    .addOnFailureListener { exception ->

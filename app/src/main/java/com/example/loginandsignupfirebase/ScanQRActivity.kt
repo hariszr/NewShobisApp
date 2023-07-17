@@ -2,9 +2,11 @@ package com.example.loginandsignupfirebase
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.AutoFocusMode
@@ -28,6 +30,7 @@ class ScanQRActivity : AppCompatActivity() {
 
     private var count = 0
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScanQractivityBinding.inflate(layoutInflater)
@@ -40,6 +43,7 @@ class ScanQRActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun startScanning() {
         val scannerView : CodeScannerView = binding.scannerCSV
         codeScanner = CodeScanner(this, scannerView)
@@ -61,7 +65,7 @@ class ScanQRActivity : AppCompatActivity() {
                         println("Hasil langsung: ${it.text}")
                         val getPID = it.text
                         val addTraceabilityActivity = AddTraceabilityActivity()
-                        addTraceabilityActivity.initCopy(getPID)
+                        addTraceabilityActivity.initCopy()
                         startActivity(Intent(this@ScanQRActivity, TraceabilityListActivity::class.java))
                         finish()
                     }
@@ -153,6 +157,7 @@ class ScanQRActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupPermissions() {
         val permission = ContextCompat.checkSelfPermission(this,
             android.Manifest.permission.CAMERA)
@@ -169,6 +174,7 @@ class ScanQRActivity : AppCompatActivity() {
             (android.Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

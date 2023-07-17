@@ -35,7 +35,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewTraceabilityBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firebaseref: DatabaseReference
-    private lateinit var firebaseref2: DatabaseReference
+    private lateinit var firebaserefServer: DatabaseReference
     private var imageURL: String? = null
     var uri: Uri? = null
     private var count = 0
@@ -47,7 +47,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseref = FirebaseDatabase.getInstance().getReference("users")
-        firebaseref2 = FirebaseDatabase.getInstance().getReference("pid server")
+        firebaserefServer = FirebaseDatabase.getInstance().getReference("pid server")
 
 //        val activityResultLauncher = registerForActivityResult<Intent, ActivityResult>(
 //            ActivityResultContracts.StartActivityForResult()){ result ->
@@ -205,7 +205,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
         firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid)
             .setValue(dataClassNewAdd).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    firebaseref2.child(pid).setValue(dataClassNewAdd).addOnCompleteListener { task ->
+                    firebaserefServer.child(pid).setValue(dataClassNewAdd).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this,"Created to Server", Toast.LENGTH_SHORT).show()
                         }

@@ -52,7 +52,7 @@ class TraceabilityListActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
 
-//        val pid = databaseReference!!.get().
+        //  val pid = databaseReference!!.get().
 
         dataList = ArrayList()
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -65,12 +65,16 @@ class TraceabilityListActivity : AppCompatActivity() {
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid")
         dialog.show()
 
+
         eventListener = databaseReference!!.addValueEventListener(object : ValueEventListener{
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()
                 for (itemSnapshot in snapshot.children){
                     val dataClassNewAdd = itemSnapshot.getValue(DataClassNewAdd::class.java)
+                    if (dataClassNewAdd != null) {
+                        dataClassNewAdd.key = itemSnapshot.key
+                    }
                     if (dataClassNewAdd != null){
                         dataList.add(dataClassNewAdd)
                     }

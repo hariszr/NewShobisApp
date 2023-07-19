@@ -1,6 +1,7 @@
 package com.example.loginandsignupfirebase.model
 
 class DataClassNewAdd {
+    var key: String? = null
     var pid: String? = null
     var dataQrCode: String? = null
     var dataVariety: String? = null

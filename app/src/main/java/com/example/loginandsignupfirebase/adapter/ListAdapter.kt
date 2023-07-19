@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginandsignupfirebase.model.DataClassNewAdd
+import com.google.firebase.database.DataSnapshot
 
 class ListAdapter(private val context:android.content.Context, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -22,12 +23,16 @@ class ListAdapter(private val context:android.content.Context, private val dataL
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 //        Glide.with(context).load(dataList[position].dataQrCode).into(holder.itemRecQrCode)
-        holder.itemRecPID.text = dataList[position].pid
+        holder.itemRecPID.text = dataList[position].key
         holder.itemRecVariety.text = dataList[position].dataVariety
         holder.itemRecWeight.text = dataList[position].dataWeight
 
         holder.itemRec.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
+
+            val childNodePID = dataList[position].key
+            intent.putExtra("PIDNode", childNodePID)
+
             intent.putExtra("PID", dataList[holder.adapterPosition].pid)
             intent.putExtra("Variety", dataList[holder.adapterPosition].dataVariety)
             intent.putExtra("Weight", dataList[holder.adapterPosition].dataWeight)
@@ -44,6 +49,7 @@ class ListAdapter(private val context:android.content.Context, private val dataL
 
             intent.putExtra("Note", dataList[holder.adapterPosition].dataNotes)
             intent.putExtra("QrCode", dataList[holder.adapterPosition].dataQrCode)
+
             context.startActivity(intent)
         }
     }
@@ -58,7 +64,7 @@ class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     var itemRecVariety : TextView
 
     init {
-        itemRec = itemView.findViewById(R.id.itemTraceRecyclerViewCV)
+        itemRec = itemView.findViewById(R.id.itemTraceRecyclerView)
         itemRecQrCode = itemView.findViewById(R.id.itemRecQrCodeSIV)
         itemRecPID = itemView.findViewById(R.id.itemRecPIDTV)
         itemRecWeight = itemView.findViewById(R.id.itemRecWeightTV)

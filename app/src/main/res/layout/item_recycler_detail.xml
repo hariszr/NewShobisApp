@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemDetailRecyclerViewLL">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                card_view:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/productIDSecondaryTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginVertical="3dp"
+                        android:textStyle="bold"
+                        android:text="Kode Product"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                card_view:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/dateCreateSecondaryTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginVertical="3dp"
+                        android:textStyle="bold"
+                        android:text="12-12-2023"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            xmlns:card_view="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="7dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="25dp"
+            card_view:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:text="Update Information"
+                        android:textColor="@color/salem_1"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="13dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Product Arrived Date:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/arrivedDateTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Product Weight Upon Arrival:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/incomingWeightTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Grade:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/gradeSecodaryTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Price:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/priceSecondaryTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Outgoing Product Weight:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/outgoingWeightTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Process Weight Loss:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/weightLossTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Product Outgoing Date:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/outgoingDateTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+
+                    <View
+                        android:layout_width="333dp"
+                        android:layout_height="0.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/black">
+                    </View>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Note:"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/notesTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="Your text in here!"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="13dp">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

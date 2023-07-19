@@ -122,7 +122,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
     fun initCopy() {
         val newPID = makeProductID()
         println("NewPID : $newPID")
-        val oldPID = "-N_YKsSbJ2P-BH36uc21"
+        val oldPID = "-N_jMbcV7UjatdfIRkAi"
 
         val sourceRef = firebaseRefServer.child(oldPID)
         val destinationRefServer = firebaseRefServer.child(newPID)
@@ -273,9 +273,20 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
                     count += 1
                     println("${count} 1 URL unduhan gambar: $imageURL")
-                    firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid).child(dateCreate).setValue(dataClassAdd)
+                    firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
+
+                                firebaseRefServer.child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd).addOnCompleteListener { t ->
+                                    if (t.isSuccessful) {
+                                        println("Data Secondary Successfully Updated to PID Server")
+                                        Log.i( "Server Updated","Data Secondary Successfully Updated to PID Server")
+                                    }
+                                }.addOnFailureListener { e ->
+                                    Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
+                                    println("Data Secondary Failed Update to PID Server")
+                                    Log.e( "Server Updated","Data Secondary Failed Update to PID Server")
+                                }
 
                                 Toast.makeText(this@AddTraceabilityActivity, "Created", Toast.LENGTH_SHORT).show()
                                 Toast.makeText(this@AddTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()

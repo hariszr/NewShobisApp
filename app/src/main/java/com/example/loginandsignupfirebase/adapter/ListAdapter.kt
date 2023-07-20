@@ -1,17 +1,25 @@
 package com.example.loginandsignupfirebase
 
 import android.content.Intent
+import android.provider.ContactsContract
+import android.provider.ContactsContract.RawContacts.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginandsignupfirebase.model.DataClassNewAdd
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.FirebaseDatabase
 
 class ListAdapter(private val context:android.content.Context, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<MyViewHolder>() {
+    private lateinit var firebaseAuth : FirebaseAuth
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_traceability, parent, false)
         return MyViewHolder(view)
@@ -22,10 +30,12 @@ class ListAdapter(private val context:android.content.Context, private val dataL
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+        val item = dataList[position]
 //        Glide.with(context).load(dataList[position].dataQrCode).into(holder.itemRecQrCode)
-        holder.itemRecPID.text = dataList[position].key
-        holder.itemRecVariety.text = dataList[position].dataVariety
-        holder.itemRecWeight.text = dataList[position].dataWeight
+        holder.itemRecPID.text = item.key
+        holder.itemRecVariety.text = item.dataVariety
+        holder.itemRecWeight.text = item.dataWeight
 
         holder.itemRec.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
@@ -51,7 +61,29 @@ class ListAdapter(private val context:android.content.Context, private val dataL
             intent.putExtra("QrCode", dataList[holder.adapterPosition].dataQrCode)
 
             context.startActivity(intent)
+
+            MaterialAlertDialogBuilder(holder.itemView.context)
+
+
         }
+        holder.itemRec.setOnLongClickListener {
+        MaterialAlertDialogBuilder(holder.itemView.context)
+            .setTitle("Delete Item")
+            .setMessage("Are you sure you want to delete this item?")
+            .setPositiveButton("Yes") {_,_ ->
+                firebaseAuth = FirebaseAuth.getInstance()
+                val firebaseRef = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString())?.child("pid")
+                firebaseRef?.child(item.key.toString())?.removeValue()
+            }
+            .setNegativeButton("No") {_,_ ->
+
+            }
+            .show()
+
+            return@setOnLongClickListener true
+        }
+
+
     }
 
 }

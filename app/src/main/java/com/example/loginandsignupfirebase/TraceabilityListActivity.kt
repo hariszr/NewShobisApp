@@ -21,7 +21,7 @@ class TraceabilityListActivity : AppCompatActivity() {
     private lateinit var dataList: ArrayList<DataClassNewAdd>
     private lateinit var adapter: ListAdapter
     private lateinit var firebaseAuth : FirebaseAuth
-    private lateinit var database: FirebaseDatabase
+    private lateinit var firebaseDatabase: FirebaseDatabase
     var databaseReference: DatabaseReference? = null
     var eventListener: ValueEventListener? = null
 
@@ -31,7 +31,8 @@ class TraceabilityListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
         binding.addFAB.setOnClickListener {
             startActivity(Intent(this, NewTraceabilityActivity::class.java))
@@ -43,6 +44,10 @@ class TraceabilityListActivity : AppCompatActivity() {
             finish()
         }
 
+        showAndClickList()
+    }
+
+    private fun showAndClickList() {
         val gridLayoutManager= GridLayoutManager(this, 1)
         binding.listTraceRecyclerView.layoutManager = gridLayoutManager
 
@@ -62,7 +67,7 @@ class TraceabilityListActivity : AppCompatActivity() {
 
         adapter = ListAdapter(this, dataList)
         binding.listTraceRecyclerView.adapter = adapter
-        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid")
+        databaseReference = databaseReference?.child(firebaseAuth.uid.toString())?.child("pid")
         dialog.show()
 
 
@@ -88,6 +93,5 @@ class TraceabilityListActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
                 dialog.dismiss()
             }
-        })
-    }
+        })    }
 }

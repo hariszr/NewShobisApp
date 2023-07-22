@@ -22,6 +22,7 @@ class DetailActivity : AppCompatActivity() {
     var databaseReference: DatabaseReference? = null
     var eventListener: ValueEventListener? = null
     var QrCode = ""
+    var imageUrl = ""
     var PIDNode: String? = ""
 
     @SuppressLint("ResourceType")
@@ -33,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.backProductListIV.setOnClickListener {
-            startActivity(Intent(this, TraceabilityListActivity::class.java))
+//            startActivity(Intent(this, TraceabilityListActivity::class.java))
             finish()
         }
         PIDNode = intent.extras?.getString("PIDNode")
@@ -124,8 +125,11 @@ class DetailActivity : AppCompatActivity() {
     private fun showData() {
         val bundle = intent.extras
         if (bundle != null){
-            QrCode = bundle.getString("QrCode")!!
-            Glide.with(this).load(bundle.getString("QrCode")).into(binding.qrCodeDetailIV)
+            QrCode = bundle.getString("QrCodeUpdate")!!
+            Glide.with(this).load(bundle.getString("QrCodeUpdate")).into(binding.qrCodeDetailIV)
+
+            imageUrl = bundle.getString("PictProduct")!!
+            Glide.with(this).load(bundle.getString("PictProduct")).into(binding.pictDetailIV)
 
             binding.productIDTV.text = bundle.getString("PID")
             binding.varietyTV.text = bundle.getString("Variety")

@@ -9,9 +9,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivityNewTraceabilityBinding
@@ -34,9 +38,10 @@ import java.util.*
 class NewTraceabilityActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewTraceabilityBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var firebaseref: DatabaseReference
-    private lateinit var firebaserefServer: DatabaseReference
+    private lateinit var firebaseRef: DatabaseReference
+    private lateinit var firebaseRefServer: DatabaseReference
     private var imageURL: String? = null
+    private var imageURLPic: String? = null
     var uri: Uri? = null
     private var count = 0
 
@@ -46,19 +51,21 @@ class NewTraceabilityActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseref = FirebaseDatabase.getInstance().getReference("users")
-        firebaserefServer = FirebaseDatabase.getInstance().getReference("pid server")
+        firebaseRef = FirebaseDatabase.getInstance().getReference("users")
+        firebaseRefServer = FirebaseDatabase.getInstance().getReference("pid server")
 
-//        val activityResultLauncher = registerForActivityResult<Intent, ActivityResult>(
-//            ActivityResultContracts.StartActivityForResult()){ result ->
-//            if (result.resultCode == RESULT_OK){
-//                val data = result.data
-//                uri = data!!.data
-//                binding.qrCodeIV.setImageURI(uri)
-//            } else {
-//                Toast.makeText(this, "Can't Show The QR Code", Toast.LENGTH_SHORT).show()
-//            }
-//        }
+        val activityResultLauncher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == RESULT_OK){
+                val data = result.data
+                uri = data!!.data
+                binding.shallotImageIV.setImageURI(uri)
+                binding.errorPictShallotET.visibility = View.GONE
+            } else {
+                Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show()
+                binding.errorPictShallotET.requestFocus()
+            }
+        }
 //        binding.generateTraceabilityBtn.setOnClickListener {
 //            val pid = firebaseref.push().key!!
 //            val encoder = QRGEncoder(pid, null, QRGContents.Type.TEXT, 0)
@@ -72,15 +79,125 @@ class NewTraceabilityActivity : AppCompatActivity() {
         binding.closeBtn.setOnClickListener {
             finish()
         }
-//        binding.qrCodeIV.setOnClickListener {
-//            val photoPicker = Intent(Intent.ACTION_PICK)
-//            photoPicker.type = "image/*"
-//            activityResultLauncher.launch(photoPicker)
-//        }
+        binding.shallotImageIV.setOnClickListener {
+            val photoPicker = Intent(Intent.ACTION_PICK)
+            photoPicker.type = "image/*"
+            activityResultLauncher.launch(photoPicker)
+        }
         binding.createTraceabilityBtn.setOnClickListener {
-            saveData()
+            validateInputData()
         }
     }
+
+    private fun validateInputData() {
+
+        if (uri == null) {
+            Toast.makeText(this, "Product image cannot be empty", Toast.LENGTH_SHORT).show()
+            binding.errorPictShallotET.visibility = View.VISIBLE
+            binding.errorPictShallotET.requestFocus()
+            binding.nestedScrollView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    // Pindahkan layar ke posisi TextView yang menampilkan pesan kesalahan
+                    binding.nestedScrollView.scrollTo(0, binding.errorPictShallotET.top)
+
+                    // Hapus listener setelah selesai
+                    binding.nestedScrollView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
+            return
+        } else {
+            binding.errorPictShallotET.visibility = View.GONE
+        }
+
+        if (binding.varietyEt.text.toString().isEmpty()) {
+            binding.varietyEt.error = "Variety cannot be empty"
+            binding.varietyEt.requestFocus()
+            return
+        } else if (binding.varietyEt.text.toString().length > 30) {
+            binding.varietyEt.error = "Maximum 30 character variety"
+            binding.farmerEt.requestFocus()
+            return
+        }
+
+        if (binding.weightEt.text.toString().isEmpty()) {
+            binding.weightEt.error = "Weight cannot be empty"
+            binding.weightEt.requestFocus()
+            return
+        } else if (binding.weightEt.text.toString().toInt() > 30000) {
+            binding.weightEt.error = "Maximum weight is 30000 gram"
+            binding.farmerEt.requestFocus()
+            return
+        }
+
+        if (binding.gradeDropDown.text.toString().isEmpty()) {
+            binding.gradeDropDown.error = "Grade cannot be empty"
+            binding.gradeDropDown.requestFocus()
+            return
+        }
+
+        if (binding.priceEt.text.toString().isEmpty()) {
+            binding.priceEt.error = "Price cannot be empty"
+            binding.priceEt.requestFocus()
+            return
+        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
+            binding.priceEt.error = "Maximum price is Rp 1.000"
+            binding.farmerEt.requestFocus()
+            return
+        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 50000) {
+            binding.priceEt.error = "Maximum price is Rp 50.000"
+            binding.farmerEt.requestFocus()
+            return
+        }
+
+        if (binding.farmerEt.text.toString().isEmpty()) {
+            binding.farmerEt.error = "Farmer name cannot be empty"
+            binding.farmerEt.requestFocus()
+            return
+        } else if (binding.farmerEt.text.toString().trim().any {it.isDigit()}) {
+            binding.farmerEt.error = "Contain number is not allowed"
+            binding.farmerEt.requestFocus()
+            return
+        } else if (binding.farmerEt.text.toString().length > 30) {
+            binding.farmerEt.error = "Maximum 30 character name"
+            binding.farmerEt.requestFocus()
+            return
+        }
+
+        if (binding.harvestTimeEt.text.toString().isEmpty()) {
+            binding.harvestTimeEt.error = "Harvest time cannot be empty"
+            binding.harvestTimeEt.requestFocus()
+            return
+        } else if (binding.harvestTimeEt.text.toString().length > 150) {
+            binding.farmerEt.error = "Maximum is 150 day"
+            binding.farmerEt.requestFocus()
+            return
+        }
+
+        if (binding.areaEt.text.toString().isEmpty()) {
+            binding.areaEt.error = "Area planting cannot be empty"
+            binding.areaEt.requestFocus()
+            return
+        }
+
+        if (binding.fertilizerEt.text.toString().isEmpty()) {
+            binding.fertilizerEt.error = "Fertilizer type cannot be empty"
+            binding.fertilizerEt.requestFocus()
+            return
+        }
+
+        if (binding.pesticidesEt.text.toString().isEmpty()) {
+            binding.pesticidesEt.error = "Pesticide type cannot be empty"
+            binding.pesticidesEt.requestFocus()
+            return
+        }
+
+        if (binding.noteEt.text.toString().trim().isEmpty()) {
+            binding.noteEt.setText("-")
+        }
+        saveData()
+
+    }
+
 
     fun EditText.setMaskingMoney(currencyText: String) {
         this.addTextChangedListener(object : MyTextWatcher {
@@ -144,8 +261,15 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun saveData() {
-//        val storageReference = FirebaseStorage.getInstance().reference.child("Product QR Code")
-//                .child(uri!!.lastPathSegment!!)
+
+
+//        if (imageURLPic == null) {
+//            Toast.makeText(this, "Product image cannot be empty", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+
+        val storageReference = FirebaseStorage.getInstance().reference.child("Product QR Code")
+                .child(uri!!.lastPathSegment!!)
 
         val builder = AlertDialog.Builder(this@NewTraceabilityActivity)
         builder.setCancelable(false)
@@ -153,26 +277,39 @@ class NewTraceabilityActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
 
-        uploadData()
-        dialog.dismiss()
+        storageReference.putFile(uri!!).addOnSuccessListener { taskSnapshot ->
+                val uriTask = taskSnapshot.storage.downloadUrl
+                while (!uriTask.isComplete);
+                    val urlImage = uriTask.result
+                imageURLPic = urlImage.toString()
 
-//        storageReference.putFile(uri!!)
-        //       .addOnSuccessListener { taskSnapshot ->
-//            val uriTask = taskSnapshot.storage.downloadUrl
-//            while (!uriTask.isComplete);
-//            val urlImage = uriTask.result
-//            imageURL = urlImage.toString()
-//
-//            dialog.dismiss()
-//        }.addOnFailureListener{
-//
-//        }
+                uploadData()
+
+                dialog.dismiss()
+            }.addOnFailureListener{
+                dialog.dismiss()
+            }
     }
 
     private fun uploadData() {
 
-        val newProductID = firebaseref.push()
+        val newProductID = firebaseRef.push()
         val pid = newProductID.key!!
+
+//        binding.farmerEt.addTextChangedListener {
+//            if (it!!.count() > 0)
+//                binding.farmerLayout.error = null
+//        }
+//
+//        binding.varietyEt.addTextChangedListener {
+//            if (it!!.count() > 0)
+//                binding.varietyLayout.error = null
+//        }
+//
+//        binding.weightEt.addTextChangedListener {
+//            if (it!!.count() > 0)
+//                binding.weightLayout.error = null
+//        }
 
         val qrCodeBitMap = generateQrCode(pid)
         saveQrCodeToStorage(pid, qrCodeBitMap)
@@ -195,17 +332,35 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
         val notes = binding.noteEt.text.toString()
 
+
+//        when {
+//            imageURLPic == "" -> {
+//                Toast.makeText(this, "Product image cannot be empty", Toast.LENGTH_SHORT).show()
+//            }
+//            variety == "" -> {
+//                binding.varietyEt.error = "Variety cannot be empty"
+//            }
+//            weight == "" -> {
+//                binding.weightEt.error = "Weight cannot be empty"
+//            }
+//            weight.toInt() > 30000 -> {
+//                binding.varietyEt.error = "Variety cannot be empty"
+//            }
+//
+//        }
+
         val dataClassNewAdd = DataClassNewAdd(
-            pid, imageURL, variety, weight, grade, price,
+            pid, imageURL, imageURL, imageURLPic, variety, weight, grade, price,
             farmer, day, area, fertilizer, pesticides, dateCreate, notes
         )
 
+
         count += 1
         println("${count} 1 URL unduhan gambar: $imageURL")
-        firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid)
+        firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(pid)
             .setValue(dataClassNewAdd).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    firebaserefServer.child(pid).setValue(dataClassNewAdd).addOnCompleteListener { task ->
+                    firebaseRefServer.child(pid).setValue(dataClassNewAdd).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this,"Created to Server", Toast.LENGTH_SHORT).show()
                         }

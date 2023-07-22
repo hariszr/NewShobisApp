@@ -3,6 +3,7 @@ package com.example.loginandsignupfirebase.model
 class DataClassAdd {
     var pid: String? = null
     var dataQrCode: String? = null
+    var dataQrCodeUpdate: String? = null
     var dataArriveDate: String? = null
     var dataIncomingWeight: String? = null
     var dataGrade: String? = null
@@ -31,7 +32,8 @@ class DataClassAdd {
         this.dataDateCreate = dataDateCreate
 
     }
-    constructor(){
-
+    constructor(dataQrCodeUpdate: String?) {
+        this.dataQrCodeUpdate = dataQrCodeUpdate
     }
+    constructor()
 }

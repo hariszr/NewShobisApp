@@ -1,21 +1,17 @@
 package com.example.loginandsignupfirebase
 
 import android.content.Intent
-import android.provider.ContactsContract
-import android.provider.ContactsContract.RawContacts.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 
 class ListAdapter(private val context:android.content.Context, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<MyViewHolder>() {
@@ -32,16 +28,19 @@ class ListAdapter(private val context:android.content.Context, private val dataL
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val item = dataList[position]
-//        Glide.with(context).load(dataList[position].dataQrCode).into(holder.itemRecQrCode)
+        Glide.with(context).load(dataList[position].dataPicProduct).into(holder.itemRecPictProduct)
         holder.itemRecPID.text = item.key
         holder.itemRecVariety.text = item.dataVariety
-        holder.itemRecWeight.text = item.dataWeight
+//        holder.itemRecWeight.text = item.dataWeight
 
         holder.itemRec.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
 
             val childNodePID = dataList[position].key
             intent.putExtra("PIDNode", childNodePID)
+
+            intent.putExtra("QrCodeUpdate", dataList[holder.adapterPosition].dataQrCodeUpdate)
+            intent.putExtra("PictProduct", dataList[holder.adapterPosition].dataPicProduct)
 
             intent.putExtra("PID", dataList[holder.adapterPosition].pid)
             intent.putExtra("Variety", dataList[holder.adapterPosition].dataVariety)
@@ -58,7 +57,6 @@ class ListAdapter(private val context:android.content.Context, private val dataL
             intent.putExtra("Date", dataList[holder.adapterPosition].dataDateCreate)
 
             intent.putExtra("Note", dataList[holder.adapterPosition].dataNotes)
-            intent.putExtra("QrCode", dataList[holder.adapterPosition].dataQrCode)
 
             context.startActivity(intent)
 
@@ -82,24 +80,21 @@ class ListAdapter(private val context:android.content.Context, private val dataL
 
             return@setOnLongClickListener true
         }
-
-
     }
-
 }
 
 class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     var itemRec : CardView
-    var itemRecQrCode : ImageView
+    var itemRecPictProduct : ImageView
     var itemRecPID : TextView
-    var itemRecWeight : TextView
+//    var itemRecWeight : TextView
     var itemRecVariety : TextView
 
     init {
         itemRec = itemView.findViewById(R.id.itemTraceRecyclerView)
-        itemRecQrCode = itemView.findViewById(R.id.itemRecQrCodeSIV)
+        itemRecPictProduct = itemView.findViewById(R.id.itemRecPictProductSIV)
         itemRecPID = itemView.findViewById(R.id.itemRecPIDTV)
-        itemRecWeight = itemView.findViewById(R.id.itemRecWeightTV)
+//        itemRecWeight = itemView.findViewById(R.id.itemRecWeightTV)
         itemRecVariety = itemView.findViewById(R.id.itemRecVarietyTV)
     }
 }

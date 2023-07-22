@@ -18,46 +18,48 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/itemRecQrCodeSIV"
-            android:layout_width="75dp"
+            android:id="@+id/itemRecPictProductSIV"
+            android:layout_width="90dp"
             android:layout_height="75dp"
             android:src="@drawable/ic_empty_photos"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/itemRecProductCodeTV"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:text="Product Code :"
+            android:textColor="@color/grey_mid"
+            android:textSize="14sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/itemRecPictProductSIV"/>
         <TextView
             android:id="@+id/itemRecPIDTV"
             android:layout_width="260dp"
             android:layout_height="30dp"
             android:text="Product ID"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:layout_marginTop="35dp"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/itemRecQrCodeSIV"/>
+            android:layout_toEndOf="@id/itemRecPictProductSIV"/>
+
         <TextView
-            android:id="@+id/itemRecWeightTV"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:text="Weight"
-            android:layout_toEndOf="@id/itemRecVarietyTV"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="0dp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16sp"/>
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:text="gram"
-            android:layout_toEndOf="@id/itemRecWeightTV"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="0dp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:id="@+id/informationVarietyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemRecPIDTV"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="12dp"
+            android:layout_toEndOf="@id/itemRecPictProductSIV"
+            android:maxLines="2"
+            android:text="Shallot Variety :"
+            android:textColor="@color/grey_mid"
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/itemRecVarietyTV"
             android:layout_width="140dp"
@@ -65,9 +67,9 @@
             android:text="Variety"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:layout_toEndOf="@id/itemRecQrCodeSIV"
+            android:layout_toEndOf="@id/itemRecPictProductSIV"
             android:layout_below="@id/itemRecPIDTV"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="122dp"
             android:maxLines="2"
             android:layout_marginBottom="12dp"/>
 

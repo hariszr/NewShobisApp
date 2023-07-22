@@ -28,6 +28,7 @@ class ProfileEditActivity : AppCompatActivity() {
     private lateinit var dialog : AlertDialog.Builder
     private lateinit var databaseReference: DatabaseReference
 
+
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (binding.fullNameProfileET.text!!.isEmpty()) {
@@ -39,6 +40,7 @@ class ProfileEditActivity : AppCompatActivity() {
                     }
                     .show()
             } else {
+                startActivity(Intent(this@ProfileEditActivity, ProfileActivity::class.java))
                 finish()
             }
         }

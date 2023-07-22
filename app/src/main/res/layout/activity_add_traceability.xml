@@ -132,7 +132,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_label"
-                    android:drawablePadding="12dp"/>
+                    android:drawablePadding="12dp"
+                    android:inputType="none"
+                    android:cursorVisible="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

@@ -26,7 +26,7 @@ class ProfileActivity : AppCompatActivity() {
 
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            startActivity(Intent(this@ProfileActivity, HomeActivity::class.java))
+            finish()
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +47,12 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.backProfileIV.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }
 
         binding.editProfileBtn.setOnClickListener {
             startActivity(Intent(this, ProfileEditActivity::class.java))
+            finish()
         }
 
         binding.signOutBtn.setOnClickListener {

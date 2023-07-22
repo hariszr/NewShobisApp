@@ -32,14 +32,17 @@ import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 class AddTraceabilityActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddTraceabilityBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firebaseRefServer: DatabaseReference
-    private lateinit var firebaseref: DatabaseReference
+    private lateinit var firebaseRef: DatabaseReference
     private var imageURL: String? = null
     private var count = 0
+    val database = FirebaseDatabase.getInstance()
+    private val myref = database.reference
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +52,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseRefServer = FirebaseDatabase.getInstance().getReference("pid server")
-        firebaseref = FirebaseDatabase.getInstance().getReference("users")
+        firebaseRef = FirebaseDatabase.getInstance().getReference("users")
 
         displayDropDownGrade()
         binding.priceEt.setMaskingMoney("Rp. ")
@@ -109,7 +112,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun makeProductID(): String {
 
-        val newProductID = firebaseref.push()
+        val newProductID = firebaseRef.push()
         val pid = newProductID.key!!
 
         val qrCodeBitMap = generateQrCode(pid)
@@ -122,11 +125,11 @@ class AddTraceabilityActivity : AppCompatActivity() {
     fun initCopy() {
         val newPID = makeProductID()
         println("NewPID : $newPID")
-        val oldPID = "-N_jMbcV7UjatdfIRkAi"
+        val oldPID = "-N_yGBMC_nwnvhktwjxB"
 
         val sourceRef = firebaseRefServer.child(oldPID)
         val destinationRefServer = firebaseRefServer.child(newPID)
-        val destinationRef = firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(newPID)
+        val destinationRef = firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(newPID)
 
         copyDataServer(sourceRef, destinationRefServer) {
             // Panggil callback setelah semua data berhasil disalin
@@ -210,7 +213,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         val dataClassAdd = DataClassAdd(
             pid, imageURL, arriveDate, incomingWeight, grade, price,
-            outgoingWeight, weightLoss, outgoingDate, dateCreate,
+            outgoingWeight, weightLoss, outgoingDate, dateCreate
         )
 
 //        val oldUserID = "-N_2Zl97LUTDlEGwEZ0t"
@@ -273,7 +276,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
                     count += 1
                     println("${count} 1 URL unduhan gambar: $imageURL")
-                    firebaseref.child(firebaseAuth.uid.toString()).child("pid").child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd)
+                    firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
 
@@ -312,6 +315,39 @@ class AddTraceabilityActivity : AppCompatActivity() {
 //            }
 //
 //        })
+    }
+    private fun updateQrCode(pid: String) {
+
+        val childUpdates = HashMap<String, Any>()
+        val dataQrCodeUpdate = DataClassAdd(imageURL)
+
+        // Simpan nama di path yang sesuai
+        childUpdates["$pid/dataQrCodeUpdate"] = imageURL.toString()
+
+
+        firebaseRefServer.updateChildren(childUpdates)
+            .addOnSuccessListener{
+                // Berhasil menyimpan nama ke Firebase
+                Log.i(
+                    "imageUrl",
+                    "Success upload image to storage and firebase realtime server"
+                )
+                // Simpan juga ke dalam user
+                firebaseRef.child(firebaseAuth.uid.toString()).child("pid").updateChildren(childUpdates)
+                    .addOnCompleteListener {
+                        Log.i(
+                            "imageUrl",
+                            "Success upload image to storage and firebase realtime user")
+                    }.addOnFailureListener { exception ->
+                        Log.e(
+                            "imageUrl",
+                            "Something wrong with save QrCode Update to firebase realtime user: ${exception.message}")
+                    }
+            }.addOnFailureListener { exception ->
+                Log.e(
+                    "imageUrl",
+                    "Something wrong with save QrCode Update to firebase realtime server: ${exception.message}")
+            }
     }
 
     private fun generateQrCode(pid: String): Bitmap {
@@ -362,6 +398,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
                         "Success upload photo to storage firebase"
                     )
                     uploadData(pid)
+                    updateQrCode(pid)
 //                uploadData(imageURL)
                 }
                     ?.addOnFailureListener { exception ->
@@ -381,6 +418,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
         count += 1
         println("${count} 4 URL unduhan gambar: $imageURL")
     }
+
 
     private fun updateLabel(myCalendar: Calendar) {
         val myFormat = "dd-MM-yyyy"

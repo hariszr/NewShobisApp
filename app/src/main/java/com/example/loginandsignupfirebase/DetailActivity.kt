@@ -1,42 +1,39 @@
 package com.example.loginandsignupfirebase
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
+import android.app.Activity
+import android.app.DownloadManager
+import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.loginandsignupfirebase.databinding.ActivityDetailBinding
 import com.example.loginandsignupfirebase.model.DataClassAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.childEvents
 import com.itextpdf.text.Document
 import com.itextpdf.text.Element
 import com.itextpdf.text.Image
 import com.itextpdf.text.PageSize
 import com.itextpdf.text.pdf.PdfWriter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
@@ -146,6 +143,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getDataQrCodeUpdate() {
         databaseReference!!.child("dataQrCodeUpdate").addListenerForSingleValueEvent(object : ValueEventListener {
+
             @RequiresApi(Build.VERSION_CODES.Q)
             override fun onDataChange(snapshot: DataSnapshot) {
                 // Mendapatkan nilai data dari snapshot
@@ -164,23 +162,29 @@ class DetailActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun downloadImageAndSaveAsPdf(linkUrl : String?) {
+
         // CoroutineScope untuk melaksanakan tugas di latar belakang
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 // Mengunduh gambar dari URL menggunakan Glide
-                val bitmap = Glide.with(applicationContext)
-                    .asBitmap()
-                    .load(linkUrl)
-                    .submit()
-                    .get()
+                val bitmap = withContext(Dispatchers.IO) {
+                    Glide.with(applicationContext)
+                        .asBitmap()
+                        .load(linkUrl)
+                        .submit()
+                        .get()
+                }
 
                 // Lokasi penyimpanan file PDF di direktori "Downloads" di penyimpanan eksternal
-                val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-                val pdfFile = getDownloadDirectory("image_to_pdf_$timeStamp.pdf")
+                val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault()).format(Date())
+                val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                val pdfFile = File(downloadDir,"ShobisApp_QRCode_$timeStamp.pdf")
 
                 // Membuat dokumen PDF
                 val document = Document(PageSize.A4)
-                val pdfWriter = PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+                val pdfWriter = withContext(Dispatchers.IO) {
+                    PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+                }
                 document.open()
 
                 // Mengonversi gambar menjadi Image dalam dokumen PDF
@@ -196,43 +200,14 @@ class DetailActivity : AppCompatActivity() {
                 CoroutineScope(Dispatchers.Main).launch {
                     // Tampilkan pesan bahwa proses telah selesai
                     // Misalnya, Anda dapat menampilkan notifikasi atau pesan Toast di sini
-                    Log.d("Convert", "Convert Qr Code to PDF successfully")
-                    Toast.makeText(this@DetailActivity, "File PDF disimpan di ${pdfFile?.absolutePath}", Toast.LENGTH_LONG).show()
+                    Log.d("Convert", "Convert Qr Code to PDF successfully ${pdfFile.absolutePath}")
+                    Toast.makeText(this@DetailActivity, "File PDF disimpan di ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 // Tangani kesalahan jika ada
                 e.printStackTrace()
             }
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun getDownloadDirectory(fileName: String): File? {
-        // Dapatkan direktori "Downloads" menggunakan MediaStore.Downloads
-        val resolver = contentResolver
-        val contentValues = ContentValues().apply {
-            put(MediaStore.Downloads.DISPLAY_NAME, fileName)
-            put(MediaStore.Downloads.MIME_TYPE, "application/pdf")
-            put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-        }
-        var uri: Uri? = null
-        var file: File? = null
-        try {
-            uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
-            if (uri != null) {
-                val cursor = resolver.query(uri, null, null, null, null)
-                if (cursor != null) {
-                    cursor.moveToFirst()
-                    val columnIndex = cursor.getColumnIndex(MediaStore.MediaColumns.DATA)
-                    val filePath = cursor.getString(columnIndex)
-                    cursor.close()
-                    file = File(filePath)
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return file
     }
 
     private fun bitmapToByteArray(bitmap: Bitmap?): ByteArray {
@@ -249,7 +224,9 @@ class DetailActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getDataQrCodeUpdate()
                 // Izin diberikan, panggil fungsi untuk mengunduh dan menyimpan PDF lagi
+                getDataQrCodeUpdate()
                 // Jika izin telah diberikan setelah permintaan sebelumnya
                 // Anda dapat menghapus fungsi ini jika tidak ingin melakukan hal tersebut.
             } else {

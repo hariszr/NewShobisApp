@@ -63,6 +63,7 @@ class ListAdapter(private val context:android.content.Context, private val dataL
             MaterialAlertDialogBuilder(holder.itemView.context)
 
 
+
         }
         holder.itemRec.setOnLongClickListener {
         MaterialAlertDialogBuilder(holder.itemView.context)

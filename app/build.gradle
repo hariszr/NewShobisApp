@@ -47,7 +47,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //Firebase
-
     implementation 'com.google.firebase:firebase-auth:22.0.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
     implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
@@ -76,6 +75,9 @@ dependencies {
 
     //Scan QR
     implementation 'com.budiyev.android:code-scanner:2.1.0'
+
+    //Image to Pdf
+    implementation 'com.itextpdf:itextpdf:5.5.13.2'
 
 //    implementation 'com.google.zxing:core:3.5.0'
 //    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'

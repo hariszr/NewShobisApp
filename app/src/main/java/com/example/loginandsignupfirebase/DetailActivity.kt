@@ -201,7 +201,7 @@ class DetailActivity : AppCompatActivity() {
                     // Tampilkan pesan bahwa proses telah selesai
                     // Misalnya, Anda dapat menampilkan notifikasi atau pesan Toast di sini
                     Log.d("Convert", "Convert Qr Code to PDF successfully ${pdfFile.absolutePath}")
-                    Toast.makeText(this@DetailActivity, "File PDF disimpan di ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@DetailActivity, "Berhasil disimpan, lihat ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 // Tangani kesalahan jika ada

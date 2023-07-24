@@ -38,7 +38,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginVertical="3dp"
                         android:textStyle="bold"
-                        android:text="Kode Product"
+                        android:text="@string/product_code"
                         android:textSize="13sp"/>
                 </LinearLayout>
 
@@ -64,7 +64,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginVertical="3dp"
                         android:textStyle="bold"
-                        android:text="12-12-2023"
+                        android:text="dd-MM-YYYY"
                         android:textSize="13sp"/>
                 </LinearLayout>
 
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:gravity="center"
-                        android:text="Update Information"
+                        android:text="@string/update_information"
                         android:textColor="@color/salem_1"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -116,7 +116,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Product Arrived Date:"
+                        android:text="@string/product_arrived_date_sub_tittle"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -126,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Product Weight Upon Arrival:"
+                        android:text="@string/product_weight_upon_arrival"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -156,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Grade:"
+                        android:text="@string/grade_sub_tittle"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -176,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Price:"
+                        android:text="@string/price_sub_tittle"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -186,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -196,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Outgoing Product Weight:"
+                        android:text="@string/outgoing_product_weight"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -206,7 +206,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -216,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Process Weight Loss:"
+                        android:text="@string/process_weight_loss_sub_tittle"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -226,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -236,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Product Outgoing Date:"
+                        android:text="@string/product_outgoing_date_sub_tittle"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -265,7 +265,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Note:"
+                        android:text="@string/note"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -275,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
                         android:layout_marginBottom="15dp"
-                        android:hint="Your text in here!"
+                        android:hint="@string/your_data_in_here"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="normal" />

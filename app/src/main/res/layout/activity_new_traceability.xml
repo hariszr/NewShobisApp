@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Create New Traceability"
+                android:text="@string/create_new_traceability"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|normal" />
@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product Information :"
+                android:text="@string/product_information"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="12dp"
                 android:textColor="@color/grey_mid"
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Shallot Variety"
+                android:hint="@string/shallot_variety_ET"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Product Weight (gram)"
+                android:hint="@string/product_weight_gram"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Grade"
+                android:hint="@string/grade_title"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Price ( per Kg)"
+                android:hint="@string/price_per_kg"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -182,7 +182,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shallot Plating Information:"
+                android:text="@string/shallot_plating_information_sub_tittle"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="12dp"
@@ -197,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Farmer Name"
+                android:hint="@string/farmer_name_ET"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -219,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Harvest Time (day)"
+                android:hint="@string/harvest_time_day_ET"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -241,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Planting Area"
+                android:hint="@string/planting_area_ET"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -263,7 +263,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="The Type of Fertilizer Used"
+                android:hint="@string/the_type_of_fertilizer_used"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -285,7 +285,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Type of Pesticides Used"
+                android:hint="@string/type_of_pesticides_used"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -307,7 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Notes"
+                android:hint="@string/notes_ET"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -341,7 +341,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@color/salem_1"
                 android:padding="12dp"
-                android:text="Create Traceability"
+                android:text="@string/create_new_traceability_Btn"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 

@@ -83,11 +83,11 @@ class ProfileEditActivity : AppCompatActivity() {
     }
 
     private fun displayDropDownGender() {
-        val itemsGender = listOf("Male", "Female")
+        val itemsGender = listOf("Laki-Laki", "Perempuan")
         val adapterGender = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGender)
         binding.genderDropDown.setAdapter(adapterGender)
 
-        val itemsLevel = listOf("Land Trader", "Collectors", "Wholesalers", "Traditional Central Market", "Traditional Market", "Modern Market", "E-Commerce", "Consumers")
+        val itemsLevel = listOf("Pedagang Lahan", "Pedagang Pengepul", "Pedagang Besar", "Pasar Induk", "Pasar Tradisional", "Pasar Modern", "E-Commerce", "Konsumen")
         val adapterLevel = ArrayAdapter(this, R.layout.item_list_dropdown, itemsLevel)
         binding.levelUserDropDown.setAdapter(adapterLevel)
     }

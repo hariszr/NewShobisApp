@@ -31,7 +31,7 @@
             android:id="@+id/itemRecProductCodeTV"
             android:layout_width="260dp"
             android:layout_height="30dp"
-            android:text="Product Code :"
+            android:text="@string/product_code_sub_tittle"
             android:textColor="@color/grey_mid"
             android:textSize="14sp"
             android:layout_marginTop="15dp"
@@ -57,7 +57,7 @@
             android:layout_marginBottom="12dp"
             android:layout_toEndOf="@id/itemRecPictProductSIV"
             android:maxLines="2"
-            android:text="Shallot Variety :"
+            android:text="@string/shallot_variety"
             android:textColor="@color/grey_mid"
             android:textSize="14sp" />
         <TextView

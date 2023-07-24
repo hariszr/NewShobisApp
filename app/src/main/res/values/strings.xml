@@ -1,8 +1,96 @@
 <resources>
     <string name="app_name">ShobisApp</string>
+    <string name="hello">Hello,</string>
+    <string name="name">Name</string>
+    <string name="tandaseru">!</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="create_new">Create New</string>
+    <string name="shallot_traceability">Shallot Traceability</string>
+    <string name="profile">Profile</string>
+    <string name="full_name">Full Name</string>
+    <string name="actor">Actor</string>
+    <string name="edit_profile">Profile Edit</string>
+    <string name="change_password">Change Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="gender">Gender</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="your_address">Your address</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string name="add_traceability_data">Add Traceability Data</string>
+    <string name="product_information">Product Information:</string>
+    <string name="product_arrived_date">Product Arrived Date</string>
+    <string name="product_weight_upon_arrival_gram">Product Weight Upon Arrival (gram)</string>
+    <string name="grade_title">Grade</string>
+    <string name="price_per_kg">Price (per Kg)</string>
+    <string name="outgoing_product_weight_gram">Outgoing Product Weight (gram)</string>
+    <string name="process_weight_loss_gram">Process Weight Loss (gram)</string>
+    <string name="product_outgoing_date">Product Outgoing Date</string>
+
+    <string name="product_detail">Product Detail</string>
+    <string name="product_information_tittle">Product Information</string>
+    <string name="shallot_variety">Shallot Variety:</string>
+    <string name="your_data_in_here">Your data in here!</string>
+    <string name="weight">Weight:</string>
+    <string name="grade_sub_tittle">Grade:</string>
+    <string name="price_sub_tittle">Price:</string>
+    <string name="shallot_planting_information">Shallot Planting Information</string>
+    <string name="farmer_name">Farmer Name:</string>
+    <string name="harvest_time">Harvest Time:</string>
+    <string name="day">day</string>
+    <string name="planting_area">Planting Area:</string>
+    <string name="fertilizer_used">Fertilizer Used:</string>
+    <string name="pesticides_used">Pesticides Used:</string>
+    <string name="note">Note:</string>
+    <string name="add_data">Add Data</string>
+    <string name="download_qr_code">Download QR Code</string>
 
     <style name="toastCustom">
         <item name="stColorBackground">@color/grey_mid</item>
         <item name="stTextColor">@color/white</item>
     </style>
+
+    <string name="grade">Grade :</string>
+    <string name="create_new_traceability">Create New Traceability</string>
+    <string name="shallot_variety_ET">Shallot Variety</string>
+    <string name="product_weight_gram">Product Weight (gram)</string>
+    <string name="shallot_plating_information_sub_tittle">Shallot Plating Information:</string>
+    <string name="farmer_name_ET">Farmer Name</string>
+    <string name="harvest_time_day_ET">Harvest Time (day)</string>
+    <string name="planting_area_ET">Planting Area</string>
+    <string name="the_type_of_fertilizer_used">The Type of Fertilizer Used</string>
+    <string name="type_of_pesticides_used">Type of Pesticides Used</string>
+    <string name="notes_ET">Notes</string>
+    <string name="create_new_traceability_Btn">Create New</string>
+    <string name="create_traceability">Create New Traceability</string>
+    <string name="create_new_traceability_ET">Create New Traceability</string>
+
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+
+    <string name="sign_in">Sign In</string>
+    <string name="type_your_email">Type your Email</string>
+    <string name="type_your_password">Type Your Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="not_registered_yet_sign_up">Not Registered Yet , Sign Up!</string>
+
+    <string name="sign_up">Sign Up</string>
+    <string name="retype_your_password">Retype Your Password</string>
+    <string name="already_registered_sign_in">Already Registered, Sign In!</string>
+
+    <string name="forgot_password_tittle">Forgot Password</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
+
+    <string name="traceability_product_list">Traceability Product List</string>
+    <string name="product_code">Product Code</string>
+    <string name="update_information">Latest Information</string>
+    <string name="product_arrived_date_sub_tittle">Product Arrived Date:</string>
+    <string name="product_weight_upon_arrival">Product Weight Upon Arrival:</string>
+    <string name="outgoing_product_weight">Outgoing Product Weight:</string>
+    <string name="process_weight_loss_sub_tittle">Process Weight Loss:</string>
+    <string name="product_outgoing_date_sub_tittle">Product Outgoing Date:</string>
+    <string name="product_code_sub_tittle">Product Code:</string>
 </resources>

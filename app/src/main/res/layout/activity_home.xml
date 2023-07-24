@@ -55,7 +55,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello, "
+                android:text="@string/hello"
+                android:layout_marginEnd="8dp"
                 android:textStyle="normal"
                 android:textSize="28sp"
                 android:textAllCaps="false"/>
@@ -63,14 +64,14 @@
                 android:id="@+id/fullNameHomeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="@string/name"
                 android:textStyle="bold|normal"
                 android:textSize="28sp"
                 android:textAllCaps="false"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="! "
+                android:text="@string/tandaseru"
                 android:layout_marginStart="5dp"
                 android:textStyle="bold|normal"
                 android:textSize="28sp"
@@ -83,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
-            android:text="Welcome back"
+            android:text="@string/welcome_back"
             android:textStyle="normal"
             android:textSize="17sp"
             android:textAllCaps="false"/>
@@ -128,7 +129,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Create New"
+                            android:text="@string/create_new"
                             android:layout_marginTop="20dp"
                             android:textStyle="bold"
                             android:textSize="25sp"
@@ -182,15 +183,16 @@
                             android:layout_alignParentRight="true"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="230dp"
                             android:layout_height="wrap_content"
-                            android:text="Shallot Traceability"
+                            android:text="@string/shallot_traceability"
                             android:layout_marginTop="20dp"
                             android:textStyle="bold"
                             android:textSize="25sp"
                             android:textColor="@color/white"
                             android:layout_marginLeft="15dp"
-                            android:clickable="false"/>
+                            android:clickable="false"
+                            android:lines="2"/>
 
                         <ImageView
                             android:layout_width="80dp"

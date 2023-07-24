@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Add Data Traceability"
+                android:text="@string/add_traceability_data"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|normal" />
@@ -60,7 +60,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product Information :"
+                android:text="@string/product_information"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="12dp"
                 android:textColor="@color/grey_mid"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Product Arrived Date"
+                android:hint="@string/product_arrived_date"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Product Weight Upon Arrival (gram)"
+                android:hint="@string/product_weight_upon_arrival_gram"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Grade"
+                android:hint="@string/grade"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Price (per Kg)"
+                android:hint="@string/price_per_kg"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Outgoing Product Weight (gram)"
+                android:hint="@string/outgoing_product_weight_gram"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Process Weight Loss (gram)"
+                android:hint="@string/process_weight_loss_gram"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -209,7 +209,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="Product Outgoing Date"
+                android:hint="@string/product_outgoing_date"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
@@ -318,7 +318,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@color/salem_1"
                 android:padding="12dp"
-                android:text="Add Data Traceability"
+                android:text="@string/add_traceability_data"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 

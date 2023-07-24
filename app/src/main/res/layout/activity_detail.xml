@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="Detail Product"
+                    android:text="@string/product_detail"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold|normal" />
@@ -84,7 +84,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginVertical="3dp"
                         android:textStyle="bold"
-                        android:text="Kode Product"
+                        android:text="@string/product_code"
                         android:textSize="13sp"/>
                 </LinearLayout>
 
@@ -110,7 +110,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginVertical="3dp"
                         android:textStyle="bold"
-                        android:text="12-12-2023"
+                        android:text="dd-MM-YYYY"
                         android:textSize="13sp"/>
                 </LinearLayout>
 
@@ -144,7 +144,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:gravity="center"
-                            android:text="Product Information"
+                            android:text="@string/product_information_tittle"
                             android:textColor="@color/salem_1"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -191,7 +191,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Shallot Variety:"
+                            android:text="@string/shallot_variety"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -201,7 +201,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -211,7 +211,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Weight:"
+                            android:text="@string/weight"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -221,7 +221,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -231,7 +231,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Grade:"
+                            android:text="@string/grade_sub_tittle"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -241,7 +241,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -251,7 +251,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Price:"
+                            android:text="@string/price_sub_tittle"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -261,7 +261,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -287,7 +287,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:gravity="center"
-                            android:text="Shallot Planting Information"
+                            android:text="@string/shallot_planting_information"
                             android:textColor="@color/salem_1"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -305,7 +305,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Farmer Name:"
+                            android:text="@string/farmer_name"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -315,7 +315,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -325,7 +325,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Harvest Time:"
+                            android:text="@string/harvest_time"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -348,7 +348,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5sp"
                                 android:layout_marginBottom="5dp"
-                                android:text="day"
+                                android:text="@string/day"
                                 android:textColor="@color/black"
                                 android:textSize="17sp"
                                 android:textStyle="normal" />
@@ -360,7 +360,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Planting Area:"
+                            android:text="@string/planting_area"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -370,7 +370,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -380,7 +380,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Fertilizer Used:"
+                            android:text="@string/fertilizer_used"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -390,7 +390,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -400,7 +400,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Pesticides Used:"
+                            android:text="@string/pesticides_used"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -410,7 +410,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -428,7 +428,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Note:"
+                            android:text="@string/note"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -438,7 +438,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
                             android:layout_marginBottom="15dp"
-                            android:hint="Your text in here!"
+                            android:hint="@string/your_data_in_here"
                             android:textColor="@color/black"
                             android:textSize="17sp"
                             android:textStyle="normal" />
@@ -472,7 +472,7 @@
                     android:background="@drawable/btn_round_1"
                     android:layout_marginBottom="10dp"
                     android:clickable="true"
-                    android:text="Add Data"
+                    android:text="@string/add_data"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -486,7 +486,7 @@
                     android:layout_marginStart="25dp"
                     android:background="@drawable/btn_round_1"
                     android:layout_marginBottom="10dp"
-                    android:text="Download QR Code"
+                    android:text="@string/download_qr_code"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"

@@ -5,10 +5,37 @@
     android:layout_height="match_parent"
     tools:context=".RecentScanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal|center_vertical">
+
+            <ImageView
+                android:id="@+id/uploadDataIV"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_recent_scan"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/emptyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/your_traceability_scan_will_be_displayed_here"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                android:textColor="#bababa"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>

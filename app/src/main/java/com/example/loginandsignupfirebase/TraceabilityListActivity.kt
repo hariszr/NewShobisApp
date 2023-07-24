@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -43,8 +45,8 @@ class TraceabilityListActivity : AppCompatActivity() {
         setContentView(binding.root)
         onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
-        var viewPager = findViewById(R.id.viewPager) as ViewPager
-        var tabLayout = findViewById(R.id.tabLayout) as TabLayout
+        var viewPager = findViewById<ViewPager>(R.id.viewPager)
+        var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
 
         val fragmentAdapter = FragmentAdapter(supportFragmentManager)
         fragmentAdapter.addFragment(RecentScanFragment(), "Recent Scan")
@@ -115,5 +117,6 @@ class TraceabilityListActivity : AppCompatActivity() {
 //            override fun onCancelled(error: DatabaseError) {
 //                dialog.dismiss()
 //            }
-//        })    }
+//        })
+//        }
 }

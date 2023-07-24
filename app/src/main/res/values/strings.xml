@@ -95,4 +95,6 @@
     <string name="product_code_sub_tittle">Product Code:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_traceability_uploads_will_appear_here">Your traceability uploads will appear here</string>
+    <string name="your_traceability_scan_will_be_displayed_here">Your Traceability Scan will be displayed here</string>
 </resources>

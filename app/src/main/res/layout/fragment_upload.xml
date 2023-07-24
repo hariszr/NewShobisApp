@@ -6,66 +6,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UploadFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listTraceRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_marginTop="0dp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal|center_vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/headerListTraceabilityCL"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/header_bg_gradient">
+            <ImageView
+                android:id="@+id/uploadDataIV"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_upload_data"
+                android:visibility="gone"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:background="@drawable/header_bg_gradient"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    tools:ignore="MissingConstraints">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/back_ProductListIV"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:padding="5dp"
-                            android:src="@drawable/ic_back" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/traceability_product_list"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold|normal" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listTraceRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/header"
-                android:scrollbars="vertical"
-                android:layout_marginTop="0dp"/>
-
+            <TextView
+                android:id="@+id/emptyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/your_traceability_uploads_will_appear_here"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                android:textColor="#bababa"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:visibility="gone" />
         </LinearLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addFAB"
@@ -85,6 +63,5 @@
             app:tint="@color/white" />
 
     </RelativeLayout>
-
 
 </FrameLayout>

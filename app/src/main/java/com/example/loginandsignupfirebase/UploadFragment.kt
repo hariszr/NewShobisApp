@@ -25,7 +25,6 @@ class UploadFragment : Fragment() {
     var eventListener: ValueEventListener? = null
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 
     ): View? {
@@ -45,8 +44,6 @@ class UploadFragment : Fragment() {
         return view
 
     }
-
-
     private fun showAndClickList() {
         val gridLayoutManager= GridLayoutManager(context, 1)
         binding?.listTraceRecyclerView?.layoutManager = gridLayoutManager
@@ -93,7 +90,8 @@ class UploadFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {
                 dialog?.dismiss()
             }
-        })    }
+        })
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -14,7 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-class ListAdapter(private val context:android.content.Context, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<MyViewHolder>() {
+class ListAdapter(private val context: UploadFragment, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<MyViewHolder>() {
     private lateinit var firebaseAuth : FirebaseAuth
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_traceability, parent, false)
@@ -37,26 +37,26 @@ class ListAdapter(private val context:android.content.Context, private val dataL
             val intent = Intent(context, DetailActivity::class.java)
 
             val childNodePID = dataList[position].key
-            intent.putExtra("PIDNode", childNodePID)
+            intent?.putExtra("PIDNode", childNodePID)
 
-            intent.putExtra("QrCodeUpdate", dataList[holder.adapterPosition].dataQrCodeUpdate)
-            intent.putExtra("PictProduct", dataList[holder.adapterPosition].dataPicProduct)
+            intent?.putExtra("QrCodeUpdate", dataList[holder.adapterPosition].dataQrCodeUpdate)
+            intent?.putExtra("PictProduct", dataList[holder.adapterPosition].dataPicProduct)
 
-            intent.putExtra("PID", dataList[holder.adapterPosition].pid)
-            intent.putExtra("Variety", dataList[holder.adapterPosition].dataVariety)
-            intent.putExtra("Weight", dataList[holder.adapterPosition].dataWeight)
-            intent.putExtra("Grade", dataList[holder.adapterPosition].dataGrade)
-            intent.putExtra("Price", dataList[holder.adapterPosition].dataPrice)
+            intent?.putExtra("PID", dataList[holder.adapterPosition].pid)
+            intent?.putExtra("Variety", dataList[holder.adapterPosition].dataVariety)
+            intent?.putExtra("Weight", dataList[holder.adapterPosition].dataWeight)
+            intent?.putExtra("Grade", dataList[holder.adapterPosition].dataGrade)
+            intent?.putExtra("Price", dataList[holder.adapterPosition].dataPrice)
 
-            intent.putExtra("Farmer", dataList[holder.adapterPosition].dataFarmer)
-            intent.putExtra("Day", dataList[holder.adapterPosition].dataDay)
-            intent.putExtra("Area", dataList[holder.adapterPosition].dataPlantingArea)
-            intent.putExtra("Fertilizer", dataList[holder.adapterPosition].dataFertilizer)
-            intent.putExtra("Pesticides", dataList[holder.adapterPosition].dataPesticides)
+            intent?.putExtra("Farmer", dataList[holder.adapterPosition].dataFarmer)
+            intent?.putExtra("Day", dataList[holder.adapterPosition].dataDay)
+            intent?.putExtra("Area", dataList[holder.adapterPosition].dataPlantingArea)
+            intent?.putExtra("Fertilizer", dataList[holder.adapterPosition].dataFertilizer)
+            intent?.putExtra("Pesticides", dataList[holder.adapterPosition].dataPesticides)
 
-            intent.putExtra("Date", dataList[holder.adapterPosition].dataDateCreate)
+            intent?.putExtra("Date", dataList[holder.adapterPosition].dataDateCreate)
 
-            intent.putExtra("Note", dataList[holder.adapterPosition].dataNotes)
+            intent?.putExtra("Note", dataList[holder.adapterPosition].dataNotes)
 
             context.startActivity(intent)
 
@@ -81,6 +81,10 @@ class ListAdapter(private val context:android.content.Context, private val dataL
 
             return@setOnLongClickListener true
         }
+    }
+
+    private fun Intent(context: UploadFragment, java: Class<DetailActivity>): Intent? {
+        TODO("Not yet implemented")
     }
 }
 

@@ -93,4 +93,6 @@
     <string name="process_weight_loss_sub_tittle">Process Weight Loss:</string>
     <string name="product_outgoing_date_sub_tittle">Product Outgoing Date:</string>
     <string name="product_code_sub_tittle">Product Code:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

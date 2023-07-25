@@ -49,7 +49,7 @@ class ListAdapterUpload(private val context: UploadFragment, private val dataLis
 //        holder.itemRecWeight.text = item.dataWeight
 
         holder.itemRec.setOnClickListener {
-            val intent = Intent(context.requireContext(), DetailActivity::class.java)
+            val intent = Intent(context.requireContext(), DetailUploadActivity::class.java)
 
             val childNodePID = dataList[position].key
             intent.putExtra("PIDNode", childNodePID)

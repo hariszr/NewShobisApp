@@ -49,7 +49,7 @@ class ListAdapterRecent(private val context: RecentScanFragment, private val dat
 //        holder.itemRecWeight.text = item.dataWeight
 
         holder.itemRec.setOnClickListener {
-            val intent = Intent(context.requireContext(), DetailActivity::class.java)
+            val intent = Intent(context.requireContext(), DetailRecentActivity::class.java)
 
             val childNodePID = dataList[position].key
             intent.putExtra("PIDNode", childNodePID)

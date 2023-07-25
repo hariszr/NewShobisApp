@@ -34,7 +34,10 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".DetailUploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailRecentActivity"
             android:exported="false" />
         <activity
             android:name=".TraceabilityListActivity"

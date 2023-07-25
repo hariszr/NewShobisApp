@@ -1,25 +1,20 @@
 package com.example.loginandsignupfirebase
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.DownloadManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
-import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.example.loginandsignupfirebase.databinding.ActivityDetailBinding
+import com.example.loginandsignupfirebase.databinding.ActivityDetailUploadBinding
 import com.example.loginandsignupfirebase.model.DataClassAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -35,8 +30,8 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DetailActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityDetailBinding
+class DetailUploadActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityDetailUploadBinding
     private lateinit var datalist : ArrayList<DataClassAdd>
     private lateinit var adapter: ListAdapterDetail
     private lateinit var firebaseAuth : FirebaseAuth
@@ -52,7 +47,7 @@ class DetailActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
+        binding = ActivityDetailUploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -64,10 +59,10 @@ class DetailActivity : AppCompatActivity() {
         PIDNode = intent.extras?.getString("PIDNode")
         progressLoad()
 
-        val gridLayoutManager = GridLayoutManager(this@DetailActivity, 1)
+        val gridLayoutManager = GridLayoutManager(this@DetailUploadActivity, 1)
         binding.listDetailRecyclerView.layoutManager = gridLayoutManager
 
-        val builder = AlertDialog.Builder(this@DetailActivity)
+        val builder = AlertDialog.Builder(this@DetailUploadActivity)
         builder.setCancelable(false)
         builder.setView(R.layout.layout_progress)
         val dialog = builder.create()
@@ -75,7 +70,7 @@ class DetailActivity : AppCompatActivity() {
 
 
         datalist = ArrayList()
-        adapter = ListAdapterDetail(this@DetailActivity, datalist)
+        adapter = ListAdapterDetail(this@DetailUploadActivity, datalist)
         binding.listDetailRecyclerView.adapter = adapter
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid").child(PIDNode.toString())
         dialog.show()
@@ -201,7 +196,7 @@ class DetailActivity : AppCompatActivity() {
                     // Tampilkan pesan bahwa proses telah selesai
                     // Misalnya, Anda dapat menampilkan notifikasi atau pesan Toast di sini
                     Log.d("Convert", "Convert Qr Code to PDF successfully ${pdfFile.absolutePath}")
-                    Toast.makeText(this@DetailActivity, "Berhasil disimpan, lihat ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@DetailUploadActivity, "Berhasil disimpan, lihat ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 // Tangani kesalahan jika ada
@@ -235,7 +230,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun progressLoad() {
-        val builder = AlertDialog.Builder(this@DetailActivity)
+        val builder = AlertDialog.Builder(this@DetailUploadActivity)
         builder.setCancelable(false).setView(R.layout.layout_progress)
         val dialog = builder.create()
         dialog.show()

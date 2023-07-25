@@ -4,11 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.firebase.database.DataSnapshot
 
 class ListAdapterSecondary(private val context:android.content.Context, private val dataSnapshotList: List<DataSnapshot>): RecyclerView.Adapter<MyViewHolderDetail>() {
@@ -26,7 +22,7 @@ class ListAdapterSecondary(private val context:android.content.Context, private 
 
         val childNodePID = dataSnapshotList[position].key
 
-            val intent = Intent(context, DetailActivity::class.java)
+            val intent = Intent(context, DetailUploadActivity::class.java)
 
             intent.putExtra("PIDNode", childNodePID)
 

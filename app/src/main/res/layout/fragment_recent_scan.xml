@@ -3,7 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RecentScanFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listTraceRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_marginTop="0dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,6 +43,23 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:visibility="gone" />
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/salem_2"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_add"
+            app:borderWidth="0dp"
+            app:fabSize="auto"
+            app:tint="@color/white" />
 
     </RelativeLayout>
 

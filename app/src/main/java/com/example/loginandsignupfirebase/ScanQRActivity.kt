@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -17,8 +18,7 @@ import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.loginandsignupfirebase.databinding.ActivityScanQractivityBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 private const val CAMERA_REQUEST_CODE = 101
 
@@ -26,7 +26,9 @@ class ScanQRActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScanQractivityBinding
     private lateinit var codeScanner : CodeScanner
     private lateinit var firebaseAuth : FirebaseAuth
-    private lateinit var firebaseref : DatabaseReference
+
+    private lateinit var firebaseRefServer: DatabaseReference
+    private lateinit var firebaseRef : DatabaseReference
 
     private var count = 0
 
@@ -37,7 +39,8 @@ class ScanQRActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseref = FirebaseDatabase.getInstance().getReference("users")
+        firebaseRefServer = FirebaseDatabase.getInstance().getReference("pid server")
+        firebaseRef = FirebaseDatabase.getInstance().getReference("users")
 
         setupPermissions()
 
@@ -63,9 +66,11 @@ class ScanQRActivity : AppCompatActivity() {
                         Toast.makeText(this@ScanQRActivity,
                             "Scan result: ${it.text}", Toast.LENGTH_SHORT).show()
                         println("Hasil langsung: ${it.text}")
+                        Log.i("Scan Result", "Scan Result : ${it.text}")
                         val getPID = it.text
-                        val addTraceabilityActivity = AddTraceabilityActivity()
-                        addTraceabilityActivity.initCopy()
+                        initCopyAndShowDataToRecent(getPID)
+//                        val addTraceabilityActivity = AddTraceabilityActivity()
+//                        addTraceabilityActivity.initCopy()
                         startActivity(Intent(this@ScanQRActivity, TraceabilityListActivity::class.java))
                         finish()
                     }
@@ -84,6 +89,45 @@ class ScanQRActivity : AppCompatActivity() {
                 codeScanner.startPreview()
             }
         }
+    }
+
+    private fun initCopyAndShowDataToRecent(pid: String) {
+
+        val sourceRef = firebaseRefServer.child(pid)
+        val destinationRef = firebaseRef.child(firebaseAuth.uid.toString()).child("Recent Scan").child(pid)
+
+        copyData(sourceRef, destinationRef) {
+            // Panggil callback setelah semua data berhasil disalin
+            println("Successfully copied data to server")
+        }
+    }
+
+    private fun copyData(sourceRef: DatabaseReference, destinationRef: DatabaseReference, callback: () -> Unit) {
+        sourceRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                destinationRef.setValue(dataSnapshot.value) { databaseError, _ ->
+                    if (databaseError == null) {
+                        for (childSnapshot in dataSnapshot.children) {
+                            val sourceChildRef = childSnapshot.ref
+                            val destinationChildRef = destinationRef.child(childSnapshot.key!!)
+                            copyData(sourceChildRef, destinationChildRef) {
+                                // Panggil callback setelah semua data berhasil disalin
+                                println("Successfully copied data to users")
+                                callback.invoke()
+                            }
+                        }
+                    } else {
+                        println("Failed to copy data: ${databaseError.message}")
+                        callback.invoke()
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("Failed to read data: ${databaseError.message}")
+                callback.invoke()
+            }
+        })
     }
 
     private fun readAndSaveDataToFirebase(getPID: String) {

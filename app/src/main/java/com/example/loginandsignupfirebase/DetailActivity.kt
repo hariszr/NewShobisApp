@@ -224,7 +224,6 @@ class DetailActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getDataQrCodeUpdate()
                 // Izin diberikan, panggil fungsi untuk mengunduh dan menyimpan PDF lagi
                 getDataQrCodeUpdate()
                 // Jika izin telah diberikan setelah permintaan sebelumnya

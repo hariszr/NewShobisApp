@@ -96,7 +96,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:gravity="center"
                         android:text="@string/update_information"
                         android:textColor="@color/salem_1"
@@ -140,16 +139,30 @@
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/incomingWeightTV"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30sp"
-                        android:layout_marginBottom="15dp"
-                        android:hint="@string/your_data_in_here"
-                        android:textColor="@color/black"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/incomingWeightTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30sp"
+                            android:layout_marginBottom="15dp"
+                            android:hint="@string/weight_data"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/gram"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -200,16 +213,32 @@
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/outgoingWeightTV"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30sp"
-                        android:layout_marginBottom="15dp"
-                        android:hint="@string/your_data_in_here"
-                        android:textColor="@color/black"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/outgoingWeightTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30sp"
+                            android:layout_marginBottom="15dp"
+                            android:hint="@string/weight_data"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/gram"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,16 +249,32 @@
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/weightLossTV"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30sp"
-                        android:layout_marginBottom="15dp"
-                        android:hint="@string/your_data_in_here"
-                        android:textColor="@color/black"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/weightLossTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30sp"
+                            android:layout_marginBottom="15dp"
+                            android:hint="@string/weight_data"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/gram"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
 
                     <TextView
                         android:layout_width="wrap_content"

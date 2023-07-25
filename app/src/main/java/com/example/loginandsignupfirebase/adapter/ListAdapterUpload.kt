@@ -1,13 +1,11 @@
 package com.example.loginandsignupfirebase
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,7 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-class ListAdapter(private val context: UploadFragment, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapterUpload(private val context: UploadFragment, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<ListAdapterUpload.MyViewHolder>() {
     private lateinit var firebaseAuth : FirebaseAuth
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var itemRec : CardView

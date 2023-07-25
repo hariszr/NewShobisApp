@@ -18,7 +18,7 @@ class UploadFragment : Fragment() {
 
     private var binding: FragmentUploadBinding? = null
     private lateinit var dataList: ArrayList<DataClassNewAdd>
-    private lateinit var adapter: ListAdapter
+    private lateinit var adapter: ListAdapterUpload
     private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var firebaseDatabase: FirebaseDatabase
     var databaseReference: DatabaseReference? = null
@@ -62,7 +62,7 @@ class UploadFragment : Fragment() {
         linearLayoutManager.stackFromEnd = false
         binding?.listTraceRecyclerView?.layoutManager = linearLayoutManager
 
-        adapter = ListAdapter(this, dataList)
+        adapter = ListAdapterUpload(this, dataList)
         binding?.listTraceRecyclerView?.adapter = adapter
         databaseReference = databaseReference?.child(firebaseAuth.uid.toString())?.child("pid")
         dialog?.show()

@@ -73,6 +73,8 @@ class ListAdapterRecent(private val context: RecentScanFragment, private val dat
 
             intent.putExtra("Note", dataList[holder.adapterPosition].dataNotes)
 
+
+
             context.startActivity(intent)
 
             MaterialAlertDialogBuilder(holder.itemView.context)

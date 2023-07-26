@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:id="@+id/fragment_Recent_Scan"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,7 +47,7 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addFAB"
+            android:id="@+id/scanFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -56,7 +58,8 @@
             android:layout_marginBottom="40dp"
             android:backgroundTint="@color/salem_2"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_qrscanner"
+            app:maxImageSize="40dp"
             app:borderWidth="0dp"
             app:fabSize="auto"
             app:tint="@color/white" />

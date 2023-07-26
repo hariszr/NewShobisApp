@@ -57,12 +57,20 @@ class DetailRecentActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        PIDNode = intent.extras?.getString("PIDNode")
+
         binding.backProductListIV.setOnClickListener {
 //            startActivity(Intent(this, TraceabilityListActivity::class.java))
             finish()
         }
-        PIDNode = intent.extras?.getString("PIDNode")
+
         progressLoad()
+
+        binding.addDataBtn.setOnClickListener {
+            val intent = Intent(this@DetailRecentActivity, AddTraceabilityActivity::class.java)
+            intent.putExtra("sendPID", PIDNode)
+            startActivity(intent)
+        }
 
         val gridLayoutManager = GridLayoutManager(this@DetailRecentActivity, 1)
         binding.listDetailRecyclerView.layoutManager = gridLayoutManager

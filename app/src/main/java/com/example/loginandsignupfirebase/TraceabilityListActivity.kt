@@ -1,26 +1,13 @@
 package com.example.loginandsignupfirebase
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.example.loginandsignupfirebase.adapter.FragmentAdapter
 import com.example.loginandsignupfirebase.databinding.ActivityTraceabilityListBinding
-import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class TraceabilityListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTraceabilityListBinding
@@ -37,16 +24,36 @@ class TraceabilityListActivity : AppCompatActivity() {
             finish()
         }
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTraceabilityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
-        var viewPager = findViewById<ViewPager>(R.id.viewPager)
-        var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+//        if (savedInstanceState == null) {
+//            // Jika savedInstanceState == null, berarti ini adalah pembukaan pertama kali
+//            // Lakukan transaksi fragment untuk menampilkan Fragment Upload
+//            val fragmentUpload = UploadFragment()
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_Upload, fragmentUpload)
+//                .commit()
+//        }
+
+//        val scanResult = intent.getStringExtra("scanResult")
+//        if (!scanResult.isNullOrEmpty()) {
+//            // Buka recentScan Fragment dengan data scanResult
+//            val fragment = RecentScanFragment()
+//            val bundle = Bundle()
+//            bundle.putString("scanResult", scanResult)
+//            fragment.arguments = bundle
+//
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_Container, fragment, "recentScanFragmentTag")
+//                .commit()
+//        }
+
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
 
         val fragmentAdapter = FragmentAdapter(supportFragmentManager)
         fragmentAdapter.addFragment(RecentScanFragment(), "Recent Scan")
@@ -54,6 +61,7 @@ class TraceabilityListActivity : AppCompatActivity() {
 
         viewPager.adapter = fragmentAdapter
         tabLayout.setupWithViewPager(viewPager)
+
 
 //        firebaseAuth = FirebaseAuth.getInstance()
 //        firebaseDatabase = FirebaseDatabase.getInstance()

@@ -44,6 +44,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
     val database = FirebaseDatabase.getInstance()
     private val myref = database.reference
 
+    private var oldPID: String? = ""
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseRefServer = FirebaseDatabase.getInstance().getReference("pid server")
         firebaseRef = FirebaseDatabase.getInstance().getReference("users")
+
+        oldPID = intent.extras?.getString("sendPID")
 
         displayDropDownGrade()
         binding.priceEt.setMaskingMoney("Rp. ")
@@ -125,9 +129,9 @@ class AddTraceabilityActivity : AppCompatActivity() {
     fun initCopy() {
         val newPID = makeProductID()
         println("NewPID : $newPID")
-        val oldPID = "-N_yGBMC_nwnvhktwjxB"
+//        val oldPID = "-N_yGBMC_nwnvhktwjxB"
 
-        val sourceRef = firebaseRefServer.child(oldPID)
+        val sourceRef = firebaseRefServer.child(oldPID.toString())
         val destinationRefServer = firebaseRefServer.child(newPID)
         val destinationRef = firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(newPID)
 
@@ -282,6 +286,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
                                 firebaseRefServer.child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd).addOnCompleteListener { t ->
                                     if (t.isSuccessful) {
+                                        updateQrCode(pid)
                                         println("Data Secondary Successfully Updated to PID Server")
                                         Log.i( "Server Updated","Data Secondary Successfully Updated to PID Server")
                                     }
@@ -323,7 +328,6 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         // Simpan nama di path yang sesuai
         childUpdates["$pid/dataQrCodeUpdate"] = imageURL.toString()
-
 
         firebaseRefServer.updateChildren(childUpdates)
             .addOnSuccessListener{
@@ -398,7 +402,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
                         "Success upload photo to storage firebase"
                     )
                     uploadData(pid)
-                    updateQrCode(pid)
+//                    updateQrCode(pid)
 //                uploadData(imageURL)
                 }
                     ?.addOnFailureListener { exception ->

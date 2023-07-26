@@ -1,6 +1,7 @@
 package com.example.loginandsignupfirebase
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,6 +41,10 @@ class UploadFragment : Fragment() {
 
 
         showAndClickList()
+
+        binding!!.addFAB.setOnClickListener {
+            startActivity(Intent(this.requireContext(), NewTraceabilityActivity::class.java))
+        }
 
         return view
 

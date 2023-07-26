@@ -71,7 +71,10 @@ class ScanQRActivity : AppCompatActivity() {
                         initCopyAndShowDataToRecent(getPID)
 //                        val addTraceabilityActivity = AddTraceabilityActivity()
 //                        addTraceabilityActivity.initCopy()
-                        startActivity(Intent(this@ScanQRActivity, TraceabilityListActivity::class.java))
+                        val intent = Intent(this@ScanQRActivity, TraceabilityListActivity::class.java)
+//                        intent.putExtra("scanResult", getPID)
+                        startActivity(intent)
+//                        startActivity(Intent(this@ScanQRActivity, TraceabilityListActivity::class.java))
                         finish()
                     }
                 }

@@ -1,6 +1,7 @@
 package com.example.loginandsignupfirebase
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,12 +38,32 @@ class RecentScanFragment : Fragment() {
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
+//        val scanResult = arguments?.getString("scanResult")
+//        if (!scanResult.isNullOrEmpty()) {
+//            // Lakukan apa yang perlu Anda lakukan dengan data scanResult di sini
+//            // Misalnya, tampilkan data dalam RecyclerView
+//            // ...
+//
+//            // Buka detailed activity berdasarkan data scanResult
+//            openDetailedActivity(scanResult)
+//        }
 
         showAndClickList()
 //        emptyInformation()
 
+        binding!!.scanFAB.setOnClickListener {
+            startActivity(Intent(this.requireContext(), ScanQRActivity::class.java))
+        }
+
+
         return view
     }
+
+//    private fun openDetailedActivity(scanResult: String) {
+//        val intent = Intent(requireContext(), DetailRecentActivity::class.java)
+//        intent.putExtra("scanResult", scanResult)
+//        startActivity(intent)
+//    }
 
     private fun emptyInformation() {
         if (dataList.isEmpty()) {
@@ -110,3 +131,4 @@ class RecentScanFragment : Fragment() {
         binding = null
     }
 }
+

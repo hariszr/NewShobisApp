@@ -21,13 +21,20 @@ class DataClassNewAdd {
 
     var dataNotes: String? = null
 
+    var dataNameCreator: String? = null
+    var dataActor: String? = null
+    var dataEmail: String? = null
+    var dataGender: String? = null
+    var dataAddress: String? = null
+
     constructor(pid: String?, dataQrCode: String?, dataQrCodeUpdate: String?, dataPicProduct: String?, dataVariety: String?, dataWeight: String?, dataGrade: String?, dataPrice: String?,
                 dataFarmer: String?, dataDay: String?, dataPlantingArea: String?, dataFertilizer: String?, dataPesticides: String?, dataDateCreate: String?,
-                dataNotes: String?){
+                dataNotes: String?,
+                dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataAddress: String?){
 
         this.pid = pid
         this.dataQrCode = dataQrCode
-        this.dataQrCodeUpdate = dataQrCode
+        this.dataQrCodeUpdate = dataQrCode //dah bener ini gini
         this.dataPicProduct = dataPicProduct
         this.dataVariety = dataVariety
         this.dataWeight = dataWeight
@@ -43,6 +50,12 @@ class DataClassNewAdd {
         this.dataDateCreate = dataDateCreate
 
         this.dataNotes = dataNotes
+
+        this.dataNameCreator = dataNameCreator
+        this.dataActor = dataActor
+//        this.dataEmail = dataEmail
+        this.dataGender = dataGender
+        this.dataAddress = dataAddress
 
     }
     constructor() {}

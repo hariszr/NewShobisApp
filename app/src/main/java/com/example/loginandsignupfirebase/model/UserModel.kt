@@ -6,6 +6,8 @@ data class UserModel(
     val fullName: String? = "",
     val levelUser: String? = null,
     val gender: String? = "",
+//    val venture: String? = "",
+    val nameCompany: String? = "",
     val phone: String? = "",
     val address: String? = "",
     val imageUrl: String? = ""

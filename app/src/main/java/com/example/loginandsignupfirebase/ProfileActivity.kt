@@ -22,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var builder: Builder
-    private lateinit var firebaseref : DatabaseReference
+    private lateinit var firebaseRef : DatabaseReference
 
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -38,7 +38,7 @@ class ProfileActivity : AppCompatActivity() {
         println("INIT")
         builder = Builder(this)
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseref = Firebase.database.reference
+        firebaseRef = Firebase.database.reference
 
         fetchUserData()
 
@@ -126,7 +126,7 @@ class ProfileActivity : AppCompatActivity() {
         val auth = firebaseAuth.currentUser
         binding.emailTV.text = auth?.email
 
-        firebaseref.child("users").child(userID).child("Profile Users").get()
+        firebaseRef.child("users").child(userID).child("Profile Users").get()
             .addOnSuccessListener {
 
                 dialog.show()
@@ -135,6 +135,7 @@ class ProfileActivity : AppCompatActivity() {
                 val fullName = it.child("fullName").value?.toString().orEmpty()
                 val gender = it.child("gender").value?.toString().orEmpty()
                 val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
+                val company = it.child("nameCompany").value?.toString().orEmpty()
                 val phone = it.child("phone").value?.toString().orEmpty()
                 val address = it.child("address").value?.toString().orEmpty()
 
@@ -142,6 +143,7 @@ class ProfileActivity : AppCompatActivity() {
                 if (fullName.isNotBlank()) binding.fullNameTV.text = fullName
                 if (gender.isNotBlank()) binding.genderTV.text = gender
                 if (imageUrl.isNotBlank()) Glide.with(this).load(imageUrl).into(binding.profileShowSIV)
+                if (company.isNotBlank()) binding.companyTV.text = company
                 if (phone.isNotBlank()) binding.phoneTV.text = phone
                 if (address.isNotBlank()) binding.addressTV.text = address
 
@@ -150,6 +152,7 @@ class ProfileActivity : AppCompatActivity() {
                 dialog.dismiss()
             }. addOnFailureListener {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
             }
     }
 }

@@ -2,16 +2,23 @@ package com.example.loginandsignupfirebase
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.loginandsignupfirebase.databinding.ActivityProfileEditBinding
 import com.example.loginandsignupfirebase.model.UserModel
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -46,6 +53,7 @@ class ProfileEditActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
@@ -64,8 +72,11 @@ class ProfileEditActivity : AppCompatActivity() {
         val auth = firebaseAuth.currentUser
 
         binding.fullNameProfileET.setText(auth?.displayName)
+
         displayDropDownGender()
         displayEditProfile()
+
+        saveBtn(imageUrl.toString())
 
         binding.editFAB.setOnClickListener {
 //            val intent = Intent()
@@ -74,8 +85,6 @@ class ProfileEditActivity : AppCompatActivity() {
 //            startActivityForResult(intent,1)
             alertPhotoProfileEdit()
             }
-
-        saveBtn(imageUrl.toString())
 
         binding.backBtn.setOnClickListener {
             checkCloseBtn()
@@ -90,6 +99,30 @@ class ProfileEditActivity : AppCompatActivity() {
         val itemsLevel = listOf("Pedagang Lahan", "Pedagang Pengepul", "Pedagang Besar", "Pasar Induk", "Pasar Tradisional", "Pasar Modern", "E-Commerce", "Konsumen")
         val adapterLevel = ArrayAdapter(this, R.layout.item_list_dropdown, itemsLevel)
         binding.levelUserDropDown.setAdapter(adapterLevel)
+
+        val itemVenture = listOf("Individu", "Perusahaan")
+        val adapterVenture = ArrayAdapter(this, R.layout.item_list_dropdown, itemVenture)
+        binding.ventureDropDown.setAdapter(adapterVenture)
+
+        binding.ventureDropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = itemVenture[position]
+                Log.d("SpinnerSelection", "Selected item: $selectedItem")
+                val companyTextInputLayout = findViewById<TextInputLayout>(R.id.nameCompany_Profile_Layout)
+                val companyTextInputEditText = findViewById<TextInputLayout>(R.id.nameCompany_profile_ET)
+                if (selectedItem == "Perusahaan") {
+                    companyTextInputLayout.visibility = View.VISIBLE
+                    companyTextInputEditText.visibility = View.VISIBLE
+                } else {
+                    companyTextInputLayout.visibility = View.GONE
+                    companyTextInputEditText.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
     }
 
     private fun alertPhotoProfileEdit() {
@@ -152,11 +185,15 @@ class ProfileEditActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun displayEditProfile() {
         val userID = FirebaseAuth.getInstance().currentUser!!.uid
 
         val itemsGender = listOf("Male", "Female")
         val adapterGender = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGender)
+
+        val itemVenture = listOf("Individu", "Perusahaan")
+        val adapterVenture = ArrayAdapter(this, R.layout.item_list_dropdown, itemVenture)
 
         databaseReference.child(userID).child("Profile Users").get()
             .addOnSuccessListener {
@@ -164,6 +201,8 @@ class ProfileEditActivity : AppCompatActivity() {
                 val levelUser = it.child("levelUser").value?.toString().orEmpty()
                 val fullName = it.child("fullName").value?.toString().orEmpty()
                 val gender = it.child("gender").value?.toString().orEmpty()
+//                val venture = it.child("venture").value?.toString().orEmpty()
+                val nameCompany = it.child("nameCompany").value?.toString().orEmpty()
                 val imageUrl = it.child("imageUrl").value?.toString().orEmpty()
                 val phone = it.child("phone").value?.toString().orEmpty()
                 val address = it.child("address").value?.toString().orEmpty()
@@ -174,6 +213,11 @@ class ProfileEditActivity : AppCompatActivity() {
                     binding.genderDropDown.setText(gender)
                     binding.genderDropDown.setAdapter(adapterGender)
                 }
+//                if (venture.isNotBlank()) {
+//                    binding.ventureDropDown.setText(venture)
+//                    binding.ventureDropDown.setAdapter(adapterVenture)
+//                }
+                if (nameCompany.isNotBlank()) binding.nameCompanyProfileET.setText(nameCompany)
                 if (imageUrl.isNotBlank()) {
                     Glide.with(this).load(imageUrl).into(binding.profileSIV)
                     saveBtn(imageUrl)
@@ -186,29 +230,71 @@ class ProfileEditActivity : AppCompatActivity() {
             }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun saveBtn(imageUrl: String) {
         binding.saveProfileBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setCancelable(false)
+                .setView(R.layout.layout_progress)
+            val dialog = builder.create()
+            dialog.show()
 
-            if (binding.levelUserDropDown.text!!.isEmpty()) {
-                binding.levelUserDropDown.error = "Please enter your name"
+//            if (selectedImg == null) {
+//                Toast.makeText(this, "Please Selected your poto", Toast.LENGTH_SHORT).show()
+//                binding.profileSIV.requestFocus()
+//                return@setOnClickListener
+//            }
+            if (imageUrl.isEmpty()) {
+                Toast.makeText(this, "Please Selected your photo", Toast.LENGTH_SHORT).show()
+                binding.profileSIV.requestFocus()
+                return@setOnClickListener
+            }
 
-            } else if (binding.fullNameProfileET.text!!.isEmpty()){
-                binding.fullNameProfileET.error = "Please enter your name"
-
-            } else if (binding.genderDropDown.text!!.isEmpty()) {
-                binding.genderDropDown.error = "Please enter your phone"
-
-            } else if (binding.phoneProfileET.text!!.isEmpty()) {
-                binding.phoneProfileET.error = "Please enter your phone"
-
-            } else if (binding.addressProfileET.text!!.isEmpty()) {
-                binding.phoneProfileET.error = "Please enter your address"
+            if (binding.levelUserDropDown.text.isEmpty()) {
+                binding.levelUserDropDown.error = "Please enter your actor position"
+                binding.levelUserDropDown.requestFocus()
+                return@setOnClickListener
+            } else {
+                binding.levelUserDropDown.error = null
+                binding.levelUserDropDown.clearFocus()
 
             }
-//            else if (selectedImg == null || imageUrl == null) {
-//                Toast.makeText(this, "Please Selected your photo", Toast.LENGTH_SHORT).show()
-//            }
+            if (binding.fullNameProfileET.text!!.isEmpty()){
+                binding.fullNameProfileET.error = "Please enter your name"
+                binding.fullNameProfileET.requestFocus()
+                return@setOnClickListener
+
+            }
+            if (binding.genderDropDown.text!!.isEmpty()) {
+                binding.genderDropDown.error = "Please enter your phone"
+                binding.genderDropDown.requestFocus()
+                return@setOnClickListener
+            }else {
+                binding.genderDropDown.error = null
+                binding.genderDropDown.clearFocus()
+
+            }
+            if (binding.nameCompanyProfileET.text!!.isEmpty()) {
+                binding.nameCompanyProfileET.error = "Please enter your name of company"
+                binding.nameCompanyProfileET.requestFocus()
+                return@setOnClickListener
+
+            }
+            if (binding.phoneProfileET.text!!.isEmpty()) {
+                binding.phoneProfileET.error = "Please enter your phone"
+                binding.phoneProfileET.requestFocus()
+                return@setOnClickListener
+
+            }
+            if (binding.addressProfileET.text!!.isEmpty()) {
+                binding.phoneProfileET.error = "Please enter your address"
+                binding.phoneProfileET.requestFocus()
+                return@setOnClickListener
+
+            }
+            else
             uploadData(imageUrl)
+            dialog.dismiss()
 //                updateProfile()
         }
     }
@@ -245,11 +331,17 @@ class ProfileEditActivity : AppCompatActivity() {
             }
         } else {
             uploadInfo(imageUrl)
+
         }
 
     }
 
     private fun uploadInfo(imageUrl: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+            .setView(R.layout.layout_progress)
+        val dialog = builder.create()
+        dialog.show()
 
         val user = UserModel(
             firebaseAuth.uid.toString(),
@@ -257,6 +349,7 @@ class ProfileEditActivity : AppCompatActivity() {
             binding.fullNameProfileET.text.toString(),
             binding.levelUserDropDown.text.toString(),
             binding.genderDropDown.text.toString(),
+            binding.nameCompanyProfileET.text.toString(),
             binding.phoneProfileET.text.toString(),
             binding.addressProfileET.text.toString(),
             imageUrl)
@@ -269,8 +362,14 @@ class ProfileEditActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(this, "Profile Saved", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, ProfileActivity::class.java))
+                dialog.dismiss()
                 finish()
+            }.addOnFailureListener {
+                println("Error saved profile data : ${it.message}")
+                Log.e("Data Profile Saved", "${it.message}")
+                dialog.dismiss()
             }
+        dialog.dismiss()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

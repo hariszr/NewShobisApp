@@ -125,14 +125,17 @@ class NewTraceabilityActivity : AppCompatActivity() {
             return
         } else if (binding.weightEt.text.toString().toInt() > 30000) {
             binding.weightEt.error = "Maximum weight is 30000 gram"
-            binding.farmerEt.requestFocus()
+            binding.weightEt.requestFocus()
             return
         }
 
-        if (binding.gradeDropDown.text.toString().isEmpty()) {
+        if (binding.gradeDropDown.text.isEmpty()) {
             binding.gradeDropDown.error = "Grade cannot be empty"
             binding.gradeDropDown.requestFocus()
             return
+        } else {
+            binding.gradeDropDown.error = null
+            binding.gradeDropDown.clearFocus()
         }
 
         if (binding.priceEt.text.toString().isEmpty()) {
@@ -141,11 +144,11 @@ class NewTraceabilityActivity : AppCompatActivity() {
             return
         } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
             binding.priceEt.error = "Maximum price is Rp 1.000"
-            binding.farmerEt.requestFocus()
+            binding.priceEt.requestFocus()
             return
         } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 50000) {
             binding.priceEt.error = "Maximum price is Rp 50.000"
-            binding.farmerEt.requestFocus()
+            binding.priceEt.requestFocus()
             return
         }
 
@@ -168,8 +171,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.harvestTimeEt.requestFocus()
             return
         } else if (binding.harvestTimeEt.text.toString().length > 150) {
-            binding.farmerEt.error = "Maximum is 150 day"
-            binding.farmerEt.requestFocus()
+            binding.harvestTimeEt.error = "Maximum is 150 day"
+            binding.harvestTimeEt.requestFocus()
             return
         }
 
@@ -332,6 +335,56 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
         val notes = binding.noteEt.text.toString()
 
+        var email = firebaseAuth.currentUser?.email
+
+        firebaseRef.child(firebaseAuth.uid.toString()).child("Profile Users").get()
+            .addOnSuccessListener {
+                var fullName = it.child("fullName").value.toString()
+                var actor = it.child("levelUser").value.toString()
+                var gender = it.child("gender").value.toString()
+                var address = it.child("address").value.toString()
+
+                if (fullName.isBlank()) fullName = "-"
+                if (email!!.isBlank()) email = "-"
+                if (actor.isBlank()) actor = "-"
+                if (gender.isBlank()) gender = "-"
+                if (address.isBlank()) address = "-"
+
+                val dataClassNewAdd = DataClassNewAdd(
+                    pid, imageURL, imageURL, imageURLPic, variety, weight, grade, price,
+                    farmer, day, area, fertilizer, pesticides, dateCreate, notes,
+                    fullName, actor, email, gender, address
+                )
+
+
+                count += 1
+                println("${count} 1 URL unduhan gambar: $imageURL")
+                firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(pid)
+                    .setValue(dataClassNewAdd).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            firebaseRefServer.child(pid).setValue(dataClassNewAdd).addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Toast.makeText(this,"Created to Server", Toast.LENGTH_SHORT).show()
+                                }
+                            }.addOnFailureListener {
+                                Toast.makeText(this, "Failed create to server", Toast.LENGTH_SHORT).show()
+                            }
+//                    Toast.makeText(this,"Created", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@NewTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
+
+                            count += 1
+                            println("${count} 2 URL unduhan gambar: $imageURL")
+                            startActivity(Intent(this, TraceabilityListActivity::class.java))
+                            finish()
+                        }
+                    }.addOnFailureListener { e ->
+                        Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+            }.addOnFailureListener {
+                println("Error get profile data : ${it.message}")
+                Log.e("Get Profile Data", "${it.message}")
+            }
+
 
 //        when {
 //            imageURLPic == "" -> {
@@ -348,36 +401,6 @@ class NewTraceabilityActivity : AppCompatActivity() {
 //            }
 //
 //        }
-
-        val dataClassNewAdd = DataClassNewAdd(
-            pid, imageURL, imageURL, imageURLPic, variety, weight, grade, price,
-            farmer, day, area, fertilizer, pesticides, dateCreate, notes
-        )
-
-
-        count += 1
-        println("${count} 1 URL unduhan gambar: $imageURL")
-        firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(pid)
-            .setValue(dataClassNewAdd).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    firebaseRefServer.child(pid).setValue(dataClassNewAdd).addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(this,"Created to Server", Toast.LENGTH_SHORT).show()
-                        }
-                    }.addOnFailureListener {
-                        Toast.makeText(this, "Failed create to server", Toast.LENGTH_SHORT).show()
-                    }
-//                    Toast.makeText(this,"Created", Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(this@NewTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
-
-                    count += 1
-                    println("${count} 2 URL unduhan gambar: $imageURL")
-                    startActivity(Intent(this, TraceabilityListActivity::class.java))
-                    finish()
-                }
-            }.addOnFailureListener { e ->
-                Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
-            }
     }
 
 

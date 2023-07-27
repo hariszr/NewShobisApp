@@ -3,6 +3,7 @@ package com.example.loginandsignupfirebase
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
@@ -54,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.createNewCV.setOnClickListener {
-            startActivity(Intent(this, AddTraceabilityActivity::class.java))
+            startActivity(Intent(this, NewTraceabilityActivity::class.java))
         }
         binding.shTraceabilityCV.setOnClickListener {
             startActivity(Intent(this, TraceabilityListActivity::class.java))

@@ -15,8 +15,19 @@ class DataClassAdd {
 
     var dataDateCreate: String? = null
 
+    var dataNotes: String? = null
+
+    var dataNameCreator: String? = null
+    var dataActor: String? = null
+    var dataEmail: String? = null
+    var dataGender: String? = null
+    var dataAddress: String? = null
+
     constructor(pid: String?, dataQrCode: String?, dataArriveDate: String?, dataIncomingWeight: String?, dataGrade: String?, dataPrice: String?,
-                dataOutgoingWeight: String?, dataWeightLoss: String?, dataOutgoingDate: String?, dataDateCreate: String?){
+                dataOutgoingWeight: String?, dataWeightLoss: String?, dataOutgoingDate: String?, dataDateCreate: String?,
+                dataNotes: String?,
+                dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataAddress: String?
+    ){
 
         this.pid = pid
         this.dataQrCode = dataQrCode
@@ -30,6 +41,14 @@ class DataClassAdd {
         this.dataOutgoingDate = dataOutgoingDate
 
         this.dataDateCreate = dataDateCreate
+
+        this.dataNotes = dataNotes
+
+        this.dataNameCreator = dataNameCreator
+        this.dataActor = dataActor
+        this.dataEmail = dataEmail
+        this.dataGender = dataGender
+        this.dataAddress = dataAddress
 
     }
     constructor(dataQrCodeUpdate: String?) {

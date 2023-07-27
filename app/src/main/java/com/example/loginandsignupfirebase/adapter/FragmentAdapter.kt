@@ -27,5 +27,4 @@ BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         fragmentList.add(fragment)
         fragmentTitle.add(title)
     }
-
 }

@@ -145,7 +145,6 @@
                 android:layout_marginEnd="12dp"
                 android:hint="@string/grade_title"
                 app:boxStrokeColor="@color/salem_1"
-                app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <AutoCompleteTextView
@@ -153,7 +152,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_label"
-                    android:drawablePadding="12dp"/>
+                    android:drawablePadding="12dp"
+                    android:inputType="none"
+                    android:cursorVisible="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -161,6 +162,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:hint="@string/price_per_kg"

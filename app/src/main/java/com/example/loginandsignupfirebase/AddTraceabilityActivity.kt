@@ -215,15 +215,64 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
 
-        val dataClassAdd = DataClassAdd(
-            pid, imageURL, arriveDate, incomingWeight, grade, price,
-            outgoingWeight, weightLoss, outgoingDate, dateCreate
-        )
+        val notes = binding.noteEt.text.toString()
 
-//        val oldUserID = "-N_2Zl97LUTDlEGwEZ0t"
-//        val newUserID = "-N_X2uRf1b1N5Q8HT2HT"
-        val newUserID = pid
+        var email = firebaseAuth.currentUser?.email
 
+        firebaseRef.child(firebaseAuth.uid.toString()).child("Profile Users").get()
+            .addOnSuccessListener {
+
+                var fullName = it.child("fullName").value.toString()
+                var actor = it.child("levelUser").value.toString()
+                var gender = it.child("gender").value.toString()
+                var address = it.child("address").value.toString()
+
+                if (fullName.isBlank()) fullName = "-"
+                if (email!!.isBlank()) email = "-"
+                if (actor.isBlank()) actor = "-"
+                if (gender.isBlank()) gender = "-"
+                if (address.isBlank()) address = "-"
+
+                val dataClassAdd = DataClassAdd(
+                    pid, imageURL, arriveDate, incomingWeight, grade, price,
+                    outgoingWeight, weightLoss, outgoingDate, dateCreate,
+                    notes,
+                    fullName, actor, email, gender, address
+                )
+
+                count += 1
+                println("${count} 1 URL unduhan gambar: $imageURL")
+                firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+
+                            firebaseRefServer.child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd).addOnCompleteListener { t ->
+                                if (t.isSuccessful) {
+                                    updateQrCode(pid)
+                                    println("Data Secondary Successfully Updated to PID Server")
+                                    Log.i( "Server Updated","Data Secondary Successfully Updated to PID Server")
+                                }
+                            }.addOnFailureListener { e ->
+                                Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
+                                println("Data Secondary Failed Update to PID Server")
+                                Log.e( "Server Updated","Data Secondary Failed Update to PID Server")
+                            }
+
+                            Toast.makeText(this@AddTraceabilityActivity, "Created", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@AddTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
+                            count += 1
+                            println("${count} 2 URL unduhan gambar: $imageURL")
+                            startActivity(Intent(this@AddTraceabilityActivity, TraceabilityListActivity::class.java))
+                            finish()
+                        }
+                    }.addOnFailureListener { e ->
+                        Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+
+            }.addOnFailureListener {
+                println("Error get profile data : ${it.message}")
+                Log.e("Get Profile Data", "${it.message}")
+            }
 
 
 //        val startDate = LocalDateTime.of(2023, Month.JANUARY, 1, 0, 0, 0) // Tanggal dan waktu awal
@@ -278,34 +327,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 //                newUserRef.setValue(newAddData).addOnSuccessListener {
 //                    Log.d("Firebase", "Data copied successfully from $oldUserID to $newUserID")
 
-                    count += 1
-                    println("${count} 1 URL unduhan gambar: $imageURL")
-                    firebaseRef.child(firebaseAuth.uid.toString()).child("pid").child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-
-                                firebaseRefServer.child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd).addOnCompleteListener { t ->
-                                    if (t.isSuccessful) {
-                                        updateQrCode(pid)
-                                        println("Data Secondary Successfully Updated to PID Server")
-                                        Log.i( "Server Updated","Data Secondary Successfully Updated to PID Server")
-                                    }
-                                }.addOnFailureListener { e ->
-                                    Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
-                                    println("Data Secondary Failed Update to PID Server")
-                                    Log.e( "Server Updated","Data Secondary Failed Update to PID Server")
-                                }
-
-                                Toast.makeText(this@AddTraceabilityActivity, "Created", Toast.LENGTH_SHORT).show()
-                                Toast.makeText(this@AddTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
-                                count += 1
-                                println("${count} 2 URL unduhan gambar: $imageURL")
-                                startActivity(Intent(this@AddTraceabilityActivity, TraceabilityListActivity::class.java))
-                                finish()
-                            }
-                        }.addOnFailureListener { e ->
-                            Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
-                    }
+        /////////////////
 //                }
 //                    .addOnFailureListener { exception ->
 //                        Log.e(

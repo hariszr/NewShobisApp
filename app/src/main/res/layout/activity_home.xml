@@ -64,7 +64,7 @@
                 android:id="@+id/fullNameHomeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
+                android:text="@string/user"
                 android:textStyle="bold|normal"
                 android:textSize="28sp"
                 android:textAllCaps="false"/>

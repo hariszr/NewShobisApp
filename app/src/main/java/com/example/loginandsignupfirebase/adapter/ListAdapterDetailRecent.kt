@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.loginandsignupfirebase.model.DataClassAdd
 import com.example.loginandsignupfirebase.model.DataClassNewAdd
 
-class ListAdapterDetail(private val dataList: List<DataClassAdd>): RecyclerView.Adapter<MyViewHolderDetail>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderDetail {
+class ListAdapterDetailRecent(private val dataList: List<DataClassAdd>): RecyclerView.Adapter<MyViewHolderDetailRecent>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderDetailRecent {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_detail, parent, false)
-        return MyViewHolderDetail(view)
+        return MyViewHolderDetailRecent(view)
     }
 
     override fun getItemCount(): Int {
         return dataList.size
     }
 
-    override fun onBindViewHolder(holder: MyViewHolderDetail, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolderDetailRecent, position: Int) {
 //        Glide.with(context).load(dataList[position].dataQrCode).into(holder.itemRecQrCode)
         holder.itemPID.text = dataList[position].pid
         holder.itemCreateDate.text = dataList[position].dataDateCreate
@@ -62,7 +62,7 @@ class ListAdapterDetail(private val dataList: List<DataClassAdd>): RecyclerView.
 
 }
 
-class MyViewHolderDetail(itemView: View): RecyclerView.ViewHolder(itemView){
+class MyViewHolderDetailRecent(itemView: View): RecyclerView.ViewHolder(itemView){
     var itemLL : LinearLayout
     var itemPID : TextView
     var itemCreateDate : TextView

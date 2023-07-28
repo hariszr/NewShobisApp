@@ -70,7 +70,7 @@ class DetailUploadActivity : AppCompatActivity() {
 
 
         datalist = ArrayList()
-        adapter = ListAdapterDetail(this@DetailUploadActivity, datalist)
+        adapter = ListAdapterDetail(datalist)
         binding.listDetailRecyclerView.adapter = adapter
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid").child(PIDNode.toString())
         dialog.show()

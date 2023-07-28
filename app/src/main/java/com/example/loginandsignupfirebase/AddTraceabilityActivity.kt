@@ -100,7 +100,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
             builder.setCancelable(false).setView(R.layout.layout_progress)
             val dialog = builder.create()
             dialog.show()
-            validationInputData()
+//            validationInputData()
             initCopy()
 //            saveData()
             dialog.dismiss()
@@ -156,7 +156,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
                         for (childSnapshot in dataSnapshot.children) {
                             val sourceChildRef = childSnapshot.ref
                             val destinationChildRef = destinationRef.child(childSnapshot.key!!)
-                            copyDataServer(sourceChildRef, destinationChildRef) /** mungkin ini bisa diganti jadi "copyData" jika ada something yang error **/ {
+                            copyData(sourceChildRef, destinationChildRef) /** mungkin ini bisa diganti jadi "copyData" jika ada something yang error **/ {
                                 // Panggil callback setelah semua data berhasil disalin
                                 println("Successfully copied data to users")
                                 callback.invoke()

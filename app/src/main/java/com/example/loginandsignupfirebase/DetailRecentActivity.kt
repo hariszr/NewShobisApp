@@ -1,20 +1,8 @@
 package com.example.loginandsignupfirebase
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.DownloadManager
 import android.content.*
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Log
-import android.webkit.URLUtil
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,13 +11,7 @@ import com.example.loginandsignupfirebase.databinding.ActivityDetailRecentBindin
 import com.example.loginandsignupfirebase.model.DataClassAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.itextpdf.text.Document
-import com.itextpdf.text.Element
-import com.itextpdf.text.Image
-import com.itextpdf.text.PageSize
-import com.itextpdf.text.pdf.PdfWriter
 import kotlinx.coroutines.*
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -57,20 +39,12 @@ class DetailRecentActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        PIDNode = intent.extras?.getString("PIDNode")
-
         binding.backProductListIV.setOnClickListener {
 //            startActivity(Intent(this, TraceabilityListActivity::class.java))
             finish()
         }
-
+        PIDNode = intent.extras?.getString("PIDNode")
         progressLoad()
-
-        binding.addDataBtn.setOnClickListener {
-            val intent = Intent(this@DetailRecentActivity, AddTraceabilityActivity::class.java)
-            intent.putExtra("sendPID", PIDNode)
-            startActivity(intent)
-        }
 
         val gridLayoutManager = GridLayoutManager(this@DetailRecentActivity, 1)
         binding.listDetailRecyclerView.layoutManager = gridLayoutManager
@@ -83,9 +57,9 @@ class DetailRecentActivity : AppCompatActivity() {
 
 
         datalist = ArrayList()
-        adapter = ListAdapterDetail(this@DetailRecentActivity, datalist)
+        adapter = ListAdapterDetail(datalist)
         binding.listDetailRecyclerView.adapter = adapter
-        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("pid").child(PIDNode.toString())
+        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("Recent Scan").child(PIDNode.toString()) /** ini yang buat error, masih di setting "pid" referensi child nya, harusnya recent itu yang di child "Recent Scan" **/
         dialog.show()
 
         eventListener = databaseReference!!.child("Secondary Data").addValueEventListener(object : ValueEventListener {
@@ -109,6 +83,12 @@ class DetailRecentActivity : AppCompatActivity() {
             }
 
         })
+
+        binding.addDataBtn.setOnClickListener {
+            val intent = Intent(this@DetailRecentActivity, AddTraceabilityActivity::class.java)
+            intent.putExtra("sendPID", PIDNode)
+            startActivity(intent)
+        }
 
 //        databaseReference!!.addChildEventListener(object : ChildEventListener {
 //            @SuppressLint("NotifyDataSetChanged")

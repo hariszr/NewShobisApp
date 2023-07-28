@@ -87,6 +87,31 @@ class NewTraceabilityActivity : AppCompatActivity() {
         binding.createTraceabilityBtn.setOnClickListener {
             validateInputData()
         }
+
+        binding.gradeDropDown.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationGrade()
+            }
+        })
+    }
+
+    private fun validationGrade() {
+        if (binding.gradeDropDown.text.isEmpty()) {
+            binding.gradeLayout.error = "Grade cannot be empty"
+            binding.gradeDropDown.requestFocus()
+            return
+        } else {
+            binding.gradeLayout.error = null
+            binding.gradeDropDown.clearFocus()
+        }
     }
 
     private fun validateInputData() {
@@ -130,11 +155,11 @@ class NewTraceabilityActivity : AppCompatActivity() {
         }
 
         if (binding.gradeDropDown.text.isEmpty()) {
-            binding.gradeDropDown.error = "Grade cannot be empty"
+            binding.gradeLayout.error = "Grade cannot be empty"
             binding.gradeDropDown.requestFocus()
             return
         } else {
-            binding.gradeDropDown.error = null
+            binding.gradeLayout.error = null
             binding.gradeDropDown.clearFocus()
         }
 
@@ -142,8 +167,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.priceEt.error = "Price cannot be empty"
             binding.priceEt.requestFocus()
             return
-        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
-            binding.priceEt.error = "Maximum price is Rp 1.000"
+        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 3000) {
+            binding.priceEt.error = "Maximum price is Rp 3.000"
             binding.priceEt.requestFocus()
             return
         } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {

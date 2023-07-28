@@ -262,6 +262,12 @@ class DetailUploadActivity : AppCompatActivity() {
             binding.dateCreateTV.text = bundle.getString("Date")
             binding.notesTV.text = bundle.getString("Note")
 
+            binding.creatorTV.text = bundle.getString("Creator")
+            binding.actorTV.text = bundle.getString("Actor")
+            binding.emailTV.text = bundle.getString("Email")
+            binding.companyTV.text = bundle.getString("Company")
+            binding.addressTV.text = bundle.getString("Address")
+
         }
     }
 }

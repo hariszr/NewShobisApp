@@ -25,12 +25,13 @@ class DataClassNewAdd {
     var dataActor: String? = null
     var dataEmail: String? = null
     var dataGender: String? = null
+    var dataCompany: String? = null
     var dataAddress: String? = null
 
     constructor(pid: String?, dataQrCode: String?, dataQrCodeUpdate: String?, dataPicProduct: String?, dataVariety: String?, dataWeight: String?, dataGrade: String?, dataPrice: String?,
                 dataFarmer: String?, dataDay: String?, dataPlantingArea: String?, dataFertilizer: String?, dataPesticides: String?, dataDateCreate: String?,
                 dataNotes: String?,
-                dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataAddress: String?){
+                dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataCompany: String?, dataAddress: String?){
 
         this.pid = pid
         this.dataQrCode = dataQrCode
@@ -53,8 +54,9 @@ class DataClassNewAdd {
 
         this.dataNameCreator = dataNameCreator
         this.dataActor = dataActor
-//        this.dataEmail = dataEmail
+        this.dataEmail = dataEmail
         this.dataGender = dataGender
+        this.dataCompany = dataCompany
         this.dataAddress = dataAddress
 
     }

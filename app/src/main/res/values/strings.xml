@@ -108,4 +108,7 @@
     <string name="user">User</string>
     <string name="company">Company</string>
     <string name="your_company">Your Company</string>
+    <string name="actor_sub_title">Actor:</string>
+    <string name="creator_information">Creator Information</string>
+    <string name="company_sub_title">Company:</string>
 </resources>

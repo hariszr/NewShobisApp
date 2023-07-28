@@ -459,6 +459,13 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="333dp"
+                        android:layout_height="0.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/black">
+                    </View>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -470,7 +477,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Creator Information"
+                            android:text="@string/creator_information"
                             android:textColor="@color/salem_1"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -485,8 +492,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
                         android:text="@string/creator_name"
                         android:textColor="@color/grey_mid"
@@ -507,7 +514,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/actor_sub_title"
+                        android:textColor="@color/grey_mid"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/actorTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginBottom="15dp"
+                        android:hint="@string/your_data_in_here"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
                         android:text="@string/email_address_sub_title"
                         android:textColor="@color/grey_mid"
@@ -528,14 +554,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="@string/gender_sub_title"
+                        android:text="@string/company_sub_title"
                         android:textColor="@color/grey_mid"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                     <TextView
-                        android:id="@+id/genderTV"
+                        android:id="@+id/companyTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30sp"
@@ -549,7 +574,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
                         android:text="@string/address_sub_title"
                         android:textColor="@color/grey_mid"

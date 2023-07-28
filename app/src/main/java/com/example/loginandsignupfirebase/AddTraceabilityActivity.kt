@@ -100,10 +100,15 @@ class AddTraceabilityActivity : AppCompatActivity() {
             builder.setCancelable(false).setView(R.layout.layout_progress)
             val dialog = builder.create()
             dialog.show()
+            validationInputData()
             initCopy()
 //            saveData()
             dialog.dismiss()
         }
+    }
+
+    private fun validationInputData() {
+        TODO("Not yet implemented")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -112,7 +117,6 @@ class AddTraceabilityActivity : AppCompatActivity() {
 //                .child(uri!!.lastPathSegment!!)
 
     }
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun makeProductID(): String {
 
@@ -124,7 +128,6 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         return pid
     }
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun initCopy() {
         val newPID = makeProductID()
@@ -153,7 +156,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
                         for (childSnapshot in dataSnapshot.children) {
                             val sourceChildRef = childSnapshot.ref
                             val destinationChildRef = destinationRef.child(childSnapshot.key!!)
-                            copyDataServer(sourceChildRef, destinationChildRef) {
+                            copyDataServer(sourceChildRef, destinationChildRef) /** mungkin ini bisa diganti jadi "copyData" jika ada something yang error **/ {
                                 // Panggil callback setelah semua data berhasil disalin
                                 println("Successfully copied data to users")
                                 callback.invoke()
@@ -217,27 +220,30 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         val notes = binding.noteEt.text.toString()
 
-        var email = firebaseAuth.currentUser?.email
+//        var email = firebaseAuth.currentUser?.email
 
         firebaseRef.child(firebaseAuth.uid.toString()).child("Profile Users").get()
             .addOnSuccessListener {
 
                 var fullName = it.child("fullName").value.toString()
+                var email = it.child("email").value.toString()
                 var actor = it.child("levelUser").value.toString()
                 var gender = it.child("gender").value.toString()
+                var company = it.child("nameCompany").value.toString()
                 var address = it.child("address").value.toString()
 
                 if (fullName.isBlank()) fullName = "-"
-                if (email!!.isBlank()) email = "-"
+                if (email.isBlank()) email = "-"
                 if (actor.isBlank()) actor = "-"
                 if (gender.isBlank()) gender = "-"
+                if (company.isBlank()) company = "-"
                 if (address.isBlank()) address = "-"
 
                 val dataClassAdd = DataClassAdd(
                     pid, imageURL, arriveDate, incomingWeight, grade, price,
                     outgoingWeight, weightLoss, outgoingDate, dateCreate,
                     notes,
-                    fullName, actor, email, gender, address
+                    fullName, actor, email, gender, company, address
                 )
 
                 count += 1

@@ -73,6 +73,12 @@ class ListAdapterUpload(private val context: UploadFragment, private val dataLis
 
             intent.putExtra("Note", dataList[holder.adapterPosition].dataNotes)
 
+            intent.putExtra("Creator", dataList[holder.adapterPosition].dataNameCreator)
+            intent.putExtra("Actor", dataList[holder.adapterPosition].dataActor)
+            intent.putExtra("Email", dataList[holder.adapterPosition].dataEmail)
+            intent.putExtra("Company", dataList[holder.adapterPosition].dataCompany)
+            intent.putExtra("Address", dataList[holder.adapterPosition].dataAddress)
+
             context.startActivity(intent)
 
             MaterialAlertDialogBuilder(holder.itemView.context)

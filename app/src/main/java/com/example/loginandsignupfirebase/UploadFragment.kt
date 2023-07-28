@@ -3,6 +3,7 @@ package com.example.loginandsignupfirebase
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +23,9 @@ class UploadFragment : Fragment() {
     private lateinit var adapter: ListAdapterUpload
     private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var firebaseDatabase: FirebaseDatabase
-    var databaseReference: DatabaseReference? = null
+    private lateinit var databaseReference: DatabaseReference
     var eventListener: ValueEventListener? = null
+    private lateinit var dialog : AlertDialog
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,12 +45,70 @@ class UploadFragment : Fragment() {
         showAndClickList()
 
         binding!!.addFAB.setOnClickListener {
-            startActivity(Intent(this.requireContext(), NewTraceabilityActivity::class.java))
+            checkActor()
         }
 
         return view
 
     }
+
+    private fun checkActor() {
+
+        databaseReference.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
+
+                    println("get actor : ${actor.toString()}")
+
+                    if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" || actor == "E-Commerce") {
+                        dialog = AlertDialog.Builder(requireContext())
+                            .setTitle("You Are a Market Level Actor")
+                            .setMessage("You are not allowed to access this")
+                            .setCancelable(true)
+                            .setPositiveButton("Close") {dialogInterface, it ->
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                        return
+                    }
+
+                    else if (actor == "Konsumen") {
+                        dialog = AlertDialog.Builder(requireContext())
+                            .setTitle("You Are a Consumer")
+                            .setMessage("You are not allowed to access this")
+                            .setCancelable(true)
+                            .setPositiveButton("Close") {dialogInterface, it ->
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                        return
+                    } else {
+                        startActivity(Intent(requireContext(), NewTraceabilityActivity::class.java))
+                    }
+                } else {
+                    dialog = AlertDialog.Builder(requireContext())
+                        .setTitle("User Profile is Empty")
+                        .setMessage("Please, complete your user profile first!")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") {dialogInterface, it ->
+                            startActivity(Intent(requireContext(), ProfileActivity::class.java))
+                        }
+                        .setNegativeButton("No") {dialogInterface, it ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                    return
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Check Actor : ${error.message}")
+                Log.e("Check Actor", "Error when check actor: ${error.message}")
+            }
+        })
+    }
+
     private fun showAndClickList() {
         val gridLayoutManager= GridLayoutManager(context, 1)
         binding?.listTraceRecyclerView?.layoutManager = gridLayoutManager
@@ -69,11 +129,11 @@ class UploadFragment : Fragment() {
 
         adapter = ListAdapterUpload(this, dataList)
         binding?.listTraceRecyclerView?.adapter = adapter
-        databaseReference = databaseReference?.child(firebaseAuth.uid.toString())?.child("pid")
+        val databaseReferenceChild = databaseReference.child(firebaseAuth.uid.toString()).child("pid")
         dialog?.show()
 
 
-        eventListener = databaseReference!!.addValueEventListener(object : ValueEventListener{
+        eventListener = databaseReferenceChild.addValueEventListener(object : ValueEventListener{
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()

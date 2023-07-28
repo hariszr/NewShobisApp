@@ -1,5 +1,6 @@
 package com.example.loginandsignupfirebase
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -192,8 +193,8 @@ class ProfileEditActivity : AppCompatActivity() {
         val itemsGender = listOf("Male", "Female")
         val adapterGender = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGender)
 
-        val itemVenture = listOf("Individu", "Perusahaan")
-        val adapterVenture = ArrayAdapter(this, R.layout.item_list_dropdown, itemVenture)
+        val itemsLevel = listOf("Pedagang Lahan", "Pedagang Pengepul", "Pedagang Besar", "Pasar Induk", "Pasar Tradisional", "Pasar Modern", "E-Commerce", "Konsumen")
+        val adapterLevel = ArrayAdapter(this, R.layout.item_list_dropdown, itemsLevel)
 
         databaseReference.child(userID).child("Profile Users").get()
             .addOnSuccessListener {
@@ -207,7 +208,10 @@ class ProfileEditActivity : AppCompatActivity() {
                 val phone = it.child("phone").value?.toString().orEmpty()
                 val address = it.child("address").value?.toString().orEmpty()
 
-                if (levelUser.isNotBlank()) binding.levelUserDropDown.setText(levelUser)
+                if (levelUser.isNotBlank()) {
+                    binding.levelUserDropDown.setText(levelUser)
+                    binding.levelUserDropDown.setAdapter(adapterLevel)
+                }
                 if (fullName.isNotBlank()) binding.fullNameProfileET.setText(fullName)
                 if (gender.isNotBlank()) {
                     binding.genderDropDown.setText(gender)
@@ -230,6 +234,7 @@ class ProfileEditActivity : AppCompatActivity() {
             }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveBtn(imageUrl: String) {
         binding.saveProfileBtn.setOnClickListener {

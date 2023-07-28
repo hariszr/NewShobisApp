@@ -3,24 +3,24 @@ package com.example.loginandsignupfirebase
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.loginandsignupfirebase.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var builder: AlertDialog.Builder
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var firebaseref : DatabaseReference
+    private lateinit var firebaseRef : DatabaseReference
+    private lateinit var firebaseRef2 : DatabaseReference
+    private lateinit var dialog : AlertDialog
     private var backPressedTime = 0L
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -41,8 +41,9 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
-        firebaseref = Firebase.database.reference
+        firebaseRef = Firebase.database.reference
         firebaseAuth = FirebaseAuth.getInstance()
+        firebaseRef2 = FirebaseDatabase.getInstance().getReference("users")
 
         fetchUserDataHome()
 
@@ -55,11 +56,68 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.createNewCV.setOnClickListener {
-            startActivity(Intent(this, NewTraceabilityActivity::class.java))
+            checkActor()
         }
         binding.shTraceabilityCV.setOnClickListener {
             startActivity(Intent(this, TraceabilityListActivity::class.java))
         }
+    }
+
+    fun checkActor() {
+
+        firebaseRef2.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
+
+                    println("get actor : ${actor.toString()}")
+
+                    if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" || actor == "E-Commerce") {
+                        dialog = AlertDialog.Builder(this@HomeActivity)
+                            .setTitle("You Are a Market Level Actor")
+                            .setMessage("You are not allowed to access this")
+                            .setCancelable(true)
+                            .setPositiveButton("Close") {dialogInterface, it ->
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                        return
+                    }
+
+                    else if (actor == "Konsumen") {
+                        dialog = AlertDialog.Builder(this@HomeActivity)
+                            .setTitle("You Are a Consumer")
+                            .setMessage("You are not allowed to access this")
+                            .setCancelable(true)
+                            .setPositiveButton("Close") {dialogInterface, it ->
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                        return
+                    } else {
+                        startActivity(Intent(this@HomeActivity, NewTraceabilityActivity::class.java))
+                    }
+                } else {
+                    dialog = AlertDialog.Builder(this@HomeActivity)
+                        .setTitle("User Profile is Empty")
+                        .setMessage("Please, complete your user profile first!")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") {dialogInterface, it ->
+                            startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+                        }
+                        .setNegativeButton("No") {dialogInterface, it ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                    return
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Check Actor : ${error.message}")
+                Log.e("Check Actor", "Error when check actor: ${error.message}")
+            }
+        })
     }
 
     private fun fetchUserDataHome() {
@@ -72,7 +130,7 @@ class HomeActivity : AppCompatActivity() {
 
         val userID = FirebaseAuth.getInstance().currentUser!!.uid
 
-        firebaseref.child("users").child(userID).child("Profile Users").get()
+        firebaseRef.child("users").child(userID).child("Profile Users").get()
             .addOnSuccessListener {
                 dialog.show()
 

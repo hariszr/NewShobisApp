@@ -144,7 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/product_information_tittle"
+                            android:text="@string/update_product_information_tittle"
                             android:textColor="@color/salem_1"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -234,7 +234,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5sp"
                                 android:layout_marginBottom="5dp"
-                                android:text="@string/gram"
+                                android:text="@string/kilogram"
                                 android:textColor="@color/black"
                                 android:textSize="17sp"
                                 android:textStyle="normal" />

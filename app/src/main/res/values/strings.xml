@@ -19,17 +19,17 @@
     <string name="sign_out">Sign Out</string>
 
     <string name="add_traceability_data">Add Traceability Data</string>
-    <string name="product_information">Product Information:</string>
+    <string name="update_product_information">Update Product Information:</string>
     <string name="product_arrived_date">Product Arrived Date</string>
-    <string name="product_weight_upon_arrival_gram">Product Weight Upon Arrival (gram)</string>
+    <string name="product_weight_upon_arrival_kilogram">Product Weight Upon Arrival (Kg)</string>
     <string name="grade_title">Grade</string>
     <string name="price_per_kg">Price (per Kg)</string>
-    <string name="outgoing_product_weight_gram">Outgoing Product Weight (gram)</string>
-    <string name="process_weight_loss_gram">Process Weight Loss (gram)</string>
+    <string name="outgoing_product_weight_kilogram">Outgoing Product Weight (Kg)</string>
+    <string name="process_weight_loss_kilogram">Process Weight Loss (Kg)</string>
     <string name="product_outgoing_date">Product Outgoing Date</string>
 
     <string name="product_detail">Product Detail</string>
-    <string name="product_information_tittle">Product Information</string>
+    <string name="update_product_information_tittle">Update Product Information</string>
     <string name="shallot_variety">Shallot Variety:</string>
     <string name="your_data_in_here">Your data in here!</string>
     <string name="weight">Weight:</string>
@@ -54,7 +54,7 @@
     <string name="grade">Grade :</string>
     <string name="create_new_traceability">Create New Traceability</string>
     <string name="shallot_variety_ET">Shallot Variety</string>
-    <string name="product_weight_gram">Product Weight (gram)</string>
+    <string name="product_weight_kilogram">Product Weight (Kg)</string>
     <string name="shallot_plating_information_sub_tittle">Shallot Plating Information:</string>
     <string name="farmer_name_ET">Farmer Name</string>
     <string name="harvest_time_day_ET">Harvest Time (day)</string>
@@ -97,7 +97,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_traceability_uploads_will_appear_here">Your traceability uploads will appear here</string>
     <string name="your_traceability_scan_will_be_displayed_here">Your Traceability Scan will be displayed here</string>
-    <string name="gram">gram</string>
+    <string name="kilogram">Kg</string>
     <string name="weight_data">W data</string>
     <string name="email_address_sub_title">Email Address:</string>
     <string name="creator_name">Creator Name:</string>

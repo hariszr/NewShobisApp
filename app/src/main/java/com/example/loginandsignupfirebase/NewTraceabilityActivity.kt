@@ -123,8 +123,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.weightEt.error = "Weight cannot be empty"
             binding.weightEt.requestFocus()
             return
-        } else if (binding.weightEt.text.toString().toInt() > 30000) {
-            binding.weightEt.error = "Maximum weight is 30000 gram"
+        } else if (binding.weightEt.text.toString().toInt() > 6000) {
+            binding.weightEt.error = "Maximum weight is 6000 gram"
             binding.weightEt.requestFocus()
             return
         }
@@ -146,8 +146,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.priceEt.error = "Maximum price is Rp 1.000"
             binding.priceEt.requestFocus()
             return
-        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 50000) {
-            binding.priceEt.error = "Maximum price is Rp 50.000"
+        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
+            binding.priceEt.error = "Maximum price is Rp 60.000"
             binding.priceEt.requestFocus()
             return
         }

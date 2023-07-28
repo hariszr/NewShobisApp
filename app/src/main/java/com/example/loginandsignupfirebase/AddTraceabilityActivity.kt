@@ -46,6 +46,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
     private var oldPID: String? = ""
 
+    private var loadingDialog: AlertDialog? = null
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,19 +98,203 @@ class AddTraceabilityActivity : AppCompatActivity() {
         }
 
         binding.addDataTraceabilityBtn.setOnClickListener {
-            val builder = AlertDialog.Builder(this@AddTraceabilityActivity)
-            builder.setCancelable(false).setView(R.layout.layout_progress)
-            val dialog = builder.create()
-            dialog.show()
-//            validationInputData()
-            initCopy()
+            validationInputData()
 //            saveData()
-            dialog.dismiss()
+        }
+
+        binding.arriveDateEt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationInputDateArrive()
+            }
+        })
+
+        binding.gradeDropDown.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationGrade()
+            }
+        })
+
+        binding.outgoingDateEt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationInputDateOutgoing()
+            }
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingDialog?.let {
+            if (it.isShowing) {
+                it.dismiss()
+            }
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun DialogProgressStart() {
+        val builder = AlertDialog.Builder(this@AddTraceabilityActivity)
+        builder.setCancelable(false)
+            .setView(R.layout.layout_progress)
+        loadingDialog = builder.create()
+        loadingDialog?.show()
+        initCopy()
+    }
+
+
+    private fun validationInputDateArrive() {
+        if (binding.arriveDateEt.text.toString().isEmpty()) {
+            binding.arriveDateLayout.error = "Product arrive date cannot be empty"
+            binding.arriveDateEt.requestFocus()
+            return
+        } else {
+            binding.arriveDateLayout.error = null
+        }
+    }
+
+    private fun validationGrade() {
+        if (binding.gradeDropDown.text.isEmpty()) {
+            binding.gradeLayout.error = "Grade cannot be empty"
+            binding.gradeDropDown.requestFocus()
+            return
+        } else {
+            binding.gradeLayout.error = null
+            binding.gradeDropDown.clearFocus()
+        }
+    }
+    private fun validationInputDateOutgoing() {
+        if (binding.outgoingDateEt.text.toString().isEmpty()) {
+            binding.outgoingDateLayout.error = "Product outgoing date cannot be empty"
+            binding.outgoingDateEt.requestFocus()
+            return
+        } else {
+            binding.outgoingDateLayout.error = null
+            binding.outgoingDateEt.clearFocus()
+            binding.weightLossEt.clearFocus()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun validationInputData() {
-        TODO("Not yet implemented")
+        //arrive date
+        if (binding.arriveDateEt.text.toString().isEmpty()) {
+            binding.arriveDateLayout.error = "Product arrive date cannot be empty"
+            binding.arriveDateEt.requestFocus()
+            return
+        } else {
+            binding.arriveDateLayout.error = null
+        }
+
+        if (binding.incomingWeightEt.text.toString().isEmpty()) {
+            binding.incomingWeightEt.error = "Product weight upon arrival cannot be empty"
+            binding.incomingWeightEt.requestFocus()
+            return
+        } else if (binding.incomingWeightEt.text.toString().toInt() > 6000) {
+            binding.incomingWeightEt.error = "Maximum weight is 6000 Kg"
+            binding.incomingWeightEt.requestFocus()
+            return
+        } else if (binding.incomingWeightEt.text.toString().length > 4) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
+            binding.incomingWeightEt.error = "Maximum 4 digit"
+            binding.incomingWeightEt.requestFocus()
+            return
+        } else {
+            binding.incomingWeightEt.error = null
+        }
+
+        //grade
+        if (binding.gradeDropDown.text.isEmpty()) {
+            binding.gradeLayout.error = "Grade cannot be empty"
+            binding.gradeDropDown.requestFocus()
+            return
+        } else {
+            binding.gradeLayout.error = null
+            binding.gradeDropDown.clearFocus()
+        }
+
+        if (binding.priceEt.text.toString().isEmpty()) {
+            binding.priceEt.error = "Price cannot be empty"
+            binding.priceEt.requestFocus()
+            return
+        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
+            binding.priceEt.error = "Maximum price is Rp 1.000"
+            binding.priceEt.requestFocus()
+            return
+        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
+            binding.priceEt.error = "Maximum price is Rp 60.000"
+            binding.priceEt.requestFocus()
+            return
+        } else {
+            binding.priceEt.error = null
+        }
+
+        if (binding.outgoingWeightEt.text.toString().isEmpty()) {
+            binding.outgoingWeightEt.error = "Outgoing weight cannot be empty"
+            binding.outgoingWeightEt.requestFocus()
+            return
+        } else if (binding.outgoingWeightEt.text.toString().toInt() > 6000) {
+            binding.outgoingWeightEt.error = "Maximum weight is 6000 Kg"
+            binding.outgoingWeightEt.requestFocus()
+            return
+        } else if (binding.outgoingWeightEt.text.toString().length > 4) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
+            binding.outgoingWeightEt.error = "Maximum 4 digit"
+            binding.outgoingWeightEt.requestFocus()
+            return
+        }
+
+        if (binding.weightLossEt.text.toString().isEmpty()) {
+            binding.weightLossEt.error = "Weight loss cannot be empty"
+            binding.weightLossEt.requestFocus()
+            return
+        }
+        else if (binding.weightLossEt.text.toString().toInt() > 100) {
+            binding.weightLossEt.error = "Maximum weight loss is 100 Kg"
+            binding.weightLossEt.requestFocus()
+            return
+        } else if (binding.weightLossEt.text.toString().length > 3) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
+            binding.weightLossEt.error = "Maximum 3 digit"
+            binding.weightLossEt.requestFocus()
+            return
+        }
+
+        //outgoing date
+        if (binding.outgoingDateEt.text.toString().isEmpty()) {
+            binding.outgoingDateLayout.error = "Product outgoing date cannot be empty"
+            binding.outgoingDateEt.requestFocus()
+            return
+        } else {
+            binding.outgoingDateLayout.error = null
+            binding.outgoingDateEt.clearFocus()
+            binding.weightLossEt.clearFocus()
+        }
+
+        if (binding.noteEt.text.toString().trim().isEmpty()) {
+            binding.noteEt.setText("-")
+            binding.noteEt.clearFocus()
+        }
+        DialogProgressStart()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -119,7 +305,6 @@ class AddTraceabilityActivity : AppCompatActivity() {
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun makeProductID(): String {
-
         val newProductID = firebaseRef.push()
         val pid = newProductID.key!!
 
@@ -130,6 +315,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
     }
     @RequiresApi(Build.VERSION_CODES.O)
     fun initCopy() {
+
         val newPID = makeProductID()
         println("NewPID : $newPID")
 //        val oldPID = "-N_yGBMC_nwnvhktwjxB"
@@ -265,7 +451,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
                             }
 
                             Toast.makeText(this@AddTraceabilityActivity, "Created", Toast.LENGTH_SHORT).show()
-                            Toast.makeText(this@AddTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(this@AddTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
                             count += 1
                             println("${count} 2 URL unduhan gambar: $imageURL")
                             startActivity(Intent(this@AddTraceabilityActivity, TraceabilityListActivity::class.java))

@@ -3,6 +3,7 @@ package com.example.loginandsignupfirebase
 import android.annotation.SuppressLint
 import android.content.*
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,7 +24,9 @@ class DetailRecentActivity : AppCompatActivity() {
     private lateinit var adapter: ListAdapterDetail
     private lateinit var firebaseAuth : FirebaseAuth
     var databaseReference: DatabaseReference? = null
+    private lateinit var databaseReference2: DatabaseReference
     var eventListener: ValueEventListener? = null
+    private lateinit var dialog : AlertDialog
     var QrCode = ""
     var imageUrl = ""
     var PIDNode: String? = ""
@@ -60,6 +63,7 @@ class DetailRecentActivity : AppCompatActivity() {
         adapter = ListAdapterDetail(datalist)
         binding.listDetailRecyclerView.adapter = adapter
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString()).child("Recent Scan").child(PIDNode.toString()) /** ini yang buat error, masih di setting "pid" referensi child nya, harusnya recent itu yang di child "Recent Scan" **/
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("users")
         dialog.show()
 
         eventListener = databaseReference!!.child("Secondary Data").addValueEventListener(object : ValueEventListener {
@@ -85,9 +89,7 @@ class DetailRecentActivity : AppCompatActivity() {
         })
 
         binding.addDataBtn.setOnClickListener {
-            val intent = Intent(this@DetailRecentActivity, AddTraceabilityActivity::class.java)
-            intent.putExtra("sendPID", PIDNode)
-            startActivity(intent)
+            checkConsumer()
         }
 
 //        databaseReference!!.addChildEventListener(object : ChildEventListener {
@@ -123,6 +125,51 @@ class DetailRecentActivity : AppCompatActivity() {
 //            }
 //        })
 
+    }
+
+    private fun checkConsumer() {
+        databaseReference2.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
+
+                    println("get actor : ${actor.toString()}")
+                    if (actor == "Konsumen") {
+                        dialog = AlertDialog.Builder(this@DetailRecentActivity)
+                            .setTitle("Consumer")
+                            .setMessage("You are not allowed to access this")
+                            .setCancelable(true)
+                            .setPositiveButton("Close") {dialogInterface, it ->
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                        return
+                    } else {
+                        val intent = Intent(this@DetailRecentActivity, AddTraceabilityActivity::class.java)
+                        intent.putExtra("sendPID", PIDNode)
+                        startActivity(intent)
+                    }
+                } else {
+                    dialog = AlertDialog.Builder(this@DetailRecentActivity)
+                        .setTitle("User Profile is Empty")
+                        .setMessage("Please, complete your user profile first!")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") {dialogInterface, it ->
+                            startActivity(Intent(this@DetailRecentActivity, ProfileActivity::class.java))
+                        }
+                        .setNegativeButton("No") {dialogInterface, it ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                    return
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Check Actor : ${error.message}")
+                Log.e("Check Actor", "Error when check actor: ${error.message}")
+            }
+        })
     }
 
     private fun progressLoad() {

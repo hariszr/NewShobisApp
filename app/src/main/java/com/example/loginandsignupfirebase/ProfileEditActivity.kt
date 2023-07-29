@@ -210,7 +210,7 @@ class ProfileEditActivity : AppCompatActivity() {
 
                 if (levelUser.isNotBlank()) {
                     binding.levelUserDropDown.setText(levelUser)
-//                    binding.levelUserDropDown.setAdapter(adapterLevel)
+                    binding.levelUserDropDown.setAdapter(adapterLevel)
                 }
                 if (fullName.isNotBlank()) binding.fullNameProfileET.setText(fullName)
                 if (gender.isNotBlank()) {

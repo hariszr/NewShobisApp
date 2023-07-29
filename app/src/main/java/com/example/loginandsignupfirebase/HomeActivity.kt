@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
         fetchUserDataHome()
 
         binding.scanCV.setOnClickListener {
-            startActivity(Intent(this, ScanQRActivity::class.java))
+            checkDataUser()
         }
 
         binding.profileSIV.setOnClickListener {
@@ -63,6 +63,39 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkDataUser() {
+        firebaseRef2.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
+
+                    println("get actor : ${actor.toString()}")
+
+                    startActivity(Intent(this@HomeActivity, ScanQRActivity::class.java))
+
+                } else {
+                    dialog = AlertDialog.Builder(this@HomeActivity)
+                        .setTitle("User Profile is Empty")
+                        .setMessage("Please, complete your user profile first!")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") {dialogInterface, it ->
+                            startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+                        }
+                        .setNegativeButton("No") {dialogInterface, it ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                    return
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Check User for Scan Feature : ${error.message}")
+                Log.e("Check User for Scan Feature", "Error when check actor: ${error.message}")
+            }
+        })
+    }
+
     fun checkActor() {
 
         firebaseRef2.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -74,7 +107,7 @@ class HomeActivity : AppCompatActivity() {
 
                     if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" || actor == "E-Commerce") {
                         dialog = AlertDialog.Builder(this@HomeActivity)
-                            .setTitle("You Are a Market Level Actor")
+                            .setTitle("Market Level Actor")
                             .setMessage("You are not allowed to access this")
                             .setCancelable(true)
                             .setPositiveButton("Close") {dialogInterface, it ->
@@ -86,7 +119,7 @@ class HomeActivity : AppCompatActivity() {
 
                     else if (actor == "Konsumen") {
                         dialog = AlertDialog.Builder(this@HomeActivity)
-                            .setTitle("You Are a Consumer")
+                            .setTitle("Consumer")
                             .setMessage("You are not allowed to access this")
                             .setCancelable(true)
                             .setPositiveButton("Close") {dialogInterface, it ->

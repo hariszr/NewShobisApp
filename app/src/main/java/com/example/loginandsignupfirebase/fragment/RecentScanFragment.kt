@@ -1,4 +1,4 @@
-package com.example.loginandsignupfirebase
+package com.example.loginandsignupfirebase.fragment
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,28 +11,31 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.loginandsignupfirebase.databinding.FragmentUploadBinding
+import com.example.loginandsignupfirebase.ListAdapterRecent
+import com.example.loginandsignupfirebase.ProfileActivity
+import com.example.loginandsignupfirebase.R
+import com.example.loginandsignupfirebase.ScanQRActivity
+import com.example.loginandsignupfirebase.databinding.FragmentRecentScanBinding
 import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-class UploadFragment : Fragment() {
-
-    private var binding: FragmentUploadBinding? = null
+class RecentScanFragment : Fragment() {
+    private var binding: FragmentRecentScanBinding? = null
     private lateinit var dataList: ArrayList<DataClassNewAdd>
-    private lateinit var adapter: ListAdapterUpload
+    private lateinit var adapter: ListAdapterRecent
     private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     var eventListener: ValueEventListener? = null
     private lateinit var dialog : AlertDialog
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentUploadBinding.inflate(inflater, container, false)
+        binding = FragmentRecentScanBinding.inflate(inflater, container, false)
         val view = binding?.root
         // Di sini Anda dapat mengakses komponen dalam layout menggunakan ViewBinding
         // Misalnya: binding.textView.text = "Hello World!"
@@ -41,19 +44,28 @@ class UploadFragment : Fragment() {
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
+//        val scanResult = arguments?.getString("scanResult")
+//        if (!scanResult.isNullOrEmpty()) {
+//            // Lakukan apa yang perlu Anda lakukan dengan data scanResult di sini
+//            // Misalnya, tampilkan data dalam RecyclerView
+//            // ...
+//
+//            // Buka detailed activity berdasarkan data scanResult
+//            openDetailedActivity(scanResult)
+//        }
 
         showAndClickList()
+//        emptyInformation()
 
-        binding!!.addFAB.setOnClickListener {
-            checkActor()
+        binding!!.scanFAB.setOnClickListener {
+            checkDataUser()
         }
 
-        return view
 
+        return view
     }
 
-    private fun checkActor() {
-
+    private fun checkDataUser() {
         databaseReference.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -61,31 +73,8 @@ class UploadFragment : Fragment() {
 
                     println("get actor : ${actor.toString()}")
 
-                    if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" || actor == "E-Commerce") {
-                        dialog = AlertDialog.Builder(requireContext())
-                            .setTitle("You Are a Market Level Actor")
-                            .setMessage("You are not allowed to access this")
-                            .setCancelable(true)
-                            .setPositiveButton("Close") {dialogInterface, it ->
-                                dialogInterface.cancel()
-                            }
-                            .show()
-                        return
-                    }
+                    startActivity(Intent(requireContext(), ScanQRActivity::class.java))
 
-                    else if (actor == "Konsumen") {
-                        dialog = AlertDialog.Builder(requireContext())
-                            .setTitle("You Are a Consumer")
-                            .setMessage("You are not allowed to access this")
-                            .setCancelable(true)
-                            .setPositiveButton("Close") {dialogInterface, it ->
-                                dialogInterface.cancel()
-                            }
-                            .show()
-                        return
-                    } else {
-                        startActivity(Intent(requireContext(), NewTraceabilityActivity::class.java))
-                    }
                 } else {
                     dialog = AlertDialog.Builder(requireContext())
                         .setTitle("User Profile is Empty")
@@ -103,10 +92,26 @@ class UploadFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                println("Check Actor : ${error.message}")
-                Log.e("Check Actor", "Error when check actor: ${error.message}")
+                println("Check User for Scan Feature : ${error.message}")
+                Log.e("Check User for Scan Feature", "Error when check actor: ${error.message}")
             }
         })
+    }
+
+//    private fun openDetailedActivity(scanResult: String) {
+//        val intent = Intent(requireContext(), DetailRecentActivity::class.java)
+//        intent.putExtra("scanResult", scanResult)
+//        startActivity(intent)
+//    }
+
+    private fun emptyInformation() {
+        if (dataList.isEmpty()) {
+            binding?.emptyTextView?.visibility = View.VISIBLE
+            binding?.uploadDataIV?.visibility = View.VISIBLE
+        } else {
+            binding?.emptyTextView?.visibility = View.GONE
+            binding?.uploadDataIV?.visibility = View.GONE
+        }
     }
 
     private fun showAndClickList() {
@@ -127,13 +132,13 @@ class UploadFragment : Fragment() {
         linearLayoutManager.stackFromEnd = false
         binding?.listTraceRecyclerView?.layoutManager = linearLayoutManager
 
-        adapter = ListAdapterUpload(this, dataList)
+        adapter = ListAdapterRecent(this, dataList)
         binding?.listTraceRecyclerView?.adapter = adapter
-        val databaseReferenceChild = databaseReference.child(firebaseAuth.uid.toString()).child("pid")
+         val databaseReferenceChild = databaseReference?.child(firebaseAuth.uid.toString())?.child("Recent Scan")
         dialog?.show()
 
 
-        eventListener = databaseReferenceChild.addValueEventListener(object : ValueEventListener{
+        eventListener = databaseReferenceChild!!.addValueEventListener(object : ValueEventListener{
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()
@@ -164,6 +169,5 @@ class UploadFragment : Fragment() {
         // dengan mengosongkan variabel lateinit
         binding = null
     }
-
-
 }
+

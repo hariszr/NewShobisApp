@@ -7,6 +7,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.viewpager.widget.ViewPager
 import com.example.loginandsignupfirebase.adapter.FragmentAdapter
 import com.example.loginandsignupfirebase.databinding.ActivityTraceabilityListBinding
+import com.example.loginandsignupfirebase.fragment.RecentScanFragment
+import com.example.loginandsignupfirebase.fragment.UploadFragment
 import com.google.android.material.tabs.TabLayout
 
 class TraceabilityListActivity : AppCompatActivity() {

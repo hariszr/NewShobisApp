@@ -111,4 +111,5 @@
     <string name="actor_sub_title">Actor:</string>
     <string name="creator_information">Creator Information</string>
     <string name="company_sub_title">Company:</string>
+    <string name="product_information">Product Information</string>
 </resources>

@@ -134,9 +134,9 @@ class DetailRecentActivity : AppCompatActivity() {
                     val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
 
                     println("get actor : ${actor.toString()}")
-                    if (actor == "Konsumen") {
+                    if (actor == "Konsumen" || actor == "UMKM") {
                         dialog = AlertDialog.Builder(this@DetailRecentActivity)
-                            .setTitle("Consumer")
+                            .setTitle("Consumer and UMKM")
                             .setMessage("You are not allowed to access this")
                             .setCancelable(true)
                             .setPositiveButton("Close") {dialogInterface, it ->

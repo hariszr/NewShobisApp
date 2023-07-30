@@ -193,7 +193,7 @@ class ProfileEditActivity : AppCompatActivity() {
         val itemsGender = listOf("Male", "Female")
         val adapterGender = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGender)
 
-        val itemsLevel = listOf("Pedagang Lahan", "Pedagang Pengepul", "Pedagang Besar", "Pasar Induk", "Pasar Tradisional", "Pasar Modern", "E-Commerce", "Konsumen")
+        val itemsLevel = listOf("Pedagang Lahan", "Pedagang Pengepul", "Pedagang Besar", "Pasar Induk", "Pasar Tradisional", "Pasar Modern", "E-Commerce", "UMKM", "Konsumen")
         val adapterLevel = ArrayAdapter(this, R.layout.item_list_dropdown, itemsLevel)
 
         databaseReference.child(userID).child("Profile Users").get()

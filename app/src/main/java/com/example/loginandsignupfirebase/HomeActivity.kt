@@ -117,9 +117,9 @@ class HomeActivity : AppCompatActivity() {
                         return
                     }
 
-                    else if (actor == "Konsumen") {
+                    else if (actor == "Konsumen" || actor == "UMKM") {
                         dialog = AlertDialog.Builder(this@HomeActivity)
-                            .setTitle("Consumer")
+                            .setTitle("Consumer and UMKM")
                             .setMessage("You are not allowed to access this")
                             .setCancelable(true)
                             .setPositiveButton("Close") {dialogInterface, it ->

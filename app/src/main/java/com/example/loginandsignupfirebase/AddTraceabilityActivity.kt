@@ -63,14 +63,53 @@ class AddTraceabilityActivity : AppCompatActivity() {
         displayDropDownGrade()
         binding.priceEt.setMaskingMoney("Rp. ")
 
-        val myCalendar = Calendar.getInstance()
-        val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            myCalendar.set(Calendar.YEAR, year)
-            myCalendar.set(Calendar.MONTH, month)
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        firebaseRefServer.child(oldPID.toString()).get().addOnSuccessListener{
+                if (oldPID.toString().isNotEmpty()) {
+                    val dateCreate = it.child("dataDateCreate").value.toString()
+                    //untuk pengecekan
+//                    val dateString = "Jul 25, 2023 16:25:19"
 
-            updateLabel(myCalendar)
-        }
+                    println("data yg diambil tanggal : $dateCreate")
+
+
+                    // Konversi string menjadi objek Date
+                    val dateFormat = SimpleDateFormat("MMM d, yyyy HH:mm:ss", Locale.US)
+                    val date = dateFormat.parse(dateCreate)
+
+                    println("data yg diambil tanggal : $date")
+
+                    // Mengubah objek Date menjadi millis
+                    val myDesiredDateInMillis = date?.time
+
+                    // Tanggal saat ini
+                    val currentDate = System.currentTimeMillis()
+
+                    // Menambahkan 1 hari dalam millis (86400000 millis dalam sehari)
+//                    val oneDayInMillis = 86400000L
+//                    val nextDayInMillis = myDesiredDateInMillis!! + oneDayInMillis
+
+                    val myCalendar = Calendar.getInstance()
+//                    val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+//                        myCalendar.set(Calendar.YEAR, year)
+//                        myCalendar.set(Calendar.MONTH, month)
+//                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+//
+//                        updateLabel(myCalendar)
+//                    }
+
+                    val datePickerListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                        // Tindakan yang diambil ketika tanggal dipilih
+                        // Misalnya: update tampilan dengan tanggal yang dipilih
+                    }
+
+                    binding.arriveDateEt.setOnClickListener {
+                        val dPicker = DatePickerDialog(this, datePickerListener, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
+                        dPicker.datePicker.minDate = myDesiredDateInMillis!!
+                        dPicker.datePicker.maxDate = currentDate
+                        dPicker.show()
+                    }
+                }
+            }
 
         val myCalendar2 = Calendar.getInstance()
         val datePicker2 = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -79,12 +118,6 @@ class AddTraceabilityActivity : AppCompatActivity() {
             myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
             updateLabel2(myCalendar2)
-        }
-
-        binding.arriveDateEt.setOnClickListener {
-            val dPicker = DatePickerDialog(this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
-            dPicker.datePicker.maxDate = System.currentTimeMillis()
-            dPicker.show()
         }
 
         binding.outgoingDateEt.setOnClickListener {

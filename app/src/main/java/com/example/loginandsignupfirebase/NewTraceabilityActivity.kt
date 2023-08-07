@@ -78,6 +78,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 //        }
         displayDropDownVariety()
         displayDropDownGrade()
+        displayDropDownFertilizer()
         binding.priceEt.setMaskingMoney("Rp. ")
 //        val editText = findViewById<EditText>(R.id.priceEt)
 //        editText.addCurrencyTextWatcher()
@@ -120,12 +121,35 @@ class NewTraceabilityActivity : AppCompatActivity() {
             }
         })
 
+        binding.fertilizerDropDown.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationFertilizer()
+            }
+        })
     }
 
     private fun validationVariety() {
         if (binding.varietyDropDown.text.isEmpty()) {
-            binding.varietyLayout.error = "Variety cannot be empty"
+            binding.varietyLayout.error
             binding.varietyDropDown.requestFocus()
+
+            binding.nestedScrollView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    // Pindahkan layar ke posisi TextView yang menampilkan pesan kesalahan
+                    binding.nestedScrollView.scrollTo(0, binding.varietyDropDown.top)
+
+                    // Hapus listener setelah selesai
+                    binding.nestedScrollView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
             return
         } else {
             binding.varietyLayout.error = null
@@ -141,6 +165,17 @@ class NewTraceabilityActivity : AppCompatActivity() {
         } else {
             binding.gradeLayout.error = null
             binding.gradeDropDown.clearFocus()
+        }
+    }
+
+    private fun validationFertilizer() {
+        if (binding.fertilizerDropDown.text.isEmpty()) {
+            binding.fertilizerLayout.error
+            binding.fertilizerDropDown.requestFocus()
+            return
+        } else {
+            binding.fertilizerLayout.error = null
+//            binding.varietyDropDown.clearFocus()
         }
     }
 
@@ -237,9 +272,9 @@ class NewTraceabilityActivity : AppCompatActivity() {
             return
         }
 
-        if (binding.fertilizerEt.text.toString().isEmpty()) {
-            binding.fertilizerEt.error = "Fertilizer type cannot be empty"
-            binding.fertilizerEt.requestFocus()
+        if (binding.fertilizerDropDown.text.toString().isEmpty()) {
+            binding.fertilizerLayout.error = "Fertilizer type cannot be empty"
+            binding.fertilizerDropDown.requestFocus()
             return
         }
 
@@ -319,11 +354,11 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun displayDropDownVariety() {
-        val itemsGrade = arrayListOf("Bima Brebes", "Pikatan", "Pancasona", "Trisula", "Sembrani", "Kuning", "Maja Cipanas", "Kramat-1", "Kramat-2", "Mentes", "Katumi", "TSS Agrihort 1", "Lainnya")
-        val adapterGrade = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGrade)
-        binding.varietyDropDown.setAdapter(adapterGrade)
+        val itemsVariety = arrayListOf("Bima Brebes", "Pikatan", "Pancasona", "Trisula", "Sembrani", "Kuning", "Maja Cipanas", "Kramat-1", "Kramat-2", "Mentes", "Katumi", "TSS Agrihort 1", "Lainnya")
+        val adapterVariety = ArrayAdapter(this, R.layout.item_list_dropdown, itemsVariety)
+        binding.varietyDropDown.setAdapter(adapterVariety)
         binding.varietyDropDown.setOnItemClickListener { _, _, position, _ ->
-            val selectedOption = itemsGrade[position]
+            val selectedOption = itemsVariety[position]
             if (selectedOption == "Lainnya") {
                 binding.varietyDropDown.isCursorVisible = true
                 binding.varietyDropDown.setText("")
@@ -332,6 +367,26 @@ class NewTraceabilityActivity : AppCompatActivity() {
                 //munculkan keyboard
                 val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 keyboardShow.showSoftInput(binding.varietyDropDown, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun displayDropDownFertilizer() {
+        val itemsFertilizer = arrayListOf("NPK Mutiara (16:16:16)", "NPK GOLD DGW (16:10:18)", "NPK Phonska(15:15:15)", "SP-36", "KCL", "Lainnya")
+        val adapterFertilizer = ArrayAdapter(this, R.layout.item_list_dropdown, itemsFertilizer)
+        binding.fertilizerDropDown.setAdapter(adapterFertilizer)
+        binding.fertilizerDropDown.setOnItemClickListener { _, _, position, _ ->
+            val selectedOption = itemsFertilizer[position]
+            if (selectedOption == "Lainnya") {
+                binding.fertilizerDropDown.isCursorVisible = true
+                binding.fertilizerDropDown.setText("")
+                binding.fertilizerDropDown.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.fertilizerDropDown, InputMethodManager.SHOW_IMPLICIT)
                 return@setOnItemClickListener
             }
         }
@@ -403,7 +458,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
         val farmer = binding.farmerEt.text.toString()
         val day = binding.harvestTimeEt.text.toString()
         val area = binding.areaEt.text.toString()
-        val fertilizer = binding.fertilizerEt.text.toString()
+        val fertilizer = binding.fertilizerDropDown.text.toString()
         val pesticides = binding.pesticidesEt.text.toString()
 
         val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)

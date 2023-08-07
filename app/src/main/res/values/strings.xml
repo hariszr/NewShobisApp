@@ -60,7 +60,7 @@
     <string name="harvest_time_day_ET">Harvest Time (day)</string>
     <string name="planting_location_ET">Planting Location</string>
     <string name="the_type_of_fertilizer_used">The Type of Fertilizer Used</string>
-    <string name="type_of_pesticides_used">Type of Pesticides Used</string>
+    <string name="the_type_of_pesticides_used">The Type of Pesticides Used</string>
     <string name="notes_ET">Notes</string>
     <string name="create_new_traceability_Btn">Create New</string>
     <string name="create_traceability">Create New Traceability</string>

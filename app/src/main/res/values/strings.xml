@@ -58,7 +58,7 @@
     <string name="shallot_plating_information_sub_tittle">Shallot Plating Information:</string>
     <string name="farmer_name_ET">Farmer Name</string>
     <string name="harvest_time_day_ET">Harvest Time (day)</string>
-    <string name="planting_area_ET">Planting Area</string>
+    <string name="planting_location_ET">Planting Location</string>
     <string name="the_type_of_fertilizer_used">The Type of Fertilizer Used</string>
     <string name="type_of_pesticides_used">Type of Pesticides Used</string>
     <string name="notes_ET">Notes</string>

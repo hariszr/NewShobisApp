@@ -1,21 +1,25 @@
 package com.example.loginandsignupfirebase
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivityNewTraceabilityBinding
@@ -45,6 +49,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
     var uri: Uri? = null
     private var count = 0
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewTraceabilityBinding.inflate(layoutInflater)
@@ -71,7 +76,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 //            val encoder = QRGEncoder(pid, null, QRGContents.Type.TEXT, 0)
 //            binding.qrCodeIV.setImageBitmap(encoder.bitmap)
 //        }
-
+        displayDropDownVariety()
         displayDropDownGrade()
         binding.priceEt.setMaskingMoney("Rp. ")
 //        val editText = findViewById<EditText>(R.id.priceEt)
@@ -87,6 +92,19 @@ class NewTraceabilityActivity : AppCompatActivity() {
         binding.createTraceabilityBtn.setOnClickListener {
             validateInputData()
         }
+        binding.varietyDropDown.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationVariety()
+            }
+        })
 
         binding.gradeDropDown.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -101,6 +119,18 @@ class NewTraceabilityActivity : AppCompatActivity() {
                 validationGrade()
             }
         })
+
+    }
+
+    private fun validationVariety() {
+        if (binding.varietyDropDown.text.isEmpty()) {
+            binding.varietyLayout.error = "Variety cannot be empty"
+            binding.varietyDropDown.requestFocus()
+            return
+        } else {
+            binding.varietyLayout.error = null
+//            binding.varietyDropDown.clearFocus()
+        }
     }
 
     private fun validationGrade() {
@@ -134,13 +164,13 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.errorPictShallotET.visibility = View.GONE
         }
 
-        if (binding.varietyEt.text.toString().isEmpty()) {
-            binding.varietyEt.error = "Variety cannot be empty"
-            binding.varietyEt.requestFocus()
+        if (binding.varietyDropDown.text.toString().isEmpty()) {
+            binding.varietyLayout.error = "Variety cannot be empty"
+            binding.varietyDropDown.requestFocus()
             return
-        } else if (binding.varietyEt.text.toString().length > 30) {
-            binding.varietyEt.error = "Maximum 30 character variety"
-            binding.farmerEt.requestFocus()
+        } else if (binding.varietyDropDown.text.toString().length > 30) {
+            binding.varietyDropDown.error = "Maximum 30 character variety"
+            binding.varietyDropDown.requestFocus()
             return
         }
 
@@ -149,7 +179,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.weightEt.requestFocus()
             return
         } else if (binding.weightEt.text.toString().toInt() > 6000) {
-            binding.weightEt.error = "Maximum weight is 6000 gram"
+            binding.weightEt.error = "Maximum weight is 6000 Kg"
             binding.weightEt.requestFocus()
             return
         }
@@ -287,6 +317,26 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun displayDropDownVariety() {
+        val itemsGrade = arrayListOf("Bima Brebes", "Pikatan", "Pancasona", "Trisula", "Sembrani", "Kuning", "Maja Cipanas", "Kramat-1", "Kramat-2", "Mentes", "Katumi", "TSS Agrihort 1", "Lainnya")
+        val adapterGrade = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGrade)
+        binding.varietyDropDown.setAdapter(adapterGrade)
+        binding.varietyDropDown.setOnItemClickListener { _, _, position, _ ->
+            val selectedOption = itemsGrade[position]
+            if (selectedOption == "Lainnya") {
+                binding.varietyDropDown.isCursorVisible = true
+                binding.varietyDropDown.setText("")
+                binding.varietyDropDown.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.varietyDropDown, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            }
+        }
+    }
+
     @SuppressLint("SuspiciousIndentation")
     private fun saveData() {
 
@@ -345,7 +395,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
     fun uploadData(pid: String) {
 
-        val variety = binding.varietyEt.text.toString()
+        val variety = binding.gradeDropDown.text.toString()
         val weight = binding.weightEt.text.toString()
         val grade = binding.gradeDropDown.text.toString()
         val price = binding.priceEt.text.toString()

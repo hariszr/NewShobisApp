@@ -61,6 +61,10 @@ class HomeActivity : AppCompatActivity() {
         binding.shTraceabilityCV.setOnClickListener {
             startActivity(Intent(this, TraceabilityListActivity::class.java))
         }
+
+        binding.summaryCV.setOnClickListener {
+//            startActivity(Intent(this, TraceabilityListActivity::class.java))
+        }
     }
 
     private fun checkDataUser() {

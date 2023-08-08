@@ -114,6 +114,6 @@
     <string name="product_information">Product Information</string>
     <string name="handling_fee_per_kg">Handling Fee (per Kg)</string>
     <string name="handling">Handling</string>
-    <string name="purchase_price_from_farmers_per_kg">Purchase price from farmers (per Kg)</string>
+    <string name="purchase_price_from_farmers_per_kg">Purchase Price from Farmers (per Kg)</string>
     <string name="additional_notes_ET">Additional Notes</string>
 </resources>

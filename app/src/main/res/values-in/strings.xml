@@ -101,6 +101,6 @@
     <string name="product_information">Informasi Produk</string>
     <string name="handling">Penanganan</string>
     <string name="handling_fee_per_kg">Biaya Penanganan (per Kg)</string>
-    <string name="purchase_price_from_farmers_per_kg">Harga beli dari petani (per Kg)</string>
+    <string name="purchase_price_from_farmers_per_kg">Harga Beli dari Petani (per Kg)</string>
     <string name="additional_notes_ET">Catatan Tambahan</string>
 </resources>

@@ -271,7 +271,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.sellingPriceEt.error = "Selling price cannot be empty"
             binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 3000) {
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! <= 3000) {
             binding.sellingPriceEt.error = "Minimum selling price is Rp 3.000"
             binding.sellingPriceEt.requestFocus()
             return
@@ -345,13 +345,10 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
         if (binding.priceFromFarmerEt.text.toString().isEmpty()) {
             binding.priceFromFarmerEt.error = "Selling price cannot be empty"
+            binding.priceFromFarmerEt.setText("0")
             binding.priceFromFarmerEt.requestFocus()
             return
-        } else if (binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 3000) {
-            binding.priceFromFarmerEt.error = "Minimum selling price is Rp 3.000"
-            binding.priceFromFarmerEt.requestFocus()
-            return
-        } else if (binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 25000) {
+        }  else if (binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 25000) {
             binding.priceFromFarmerEt.error = "Maximum selling price is Rp 25.000"
             binding.priceFromFarmerEt.requestFocus()
             return

@@ -78,8 +78,12 @@ class NewTraceabilityActivity : AppCompatActivity() {
 //        }
         displayDropDownVariety()
         displayDropDownGrade()
+        displayDropDownHandling()
         displayDropDownFertilizer()
-        binding.priceEt.setMaskingMoney("Rp. ")
+
+        binding.sellingPriceEt.setMaskingMoney("Rp. ")
+        binding.handlingFeeEt.setMaskingMoney("Rp. ")
+        binding.priceFromFarmerEt.setMaskingMoney("Rp. ")
 //        val editText = findViewById<EditText>(R.id.priceEt)
 //        editText.addCurrencyTextWatcher()
         binding.closeBtn.setOnClickListener {
@@ -118,6 +122,20 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 validationGrade()
+            }
+        })
+
+        binding.handlingDropDown.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationHandling()
             }
         })
 
@@ -165,6 +183,27 @@ class NewTraceabilityActivity : AppCompatActivity() {
         } else {
             binding.gradeLayout.error = null
             binding.gradeDropDown.clearFocus()
+        }
+    }
+
+    private fun validationHandling() {
+        if (binding.handlingDropDown.text.isEmpty()) {
+            binding.handlingLayout.error
+            binding.handlingDropDown.requestFocus()
+
+            binding.nestedScrollView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    // Pindahkan layar ke posisi TextView yang menampilkan pesan kesalahan
+                    binding.nestedScrollView.scrollTo(0, binding.varietyDropDown.top)
+
+                    // Hapus listener setelah selesai
+                    binding.nestedScrollView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
+            return
+        } else {
+            binding.handlingLayout.error = null
+//            binding.varietyDropDown.clearFocus()
         }
     }
 
@@ -228,17 +267,37 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.gradeDropDown.clearFocus()
         }
 
-        if (binding.priceEt.text.toString().isEmpty()) {
-            binding.priceEt.error = "Price cannot be empty"
-            binding.priceEt.requestFocus()
+        if (binding.sellingPriceEt.text.toString().isEmpty()) {
+            binding.sellingPriceEt.error = "Selling price cannot be empty"
+            binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 3000) {
-            binding.priceEt.error = "Maximum price is Rp 3.000"
-            binding.priceEt.requestFocus()
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 3000) {
+            binding.sellingPriceEt.error = "Minimum selling price is Rp 3.000"
+            binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
-            binding.priceEt.error = "Maximum price is Rp 60.000"
-            binding.priceEt.requestFocus()
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
+            binding.sellingPriceEt.error = "Maximum selling price is Rp 60.000"
+            binding.sellingPriceEt.requestFocus()
+            return
+        }
+
+        if (binding.handlingDropDown.text.toString().isEmpty()) {
+            binding.handlingLayout.error = "Variety cannot be empty"
+            binding.handlingDropDown.requestFocus()
+            return
+        } else if (binding.handlingDropDown.text.toString().length > 50) {
+            binding.handlingDropDown.error = "Maximum 30 character handling"
+            binding.handlingDropDown.requestFocus()
+            return
+        }
+
+        if (binding.handlingFeeEt.text.toString().isEmpty()) {
+            binding.handlingFeeEt.error = "Cost prices cannot be empty"
+            binding.handlingFeeEt.requestFocus()
+            return
+        } else if (binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 3000) {
+            binding.handlingFeeEt.error = "Maximum cost price is Rp 3000"
+            binding.handlingFeeEt.requestFocus()
             return
         }
 
@@ -281,6 +340,20 @@ class NewTraceabilityActivity : AppCompatActivity() {
         if (binding.pesticidesEt.text.toString().isEmpty()) {
             binding.pesticidesEt.error = "Pesticide type cannot be empty"
             binding.pesticidesEt.requestFocus()
+            return
+        }
+
+        if (binding.priceFromFarmerEt.text.toString().isEmpty()) {
+            binding.priceFromFarmerEt.error = "Selling price cannot be empty"
+            binding.priceFromFarmerEt.requestFocus()
+            return
+        } else if (binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 3000) {
+            binding.priceFromFarmerEt.error = "Minimum selling price is Rp 3.000"
+            binding.priceFromFarmerEt.requestFocus()
+            return
+        } else if (binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 25000) {
+            binding.priceFromFarmerEt.error = "Maximum selling price is Rp 25.000"
+            binding.priceFromFarmerEt.requestFocus()
             return
         }
 
@@ -345,13 +418,6 @@ class NewTraceabilityActivity : AppCompatActivity() {
 //        })
 //    }
 
-    private fun displayDropDownGrade() {
-        val itemsGrade = listOf("All Grade", "Super", "A", "AB", "C")
-        val adapterGrade = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGrade)
-        binding.gradeDropDown.setAdapter(adapterGrade)
-
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun displayDropDownVariety() {
         val itemsVariety = arrayListOf("Bima Brebes", "Pikatan", "Pancasona", "Trisula", "Sembrani", "Kuning", "Maja Cipanas", "Kramat-1", "Kramat-2", "Mentes", "Katumi", "TSS Agrihort 1", "Lainnya")
@@ -368,7 +434,72 @@ class NewTraceabilityActivity : AppCompatActivity() {
                 val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 keyboardShow.showSoftInput(binding.varietyDropDown, InputMethodManager.SHOW_IMPLICIT)
                 return@setOnItemClickListener
+            } else {
+                binding.weightEt.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.weightEt, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
             }
+        }
+    }
+
+    private fun displayDropDownGrade() {
+        val itemsGrade = listOf("All Grade", "Super", "A", "AB", "C")
+        val adapterGrade = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGrade)
+        binding.gradeDropDown.setAdapter(adapterGrade)
+        binding.gradeDropDown.setOnItemClickListener { _, _, position, _ ->
+            binding.sellingPriceEt.requestFocus()
+
+            //munculkan keyboard
+            val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            keyboardShow.showSoftInput(binding.sellingPriceEt, InputMethodManager.SHOW_IMPLICIT)
+            return@setOnItemClickListener
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun displayDropDownHandling() {
+        val itemsHandling = arrayListOf("Tidak Ada","Penanganan", "Pengemasan", "Transport", "Penanganan & Pengemasan", "Penanganan & Transport", "Pengemasan & Transport", "Full Service (Penanganan, Pengemasan & Transport)", "Lainnya")
+        val adapterHandling = ArrayAdapter(this, R.layout.item_list_dropdown, itemsHandling)
+        binding.handlingDropDown.setAdapter(adapterHandling)
+        binding.handlingDropDown.setOnItemClickListener { _, _, position, _ ->
+            val selectedOption = itemsHandling[position]
+            if (selectedOption == "Lainnya") {
+                binding.handlingDropDown.isCursorVisible = true
+                binding.handlingDropDown.setText("")
+                binding.handlingFeeEt.inputType = android.text.InputType.TYPE_CLASS_TEXT
+                binding.handlingDropDown.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.handlingDropDown, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            }
+
+            if (selectedOption == "Tidak Ada") {
+                binding.handlingDropDown.isCursorVisible = false
+                binding.handlingFeeEt.setText("0")
+                binding.handlingFeeEt.inputType = android.text.InputType.TYPE_NULL
+                binding.handlingFeeEt.isCursorVisible = false
+                binding.farmerEt.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.farmerEt, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            } else {
+                binding.handlingFeeEt.isCursorVisible = true
+                binding.handlingFeeEt.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+                binding.handlingFeeEt.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.handlingFeeEt, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            }
+
         }
     }
 
@@ -453,7 +584,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
         val variety = binding.gradeDropDown.text.toString()
         val weight = binding.weightEt.text.toString()
         val grade = binding.gradeDropDown.text.toString()
-        val price = binding.priceEt.text.toString()
+        val price = binding.sellingPriceEt.text.toString()
 
         val farmer = binding.farmerEt.text.toString()
         val day = binding.harvestTimeEt.text.toString()

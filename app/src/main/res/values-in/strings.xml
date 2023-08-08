@@ -35,7 +35,7 @@
     <string name="company_sub_title">Perusahaan:</string>
     <string name="product_weight_upon_arrival_kilogram">Berat Produk Saat Tiba (Kg)</string>
     <string name="grade">Kelas :</string>
-    <string name="price_per_kg">Harga (per Kg)</string>
+    <string name="selling_price_per_kg">Harga (per Kg)</string>
     <string name="outgoing_product_weight_kilogram">Bobot Produk Keluar (Kg)</string>
     <string name="process_weight_loss_kilogram">Susut Bobot Proses (Kg)</string>
     <string name="product_outgoing_date">Tanggal Produk Keluar</string>
@@ -53,7 +53,7 @@
     <string name="planting_area">Daerah Penanaman:</string>
     <string name="fertilizer_used">Pupuk yang Digunakan</string>
     <string name="pesticides_used">Pestisida yang Digunakan</string>
-    <string name="note">Catatan:</string>
+    <string name="additional_notes">Catatan Tambahan:</string>
     <string name="add_data">Tambah Data</string>
     <string name="download_qr_code">Download Kode QR</string>
     <string name="your_data_in_here">Data anda di sini!</string>
@@ -99,4 +99,8 @@
     <string name="kilogram">Kg</string>
     <string name="weight_data">Data B</string>
     <string name="product_information">Informasi Produk</string>
+    <string name="handling">Penanganan</string>
+    <string name="handling_fee_per_kg">Biaya Penanganan (per Kg)</string>
+    <string name="purchase_price_from_farmers_per_kg">Harga beli dari petani (per Kg)</string>
+    <string name="additional_notes_ET">Catatan Tambahan</string>
 </resources>

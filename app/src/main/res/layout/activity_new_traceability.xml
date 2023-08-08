@@ -158,19 +158,63 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/priceLayout"
+                android:id="@+id/sellingPriceLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="@string/price_per_kg"
+                android:hint="@string/selling_price_per_kg"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/priceEt"
+                    android:id="@+id/sellingPriceEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/handlingLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/handling"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <AutoCompleteTextView
+                    android:id="@+id/handling_DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="textCapWords"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/handlingFeeLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/handling_fee_per_kg"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/handlingFeeEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:digits="0123456789"
@@ -301,13 +345,36 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/priceFromFarmerLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/purchase_price_from_farmers_per_kg"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/priceFromFarmerEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/noteLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="@string/notes_ET"
+                android:hint="@string/additional_notes_ET"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">

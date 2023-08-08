@@ -23,7 +23,7 @@
     <string name="product_arrived_date">Product Arrived Date</string>
     <string name="product_weight_upon_arrival_kilogram">Product Weight Upon Arrival (Kg)</string>
     <string name="grade_title">Grade</string>
-    <string name="price_per_kg">Price (per Kg)</string>
+    <string name="selling_price_per_kg">Selling Price (per Kg)</string>
     <string name="outgoing_product_weight_kilogram">Outgoing Product Weight (Kg)</string>
     <string name="process_weight_loss_kilogram">Process Weight Loss (Kg)</string>
     <string name="product_outgoing_date">Product Outgoing Date</string>
@@ -42,7 +42,7 @@
     <string name="planting_area">Planting Area:</string>
     <string name="fertilizer_used">Fertilizer Used:</string>
     <string name="pesticides_used">Pesticides Used:</string>
-    <string name="note">Note:</string>
+    <string name="additional_notes">Additional Notes:</string>
     <string name="add_data">Add Data</string>
     <string name="download_qr_code">Download QR Code</string>
 
@@ -112,4 +112,8 @@
     <string name="creator_information">Creator Information</string>
     <string name="company_sub_title">Company:</string>
     <string name="product_information">Product Information</string>
+    <string name="handling_fee_per_kg">Handling Fee (per Kg)</string>
+    <string name="handling">Handling</string>
+    <string name="purchase_price_from_farmers_per_kg">Purchase price from farmers (per Kg)</string>
+    <string name="additional_notes_ET">Additional Notes</string>
 </resources>

@@ -22,7 +22,10 @@ class SummaryActivity : AppCompatActivity() {
         setContentView(binding.root)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-
+        binding.backProductListIV.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+        }
 
     }
 }

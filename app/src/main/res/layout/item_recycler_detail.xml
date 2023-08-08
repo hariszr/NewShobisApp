@@ -314,7 +314,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/note"
+                            android:text="@string/additional_notes"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />

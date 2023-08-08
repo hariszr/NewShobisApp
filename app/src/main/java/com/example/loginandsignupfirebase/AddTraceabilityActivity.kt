@@ -61,7 +61,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
         oldPID = intent.extras?.getString("sendPID")
 
         displayDropDownGrade()
-        binding.priceEt.setMaskingMoney("Rp. ")
+        binding.sellingPriceEt.setMaskingMoney("Rp. ")
 
         firebaseRefServer.child(oldPID.toString()).get().addOnSuccessListener{
                 if (oldPID.toString().isNotEmpty()) {
@@ -267,20 +267,20 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.gradeDropDown.clearFocus()
         }
 
-        if (binding.priceEt.text.toString().isEmpty()) {
-            binding.priceEt.error = "Price cannot be empty"
-            binding.priceEt.requestFocus()
+        if (binding.sellingPriceEt.text.toString().isEmpty()) {
+            binding.sellingPriceEt.error = "Price cannot be empty"
+            binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
-            binding.priceEt.error = "Maximum price is Rp 1.000"
-            binding.priceEt.requestFocus()
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
+            binding.sellingPriceEt.error = "Maximum price is Rp 1.000"
+            binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.priceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
-            binding.priceEt.error = "Maximum price is Rp 60.000"
-            binding.priceEt.requestFocus()
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
+            binding.sellingPriceEt.error = "Maximum price is Rp 60.000"
+            binding.sellingPriceEt.requestFocus()
             return
         } else {
-            binding.priceEt.error = null
+            binding.sellingPriceEt.error = null
         }
 
         if (binding.outgoingWeightEt.text.toString().isEmpty()) {
@@ -429,7 +429,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
         val arriveDate = binding.arriveDateEt.text.toString()
         val incomingWeight = binding.incomingWeightEt.text.toString()
         val grade = binding.gradeDropDown.text.toString()
-        val price = binding.priceEt.text.toString()
+        val price = binding.sellingPriceEt.text.toString()
 
         val outgoingWeight = binding.outgoingWeightEt.text.toString()
         val weightLoss = binding.weightLossEt.text.toString()

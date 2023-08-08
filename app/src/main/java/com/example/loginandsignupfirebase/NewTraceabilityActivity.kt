@@ -581,13 +581,17 @@ class NewTraceabilityActivity : AppCompatActivity() {
         val variety = binding.gradeDropDown.text.toString()
         val weight = binding.weightEt.text.toString()
         val grade = binding.gradeDropDown.text.toString()
-        val price = binding.sellingPriceEt.text.toString()
+        val sellingPrice = binding.sellingPriceEt.text.toString()
+        val handling = binding.handlingDropDown.text.toString()
+        val handlingFee = binding.handlingFeeEt.text.toString()
 
         val farmer = binding.farmerEt.text.toString()
         val day = binding.harvestTimeEt.text.toString()
         val area = binding.areaEt.text.toString()
         val fertilizer = binding.fertilizerDropDown.text.toString()
         val pesticides = binding.pesticidesEt.text.toString()
+        val weightFarmers = binding.weightEt.text.toString()
+        val priceFarmers = binding.priceFromFarmerEt.text.toString()
 
         val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
 
@@ -612,8 +616,10 @@ class NewTraceabilityActivity : AppCompatActivity() {
                 if (address.isBlank()) address = "-"
 
                 val dataClassNewAdd = DataClassNewAdd(
-                    pid, imageURL, imageURL, imageURLPic, variety, weight, grade, price,
-                    farmer, day, area, fertilizer, pesticides, dateCreate, notes,
+                    pid, imageURL, imageURL, imageURLPic, variety, weight, grade, sellingPrice, handling, handlingFee,
+                    farmer, day, area, fertilizer, pesticides, weightFarmers, priceFarmers,
+                    dateCreate,
+                    notes,
                     fullName, actor, email, gender, company, address
                 )
 

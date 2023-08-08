@@ -62,7 +62,7 @@ class ListAdapterRecent(private val context: RecentScanFragment, private val dat
             intent.putExtra("Variety", dataList[holder.adapterPosition].dataVariety)
             intent.putExtra("Weight", dataList[holder.adapterPosition].dataWeight)
             intent.putExtra("Grade", dataList[holder.adapterPosition].dataGrade)
-            intent.putExtra("Price", dataList[holder.adapterPosition].dataPrice)
+            intent.putExtra("Price", dataList[holder.adapterPosition].dataSellingPrice)
 
             intent.putExtra("Farmer", dataList[holder.adapterPosition].dataFarmer)
             intent.putExtra("Day", dataList[holder.adapterPosition].dataDay)

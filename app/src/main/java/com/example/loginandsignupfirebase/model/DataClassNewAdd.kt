@@ -9,13 +9,17 @@ class DataClassNewAdd {
     var dataVariety: String? = null
     var dataWeight: String? = null
     var dataGrade: String? = null
-    var dataPrice: String? = null
+    var dataSellingPrice: String? = null
+    var dataHandling: String? = null
+    var dataHandlingFee: String? = null
 
     var dataFarmer: String? = null
     var dataDay: String? = null
     var dataPlantingArea: String? = null
     var dataFertilizer: String? = null
     var dataPesticides: String? = null
+    var dataWeightFarmers: String? = null
+    var dataPriceFarmers: String? = null
 
     var dataDateCreate: String? = null
 
@@ -28,8 +32,9 @@ class DataClassNewAdd {
     var dataCompany: String? = null
     var dataAddress: String? = null
 
-    constructor(pid: String?, dataQrCode: String?, dataQrCodeUpdate: String?, dataPicProduct: String?, dataVariety: String?, dataWeight: String?, dataGrade: String?, dataPrice: String?,
-                dataFarmer: String?, dataDay: String?, dataPlantingArea: String?, dataFertilizer: String?, dataPesticides: String?, dataDateCreate: String?,
+    constructor(pid: String?, dataQrCode: String?, dataQrCodeUpdate: String?, dataPicProduct: String?, dataVariety: String?, dataWeight: String?, dataGrade: String?, dataSellingPrice: String?, dataHandling: String?, dataHandlingFee: String?,
+                dataFarmer: String?, dataDay: String?, dataPlantingArea: String?, dataFertilizer: String?, dataPesticides: String?, dataWeightFarmers: String?, dataPriceFarmers: String?,
+                dataDateCreate: String?,
                 dataNotes: String?,
                 dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataCompany: String?, dataAddress: String?){
 
@@ -40,13 +45,17 @@ class DataClassNewAdd {
         this.dataVariety = dataVariety
         this.dataWeight = dataWeight
         this.dataGrade = dataGrade
-        this.dataPrice = dataPrice
+        this.dataSellingPrice = dataSellingPrice
+        this.dataHandling = dataHandling
+        this.dataHandlingFee = dataHandlingFee
 
         this.dataFarmer = dataFarmer
         this.dataDay = dataDay
         this.dataPlantingArea = dataPlantingArea
         this.dataFertilizer = dataFertilizer
         this.dataPesticides = dataPesticides
+        this.dataWeightFarmers = dataWeightFarmers //dah bener ini gini
+        this.dataPriceFarmers = dataPriceFarmers
 
         this.dataDateCreate = dataDateCreate
 

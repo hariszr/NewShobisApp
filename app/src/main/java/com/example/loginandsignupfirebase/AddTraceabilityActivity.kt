@@ -87,7 +87,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
                     val dateFormat = SimpleDateFormat("MMM d, yyyy HH:mm:ss", Locale.US)
                     val date = dateFormat.parse(dateBefore)
 
-                    println("data yg diambil tanggal : $date")
+                    println("data yg diambil tanggal date : $date")
 
                     // Mengubah objek Date menjadi millis
                     val myDesiredDateInMillis = date?.time
@@ -560,6 +560,32 @@ class AddTraceabilityActivity : AppCompatActivity() {
                             firebaseRefServer.child(pid).child("Secondary Data").child(dateCreate).setValue(dataClassAdd).addOnCompleteListener { t ->
                                 if (t.isSuccessful) {
                                     updateQrCode(pid)
+
+                                    val childUpdates = HashMap<String, Any>()
+
+                                    // Simpan nama di path yang sesuai
+                                    childUpdates["$pid/dataDateUpdate"] = outgoingDate
+                                    childUpdates["$pid/dataSellingPriceUpdate"] = sellingPrice
+
+                                    firebaseRefServer.updateChildren(childUpdates)
+                                        .addOnSuccessListener{
+                                            // Berhasil menyimpan imageURL ke Firebase
+                                            Log.i("imageUrl", "Success upload image to storage and firebase realtime server")
+
+                                            // Simpan juga ke dalam user
+                                            firebaseRef.child(firebaseAuth.uid.toString()).child("pid").updateChildren(childUpdates)
+                                                .addOnCompleteListener {
+                                                    Log.i("imageUrl", "Success upload image to storage and firebase realtime user")
+
+                                                }.addOnFailureListener { exception ->
+                                                    Log.e("imageUrl", "Something wrong with save QrCode Update to firebase realtime user: ${exception.message}")
+                                                }
+
+                                        }.addOnFailureListener { exception ->
+                                            Log.e("imageUrl", "Something wrong with save QrCode Update to firebase realtime server: ${exception.message}")
+                                        }
+
+
                                     println("Data Secondary Successfully Updated to PID Server")
                                     Log.i( "Server Updated","Data Secondary Successfully Updated to PID Server")
                                 }
@@ -664,26 +690,20 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         firebaseRefServer.updateChildren(childUpdates)
             .addOnSuccessListener{
-                // Berhasil menyimpan nama ke Firebase
-                Log.i(
-                    "imageUrl",
-                    "Success upload image to storage and firebase realtime server"
-                )
+                // Berhasil menyimpan imageURL ke Firebase
+                Log.i("imageUrl", "Success upload image to storage and firebase realtime server")
+
                 // Simpan juga ke dalam user
                 firebaseRef.child(firebaseAuth.uid.toString()).child("pid").updateChildren(childUpdates)
                     .addOnCompleteListener {
-                        Log.i(
-                            "imageUrl",
-                            "Success upload image to storage and firebase realtime user")
+                        Log.i("imageUrl", "Success upload image to storage and firebase realtime user")
+
                     }.addOnFailureListener { exception ->
-                        Log.e(
-                            "imageUrl",
-                            "Something wrong with save QrCode Update to firebase realtime user: ${exception.message}")
+                        Log.e("imageUrl", "Something wrong with save QrCode Update to firebase realtime user: ${exception.message}")
                     }
+
             }.addOnFailureListener { exception ->
-                Log.e(
-                    "imageUrl",
-                    "Something wrong with save QrCode Update to firebase realtime server: ${exception.message}")
+                Log.e("imageUrl", "Something wrong with save QrCode Update to firebase realtime server: ${exception.message}")
             }
     }
 

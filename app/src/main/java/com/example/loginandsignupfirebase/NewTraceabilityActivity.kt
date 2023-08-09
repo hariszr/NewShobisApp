@@ -598,6 +598,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
         val notes = binding.noteEt.text.toString()
 
         val sellingPriceUpdate = binding.sellingPriceEt.text.toString()
+        val dataDateUpdate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
 
 //        var email = firebaseAuth.currentUser?.email
 
@@ -623,7 +624,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
                     dateCreate,
                     notes,
                     fullName, actor, email, gender, company, address,
-                    sellingPriceUpdate
+                    sellingPrice, dateCreate
                 )
 
 

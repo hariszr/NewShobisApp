@@ -6,12 +6,15 @@ class DataClassAdd {
     var dataQrCodeUpdate: String? = null
     var dataArriveDate: String? = null
     var dataIncomingWeight: String? = null
-    var dataGrade: String? = null
-    var dataPrice: String? = null
+    var dataPurchasePrice: String? = null
 
-    var dataOutgoingWeight: String? = null
-    var dataWeightLoss: String? = null
     var dataOutgoingDate: String? = null
+    var dataOutgoingWeight: String? = null
+    var dataGrade: String? = null
+    var dataHandling: String? = null
+    var dataHandlingFee: String? = null
+    var dataWeightLoss: String? = null
+    var dataSellingPrice: String? = null
 
     var dataDateCreate: String? = null
 
@@ -24,8 +27,9 @@ class DataClassAdd {
     var dataCompany: String? = null
     var dataAddress: String? = null
 
-    constructor(pid: String?, dataQrCode: String?, dataArriveDate: String?, dataIncomingWeight: String?, dataGrade: String?, dataPrice: String?,
-                dataOutgoingWeight: String?, dataWeightLoss: String?, dataOutgoingDate: String?, dataDateCreate: String?,
+    constructor(pid: String?, dataQrCode: String?, dataArriveDate: String?, dataIncomingWeight: String?, dataPurchasePrice: String?,
+                dataOutgoingDate: String?, dataOutgoingWeight: String?, dataGrade: String?, dataHandling: String?, dataHandlingFee: String?, dataWeightLoss: String?, dataSellingPrice: String?,
+                dataDateCreate: String?,
                 dataNotes: String?,
                 dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataCompany: String?, dataAddress: String?
     ){
@@ -34,12 +38,15 @@ class DataClassAdd {
         this.dataQrCode = dataQrCode
         this.dataArriveDate = dataArriveDate
         this.dataIncomingWeight = dataIncomingWeight
-        this.dataGrade = dataGrade
-        this.dataPrice = dataPrice
+        this.dataPurchasePrice = dataPurchasePrice
 
-        this.dataOutgoingWeight = dataOutgoingWeight
-        this.dataWeightLoss = dataWeightLoss
         this.dataOutgoingDate = dataOutgoingDate
+        this.dataOutgoingWeight = dataOutgoingWeight
+        this.dataGrade = dataGrade
+        this.dataHandling = dataHandling
+        this.dataHandlingFee = dataHandlingFee
+        this.dataWeightLoss = dataWeightLoss
+        this.dataSellingPrice = dataSellingPrice
 
         this.dataDateCreate = dataDateCreate
 

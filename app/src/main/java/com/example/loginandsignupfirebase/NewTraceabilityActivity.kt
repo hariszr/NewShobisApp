@@ -194,7 +194,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.nestedScrollView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     // Pindahkan layar ke posisi TextView yang menampilkan pesan kesalahan
-                    binding.nestedScrollView.scrollTo(0, binding.varietyDropDown.top)
+                    binding.nestedScrollView.scrollTo(0, binding.handlingDropDown.top)
 
                     // Hapus listener setelah selesai
                     binding.nestedScrollView.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -285,8 +285,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.handlingLayout.error = "Variety cannot be empty"
             binding.handlingDropDown.requestFocus()
             return
-        } else if (binding.handlingDropDown.text.toString().length > 50) {
-            binding.handlingDropDown.error = "Maximum 30 character handling"
+        } else if (binding.handlingDropDown.text.toString().length > 60) {
+            binding.handlingDropDown.error = "Maximum 60 character handling"
             binding.handlingDropDown.requestFocus()
             return
         }
@@ -458,7 +458,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun displayDropDownHandling() {
-        val itemsHandling = arrayListOf("Tidak Ada","Penanganan", "Pengemasan", "Transport", "Penanganan & Pengemasan", "Penanganan & Transport", "Pengemasan & Transport", "Full Service (Penanganan, Pengemasan & Transport)", "Lainnya")
+        val itemsHandling = arrayListOf("Tidak Ada", "Sortir", "Grading", "Pengemasan", "Transport", "Sortir", "Sortir & Grading", "Sortir & Pengemaasan", "Sortir & Transport", "Grading & Pengemasan", "Grading & Transport", "Pengemasan & Transport", "Grading & Pengemasan", "Sortir, Grading & Transport", "Sortir, Pengemasan & Transport", "Grading, Pengemasan, & Transport", "Full Service (Sortir, Grading, Pengemasan & Transport)", "Lainnya")
         val adapterHandling = ArrayAdapter(this, R.layout.item_list_dropdown, itemsHandling)
         binding.handlingDropDown.setAdapter(adapterHandling)
         binding.handlingDropDown.setOnItemClickListener { _, _, position, _ ->
@@ -578,7 +578,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
     fun uploadData(pid: String) {
 
-        val variety = binding.gradeDropDown.text.toString()
+        val variety = binding.varietyDropDown.text.toString()
         val weight = binding.weightEt.text.toString()
         val grade = binding.gradeDropDown.text.toString()
         val sellingPrice = binding.sellingPriceEt.text.toString()
@@ -596,6 +596,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
         val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
 
         val notes = binding.noteEt.text.toString()
+
+        val sellingPriceUpdate = binding.sellingPriceEt.text.toString()
 
 //        var email = firebaseAuth.currentUser?.email
 
@@ -620,7 +622,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
                     farmer, day, area, fertilizer, pesticides, weightFarmers, priceFarmers,
                     dateCreate,
                     notes,
-                    fullName, actor, email, gender, company, address
+                    fullName, actor, email, gender, company, address,
+                    sellingPriceUpdate
                 )
 
 

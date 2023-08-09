@@ -1,6 +1,5 @@
 package com.example.loginandsignupfirebase
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginandsignupfirebase.model.DataClassAdd
-import com.example.loginandsignupfirebase.model.DataClassNewAdd
 
 class ListAdapterDetail(private val dataList: List<DataClassAdd>): RecyclerView.Adapter<MyViewHolderDetail>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderDetail {
@@ -27,7 +25,7 @@ class ListAdapterDetail(private val dataList: List<DataClassAdd>): RecyclerView.
         holder.itemArrivedDate.text = dataList[position].dataArriveDate
         holder.itemIncomingWeight.text = dataList[position].dataIncomingWeight
         holder.itemGradeSecondary.text = dataList[position].dataGrade
-        holder.itemPriceSecondary.text = dataList[position].dataPrice
+        holder.itemPriceSecondary.text = dataList[position].dataSellingPrice
         holder.itemOutgoingWeight.text = dataList[position].dataOutgoingWeight
         holder.itemLossProduct.text = dataList[position].dataWeightLoss
         holder.itemOutgoingDate.text = dataList[position].dataOutgoingDate

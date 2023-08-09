@@ -1,6 +1,7 @@
 package com.example.loginandsignupfirebase
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -9,6 +10,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
@@ -61,20 +64,28 @@ class AddTraceabilityActivity : AppCompatActivity() {
         oldPID = intent.extras?.getString("sendPID")
 
         displayDropDownGrade()
+        displayDropDownHandling()
+
+        binding.purchasePriceEt.setMaskingMoney("Rp. ")
+        binding.handlingFeeEt.setMaskingMoney("Rp. ")
         binding.sellingPriceEt.setMaskingMoney("Rp. ")
 
         firebaseRefServer.child(oldPID.toString()).get().addOnSuccessListener{
                 if (oldPID.toString().isNotEmpty()) {
-                    val dateCreate = it.child("dataDateCreate").value.toString()
+                    val dateBefore = it.child("dataDateCreate").value.toString()
+                    val dataSellingPriceUpdate = it.child("dataSellingPriceUpdate").value.toString().replace("Rp. ", "").replace(",", "")
+
+                    binding.purchasePriceEt.setText(dataSellingPriceUpdate)
+                    binding.purchasePriceEt.inputType = android.text.InputType.TYPE_NULL
                     //untuk pengecekan
 //                    val dateString = "Jul 25, 2023 16:25:19"
 
-                    println("data yg diambil tanggal : $dateCreate")
-
+                    println("data yg diambil tanggal : $dateBefore")
+                    println("data yg diambil sellingPriceUpdate : $dataSellingPriceUpdate")
 
                     // Konversi string menjadi objek Date
                     val dateFormat = SimpleDateFormat("MMM d, yyyy HH:mm:ss", Locale.US)
-                    val date = dateFormat.parse(dateCreate)
+                    val date = dateFormat.parse(dateBefore)
 
                     println("data yg diambil tanggal : $date")
 
@@ -89,21 +100,16 @@ class AddTraceabilityActivity : AppCompatActivity() {
 //                    val nextDayInMillis = myDesiredDateInMillis!! + oneDayInMillis
 
                     val myCalendar = Calendar.getInstance()
-//                    val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-//                        myCalendar.set(Calendar.YEAR, year)
-//                        myCalendar.set(Calendar.MONTH, month)
-//                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-//
-//                        updateLabel(myCalendar)
-//                    }
+                    val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        myCalendar.set(Calendar.YEAR, year)
+                        myCalendar.set(Calendar.MONTH, month)
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                    val datePickerListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                        // Tindakan yang diambil ketika tanggal dipilih
-                        // Misalnya: update tampilan dengan tanggal yang dipilih
+                        updateLabel(myCalendar)
                     }
 
                     binding.arriveDateEt.setOnClickListener {
-                        val dPicker = DatePickerDialog(this, datePickerListener, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
+                        val dPicker = DatePickerDialog(this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
                         dPicker.datePicker.minDate = myDesiredDateInMillis!!
                         dPicker.datePicker.maxDate = currentDate
                         dPicker.show()
@@ -149,6 +155,20 @@ class AddTraceabilityActivity : AppCompatActivity() {
             }
         })
 
+        binding.outgoingDateEt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationInputDateOutgoing()
+            }
+        })
+
         binding.gradeDropDown.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // Tidak diperlukan
@@ -163,7 +183,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
             }
         })
 
-        binding.outgoingDateEt.addTextChangedListener(object : TextWatcher {
+        binding.handlingDropDown.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // Tidak diperlukan
             }
@@ -173,7 +193,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                validationInputDateOutgoing()
+                validationHandling()
             }
         })
     }
@@ -207,17 +227,6 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.arriveDateLayout.error = null
         }
     }
-
-    private fun validationGrade() {
-        if (binding.gradeDropDown.text.isEmpty()) {
-            binding.gradeLayout.error = "Grade cannot be empty"
-            binding.gradeDropDown.requestFocus()
-            return
-        } else {
-            binding.gradeLayout.error = null
-            binding.gradeDropDown.clearFocus()
-        }
-    }
     private fun validationInputDateOutgoing() {
         if (binding.outgoingDateEt.text.toString().isEmpty()) {
             binding.outgoingDateLayout.error = "Product outgoing date cannot be empty"
@@ -230,9 +239,41 @@ class AddTraceabilityActivity : AppCompatActivity() {
         }
     }
 
+    private fun validationGrade() {
+        if (binding.gradeDropDown.text.isEmpty()) {
+            binding.gradeLayout.error = "Grade cannot be empty"
+            binding.gradeDropDown.requestFocus()
+            return
+        } else {
+            binding.gradeLayout.error = null
+            binding.gradeDropDown.clearFocus()
+        }
+    }
+
+    private fun validationHandling() {
+        if (binding.handlingDropDown.text.isEmpty()) {
+            binding.handlingLayout.error
+            binding.handlingDropDown.requestFocus()
+
+            binding.nestedScrollView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    // Pindahkan layar ke posisi TextView yang menampilkan pesan kesalahan
+                    binding.nestedScrollView.scrollTo(0, binding.handlingDropDown.top)
+
+                    // Hapus listener setelah selesai
+                    binding.nestedScrollView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
+            return
+        } else {
+            binding.handlingLayout.error = null
+//            binding.varietyDropDown.clearFocus()
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun validationInputData() {
-        //arrive date
+        //product condition arrived
         if (binding.arriveDateEt.text.toString().isEmpty()) {
             binding.arriveDateLayout.error = "Product arrive date cannot be empty"
             binding.arriveDateEt.requestFocus()
@@ -257,7 +298,50 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.incomingWeightEt.error = null
         }
 
-        //grade
+        if (binding.purchasePriceEt.text.toString().isEmpty()) {
+            binding.purchasePriceEt.error = "Price cannot be empty"
+            binding.purchasePriceEt.requestFocus()
+            return
+        }
+        else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
+            binding.purchasePriceEt.error = "Maximum price is Rp 1.000"
+            binding.purchasePriceEt.requestFocus()
+            return
+        } else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
+            binding.purchasePriceEt.error = "Maximum price is Rp 60.000"
+            binding.purchasePriceEt.requestFocus()
+            return
+        }
+        else {
+            binding.purchasePriceEt.error = null
+        }
+
+        //update information product
+        if (binding.outgoingDateEt.text.toString().isEmpty()) {
+            binding.outgoingDateLayout.error = "Product outgoing date cannot be empty"
+            binding.outgoingDateEt.requestFocus()
+            return
+        } else {
+            binding.outgoingDateLayout.error = null
+            binding.outgoingDateEt.clearFocus()
+            binding.weightLossEt.clearFocus()
+        }
+
+        if (binding.outgoingWeightEt.text.toString().isEmpty()) {
+            binding.outgoingWeightEt.error = "Outgoing weight cannot be empty"
+            binding.outgoingWeightEt.requestFocus()
+            return
+        } else if (binding.outgoingWeightEt.text.toString().toInt() > 6000) {
+            binding.outgoingWeightEt.error = "Maximum weight is 6000 Kg"
+            binding.outgoingWeightEt.requestFocus()
+            return
+        } else if (binding.outgoingWeightEt.text.toString().length > 4) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
+            binding.outgoingWeightEt.error = "Maximum 4 digit"
+            binding.outgoingWeightEt.requestFocus()
+            return
+        }
+
+
         if (binding.gradeDropDown.text.isEmpty()) {
             binding.gradeLayout.error = "Grade cannot be empty"
             binding.gradeDropDown.requestFocus()
@@ -265,6 +349,42 @@ class AddTraceabilityActivity : AppCompatActivity() {
         } else {
             binding.gradeLayout.error = null
             binding.gradeDropDown.clearFocus()
+        }
+
+        if (binding.handlingDropDown.text.toString().isEmpty()) {
+            binding.handlingLayout.error = "Variety cannot be empty"
+            binding.handlingDropDown.requestFocus()
+            return
+        } else if (binding.handlingDropDown.text.toString().length > 60) {
+            binding.handlingDropDown.error = "Maximum 60 character handling"
+            binding.handlingDropDown.requestFocus()
+            return
+        }
+
+        if (binding.handlingFeeEt.text.toString().isEmpty()) {
+            binding.handlingFeeEt.error = "Cost prices cannot be empty"
+            binding.handlingFeeEt.requestFocus()
+            return
+        } else if (binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 3000) {
+            binding.handlingFeeEt.error = "Maximum cost price is Rp 3000"
+            binding.handlingFeeEt.requestFocus()
+            return
+        }
+
+
+        if (binding.weightLossEt.text.toString().isEmpty()) {
+            binding.weightLossEt.error = "Weight loss cannot be empty"
+            binding.weightLossEt.requestFocus()
+            return
+        }
+        else if (binding.weightLossEt.text.toString().toInt() > 100) {
+            binding.weightLossEt.error = "Maximum weight loss is 100 Kg"
+            binding.weightLossEt.requestFocus()
+            return
+        } else if (binding.weightLossEt.text.toString().length > 3) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
+            binding.weightLossEt.error = "Maximum 3 digit"
+            binding.weightLossEt.requestFocus()
+            return
         }
 
         if (binding.sellingPriceEt.text.toString().isEmpty()) {
@@ -283,50 +403,12 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.sellingPriceEt.error = null
         }
 
-        if (binding.outgoingWeightEt.text.toString().isEmpty()) {
-            binding.outgoingWeightEt.error = "Outgoing weight cannot be empty"
-            binding.outgoingWeightEt.requestFocus()
-            return
-        } else if (binding.outgoingWeightEt.text.toString().toInt() > 6000) {
-            binding.outgoingWeightEt.error = "Maximum weight is 6000 Kg"
-            binding.outgoingWeightEt.requestFocus()
-            return
-        } else if (binding.outgoingWeightEt.text.toString().length > 4) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
-            binding.outgoingWeightEt.error = "Maximum 4 digit"
-            binding.outgoingWeightEt.requestFocus()
-            return
-        }
-
-        if (binding.weightLossEt.text.toString().isEmpty()) {
-            binding.weightLossEt.error = "Weight loss cannot be empty"
-            binding.weightLossEt.requestFocus()
-            return
-        }
-        else if (binding.weightLossEt.text.toString().toInt() > 100) {
-            binding.weightLossEt.error = "Maximum weight loss is 100 Kg"
-            binding.weightLossEt.requestFocus()
-            return
-        } else if (binding.weightLossEt.text.toString().length > 3) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
-            binding.weightLossEt.error = "Maximum 3 digit"
-            binding.weightLossEt.requestFocus()
-            return
-        }
-
-        //outgoing date
-        if (binding.outgoingDateEt.text.toString().isEmpty()) {
-            binding.outgoingDateLayout.error = "Product outgoing date cannot be empty"
-            binding.outgoingDateEt.requestFocus()
-            return
-        } else {
-            binding.outgoingDateLayout.error = null
-            binding.outgoingDateEt.clearFocus()
-            binding.weightLossEt.clearFocus()
-        }
-
         if (binding.noteEt.text.toString().trim().isEmpty()) {
             binding.noteEt.setText("-")
             binding.noteEt.clearFocus()
         }
+
+
         DialogProgressStart()
     }
 
@@ -428,12 +510,15 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         val arriveDate = binding.arriveDateEt.text.toString()
         val incomingWeight = binding.incomingWeightEt.text.toString()
-        val grade = binding.gradeDropDown.text.toString()
-        val price = binding.sellingPriceEt.text.toString()
+        val purchasePrice = binding.purchasePriceEt.text.toString()
 
-        val outgoingWeight = binding.outgoingWeightEt.text.toString()
-        val weightLoss = binding.weightLossEt.text.toString()
         val outgoingDate = binding.outgoingDateEt.text.toString()
+        val outgoingWeight = binding.outgoingWeightEt.text.toString()
+        val grade = binding.gradeDropDown.text.toString()
+        val handling = binding.handlingDropDown.text.toString()
+        val handlingFee = binding.handlingFeeEt.text.toString()
+        val weightLoss = binding.weightLossEt.text.toString()
+        val sellingPrice = binding.sellingPriceEt.text.toString()
 
         val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
 
@@ -459,8 +544,9 @@ class AddTraceabilityActivity : AppCompatActivity() {
                 if (address.isBlank()) address = "-"
 
                 val dataClassAdd = DataClassAdd(
-                    pid, imageURL, arriveDate, incomingWeight, grade, price,
-                    outgoingWeight, weightLoss, outgoingDate, dateCreate,
+                    pid, imageURL, arriveDate, incomingWeight, purchasePrice,
+                    outgoingDate, outgoingWeight, grade, handling, handlingFee, weightLoss, sellingPrice,
+                    dateCreate,
                     notes,
                     fullName, actor, email, gender, company, address
                 )
@@ -687,6 +773,49 @@ class AddTraceabilityActivity : AppCompatActivity() {
         val itemsGrade = listOf("Same with Previous", "All Grade", "Super", "A", "AB", "C")
         val adapterGrade = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGrade)
         binding.gradeDropDown.setAdapter(adapterGrade)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun displayDropDownHandling() {
+        val itemsHandling = arrayListOf("Tidak Ada", "Sortir", "Grading", "Pengemasan", "Transport", "Sortir", "Sortir & Grading", "Sortir & Pengemaasan", "Sortir & Transport", "Grading & Pengemasan", "Grading & Transport", "Pengemasan & Transport", "Grading & Pengemasan", "Sortir, Grading & Transport", "Sortir, Pengemasan & Transport", "Grading, Pengemasan, & Transport", "Full Service (Sortir, Grading, Pengemasan & Transport)", "Lainnya")
+        val adapterHandling = ArrayAdapter(this, R.layout.item_list_dropdown, itemsHandling)
+        binding.handlingDropDown.setAdapter(adapterHandling)
+        binding.handlingDropDown.setOnItemClickListener { _, _, position, _ ->
+            val selectedOption = itemsHandling[position]
+            if (selectedOption == "Lainnya") {
+                binding.handlingDropDown.isCursorVisible = true
+                binding.handlingDropDown.setText("")
+                binding.handlingFeeEt.inputType = android.text.InputType.TYPE_CLASS_TEXT
+                binding.handlingDropDown.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.handlingDropDown, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            }
+
+            if (selectedOption == "Tidak Ada") {
+                binding.handlingDropDown.isCursorVisible = false
+                binding.handlingFeeEt.setText("0")
+                binding.handlingFeeEt.inputType = android.text.InputType.TYPE_NULL
+                binding.handlingFeeEt.isCursorVisible = false
+                binding.weightLossEt.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.weightLossEt, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            } else {
+                binding.handlingFeeEt.isCursorVisible = true
+                binding.handlingFeeEt.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+                binding.handlingFeeEt.requestFocus()
+
+                //munculkan keyboard
+                val keyboardShow = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboardShow.showSoftInput(binding.handlingFeeEt, InputMethodManager.SHOW_IMPLICIT)
+                return@setOnItemClickListener
+            }
+        }
     }
 
     fun EditText.setMaskingMoney(currencyText: String) {

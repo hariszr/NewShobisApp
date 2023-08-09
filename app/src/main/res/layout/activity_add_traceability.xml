@@ -45,7 +45,8 @@
     </LinearLayout>
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -60,7 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/update_product_information"
+                android:text="Product Condition Arrived:"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="12dp"
                 android:textColor="@color/grey_mid"
@@ -116,91 +117,37 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/gradeLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:hint="@string/grade_title"
-                app:boxStrokeColor="@color/salem_1"
-                app:errorEnabled="true"
-                app:hintTextColor="@color/salem_1">
-
-                <AutoCompleteTextView
-                    android:id="@+id/grade_DropDown"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/ic_label"
-                    android:drawablePadding="12dp"
-                    android:inputType="none"
-                    android:cursorVisible="false"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/sellingPriceLayout"
+                android:id="@+id/purchasePriceLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:hint="@string/selling_price_per_kg"
+                android:hint="Purchase Price (per Kg)"
                 app:boxStrokeColor="@color/salem_1"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/salem_1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sellingPriceEt"
+                    android:id="@+id/purchasePriceEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_label"
                     android:drawablePadding="12dp"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:digits="0123456789"/>
+                    android:inputType="none|textNoSuggestions"
+                    android:cursorVisible="false"
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/outgoingWeightLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/update_product_information"
                 android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:hint="@string/outgoing_product_weight_kilogram"
-                app:boxStrokeColor="@color/salem_1"
-                app:errorEnabled="true"
-                app:hintTextColor="@color/salem_1">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/outgoingWeightEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_label"
-                    android:drawablePadding="12dp"
-                    android:inputType="numberDecimal|numberSigned" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/weightLossLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:hint="@string/process_weight_loss_kilogram"
-                app:boxStrokeColor="@color/salem_1"
-                app:errorEnabled="true"
-                app:hintTextColor="@color/salem_1">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/weightLossEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_label"
-                    android:drawablePadding="12dp"
-                    android:inputType="numberDecimal|numberSigned" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/grey_mid"
+                android:textSize="17sp"
+                android:textStyle="normal" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/outgoingDateLayout"
@@ -227,6 +174,137 @@
                     android:drawablePadding="12dp"
                     android:inputType="datetime"
                     android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outgoingWeightLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/outgoing_product_weight_kilogram"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/outgoingWeightEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="numberDecimal|numberSigned" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/gradeLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/grade_title"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <AutoCompleteTextView
+                    android:id="@+id/grade_DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="none"
+                    android:cursorVisible="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/handlingLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/handling"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <AutoCompleteTextView
+                    android:id="@+id/handling_DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="textCapWords"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/handlingFeeLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/handling_fee_per_kg"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/handlingFeeEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/weightLossLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="Handling Weight Loss (Kg)"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/weightLossEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="numberDecimal|numberSigned" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sellingPriceLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="@string/selling_price_per_kg"
+                app:boxStrokeColor="@color/salem_1"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/salem_1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sellingPriceEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_label"
+                    android:drawablePadding="12dp"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:digits="0123456789"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -343,5 +421,5 @@
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

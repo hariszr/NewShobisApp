@@ -32,11 +32,14 @@ class DataClassNewAdd {
     var dataCompany: String? = null
     var dataAddress: String? = null
 
+    var dataSellingPriceUpdate: String? = null
+
     constructor(pid: String?, dataQrCode: String?, dataQrCodeUpdate: String?, dataPicProduct: String?, dataVariety: String?, dataWeight: String?, dataGrade: String?, dataSellingPrice: String?, dataHandling: String?, dataHandlingFee: String?,
                 dataFarmer: String?, dataDay: String?, dataPlantingArea: String?, dataFertilizer: String?, dataPesticides: String?, dataWeightFarmers: String?, dataPriceFarmers: String?,
                 dataDateCreate: String?,
                 dataNotes: String?,
-                dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataCompany: String?, dataAddress: String?){
+                dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataCompany: String?, dataAddress: String?,
+                dataSellingPriceUpdate: String?){
 
         this.pid = pid
         this.dataQrCode = dataQrCode
@@ -68,6 +71,7 @@ class DataClassNewAdd {
         this.dataCompany = dataCompany
         this.dataAddress = dataAddress
 
+        this.dataSellingPriceUpdate = dataSellingPriceUpdate //dah bener ini gini
     }
     constructor() {}
 

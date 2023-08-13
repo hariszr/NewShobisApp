@@ -33,17 +33,19 @@
                         android:padding="0dp">
 
                         <TextView
+                            android:id="@+id/arrivalDateTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="30dp"
                             android:gravity="center"
-                            android:text="Arrival Date"
+                            android:text="@string/arrival_date"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/shallotVarietyTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -55,123 +57,148 @@
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/productIDTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="100dp"
+                            android:layout_marginEnd="50dp"
+                            android:gravity="center"
+                            android:text="@string/product_id"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/outgoingDateTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="50dp"
                             android:gravity="center"
-                            android:text="Outgoing Date"
+                            android:text="@string/outgoing_date"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/incomingDateTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="30dp"
                             android:gravity="center"
-                            android:text="Incoming Weight"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="30dp"
-                            android:gravity="center"
-                            android:text="Purchase Price (per Kg)"
+                            android:text="@string/incoming_weight"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/purchasePriceTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="30dp"
+                            android:gravity="center"
+                            android:text="@string/purchase_price_per_kg"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/costPricesTV"
                             android:layout_width="170dp"
                             android:layout_height="50dp"
                             android:lines="2"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
                             android:gravity="center"
-                            android:text="Cost Prices (Handling, Packing, Transport) / Kg"
+                            android:text="@string/cost_prices_handling_packing_transport_kg"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/outgoingWeightTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
                             android:gravity="center"
-                            android:text="Outgoing Weight (per Kg)"
+                            android:text="@string/outgoing_weight_per_kg"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/sellingPriceTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="30dp"
                             android:gravity="center"
-                            android:text="Selling Price (per Kg)"
+                            android:text="@string/selling_price_per_kg"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/purchaseCapitalTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="30dp"
                             android:gravity="center"
-                            android:text="Purchase Capital"
+                            android:text="@string/purchase_capital"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/capitalCostTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="50dp"
                             android:gravity="center"
-                            android:text="Capital Cost"
+                            android:text="@string/capital_cost"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/totalCapitalTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="50dp"
                             android:gravity="center"
-                            android:text="Total Capital"
+                            android:text="@string/total_capital"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/totalSell"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="50dp"
                             android:gravity="center"
-                            android:text="Total Sell"
+                            android:text="@string/total_sell"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <TextView
+                            android:id="@+id/profitTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="70dp"
                             android:layout_marginEnd="70dp"
                             android:gravity="center"
-                            android:text="Profit"
+                            android:text="@string/profit"
                             android:textColor="@color/salem_1"
                             android:textSize="14sp"
                             android:textStyle="bold" />

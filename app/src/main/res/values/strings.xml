@@ -116,4 +116,16 @@
     <string name="handling">Handling</string>
     <string name="purchase_price_from_farmers_per_kg">Purchase Price from Farmers (per Kg)</string>
     <string name="additional_notes_ET">Additional Notes</string>
+    <string name="product_id">Product ID</string>
+    <string name="outgoing_date">Outgoing Date</string>
+    <string name="arrival_date">Arrival Date</string>
+    <string name="incoming_weight">Incoming Weight</string>
+    <string name="purchase_price_per_kg">Purchase Price (per Kg)</string>
+    <string name="cost_prices_handling_packing_transport_kg">Cost Prices (Handling, Packing, Transport) / Kg</string>
+    <string name="outgoing_weight_per_kg">Outgoing Weight (per Kg)</string>
+    <string name="purchase_capital">Purchase Capital</string>
+    <string name="capital_cost">Capital Cost</string>
+    <string name="total_capital">Total Capital</string>
+    <string name="total_sell">Total Sell</string>
+    <string name="profit">Profit</string>
 </resources>

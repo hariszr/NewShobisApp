@@ -24,6 +24,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivityNewTraceabilityBinding
 import com.example.loginandsignupfirebase.model.DataClassNewAdd
+import com.example.loginandsignupfirebase.model.DataClassSummary
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -37,6 +38,7 @@ import java.io.ByteArrayOutputStream
 import java.lang.ref.WeakReference
 import java.text.DateFormat
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class NewTraceabilityActivity : AppCompatActivity() {
@@ -576,6 +578,47 @@ class NewTraceabilityActivity : AppCompatActivity() {
         saveQrCodeToStorage(pid, qrCodeBitMap)
     }
 
+    @SuppressLint("SimpleDateFormat")
+    private fun uploadDataSummary(pid: String) {
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val currentDate = Calendar.getInstance().time
+
+        val dateIn = dateFormat.format(currentDate)
+        val variety = binding.varietyDropDown.text.toString()
+        val dateOut = dateFormat.format(currentDate)
+        val weightIn = binding.weightEt.text.toString().toInt()
+        val purchasePrice = binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
+        val costPrices = binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
+        val weightOut = binding.weightEt.text.toString().toInt()
+        val sellingPrice = binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
+        val purchaseCapital = weightIn * purchasePrice
+        val capitalCosts = weightIn * costPrices
+        val totalCapital = purchaseCapital + capitalCosts
+        val totalSell = weightOut * sellingPrice
+        val profit = totalSell - totalCapital
+
+        val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
+
+        val dataClassSummary = DataClassSummary(
+            dateIn, variety, pid, dateOut, weightIn, purchasePrice, costPrices, weightOut, sellingPrice, purchaseCapital, capitalCosts, totalCapital, totalSell, profit
+        )
+
+        firebaseRef.child(firebaseAuth.uid.toString()).child("summary").child(dateCreate)
+            .setValue(dataClassSummary).addOnCompleteListener {task ->
+                if (task.isSuccessful) {
+                    println("Successfully Created Summary in The Users")
+                    Log.i("Data Summary", "Successfully Created Summary in The Users")
+
+                    startActivity(Intent(this, TraceabilityListActivity::class.java))
+                    finish()
+                }
+            }.addOnFailureListener {
+                println("Failed Create Summary in The Users")
+                Log.i("Data Summary", "Failed Create Summary in The Users")
+            }
+
+    }
+
     fun uploadData(pid: String) {
 
         val variety = binding.varietyDropDown.text.toString()
@@ -645,8 +688,6 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
                             count += 1
                             println("${count} 2 URL unduhan gambar: $imageURL")
-                            startActivity(Intent(this, TraceabilityListActivity::class.java))
-                            finish()
                         }
                     }.addOnFailureListener { e ->
                         Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
@@ -673,7 +714,6 @@ class NewTraceabilityActivity : AppCompatActivity() {
 //
 //        }
     }
-
 
     private fun saveQrCodeToStorage(pid: String, qrCodeBitmap: Bitmap) {
         val storage = FirebaseStorage.getInstance()
@@ -705,6 +745,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
                         "Success upload photo to storage firebase"
                     )
                     uploadData(pid)
+                    uploadDataSummary(pid)
 //                uploadData(imageURL)
                 }
                     ?.addOnFailureListener { exception ->

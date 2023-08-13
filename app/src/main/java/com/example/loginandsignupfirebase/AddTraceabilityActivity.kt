@@ -1,5 +1,6 @@
 package com.example.loginandsignupfirebase
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginandsignupfirebase.databinding.ActivityAddTraceabilityBinding
 import com.example.loginandsignupfirebase.model.DataClassAdd
+import com.example.loginandsignupfirebase.model.DataClassSummary
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -504,6 +506,59 @@ class AddTraceabilityActivity : AppCompatActivity() {
             }
         })
     }
+    @SuppressLint("SimpleDateFormat")
+    private fun uploadDataSummary(pid: String) {
+
+        firebaseRefServer.child(oldPID.toString()).get().addOnSuccessListener{
+            if (oldPID.toString().isNotEmpty()){
+                val variety = it.child("dataVariety").value.toString()
+
+                println("Successfully get dataVariety in OLDPID in server PID")
+                Log.i("Get data variety", "Successfully get dataVariety in OLDPID in server PID")
+
+                val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+                val currentDate = Calendar.getInstance().time
+
+                val dateIn = dateFormat.format(currentDate)
+                //variety
+                val dateOut = dateFormat.format(currentDate)
+                val weightIn = binding.incomingWeightEt.text.toString().toInt()
+                val purchasePrice = binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
+                val costPrices = binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
+                val weightOut = binding.outgoingWeightEt.text.toString().toInt()
+                val sellingPrice = binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
+                val purchaseCapital = weightIn * purchasePrice
+                val capitalCosts = weightIn * costPrices
+                val totalCapital = purchaseCapital + capitalCosts
+                val totalSell = weightOut * sellingPrice
+                val profit = totalSell - totalCapital
+
+                val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
+
+                val dataClassSummary = DataClassSummary(
+                    dateIn, variety, pid, dateOut, weightIn, purchasePrice, costPrices, weightOut, sellingPrice, purchaseCapital, capitalCosts, totalCapital, totalSell, profit
+                )
+
+                firebaseRef.child(firebaseAuth.uid.toString()).child("summary").child(dateCreate)
+                    .setValue(dataClassSummary).addOnCompleteListener {task ->
+                        if (task.isSuccessful) {
+                            println("Successfully Created Summary in The Users")
+                            Log.i("Data Summary", "Successfully Created Summary in The Users")
+
+                            startActivity(Intent(this, TraceabilityListActivity::class.java))
+                            finish()
+                        }
+                    }.addOnFailureListener {
+                        println("Failed Create Summary in The Users")
+                        Log.i("Data Summary", "Failed Create Summary in The Users")
+                    }
+
+            }
+        }.addOnFailureListener {
+            println("Failed get dataVariety in OLDPID in server PID")
+            Log.i("Get data variety", "Failed get dataVariety in OLDPID in server PID")
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun uploadData(pid: String) {
@@ -599,8 +654,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 //                            Toast.makeText(this@AddTraceabilityActivity, "get $imageURL successfully from firebase", Toast.LENGTH_SHORT).show()
                             count += 1
                             println("${count} 2 URL unduhan gambar: $imageURL")
-                            startActivity(Intent(this@AddTraceabilityActivity, TraceabilityListActivity::class.java))
-                            finish()
+
                         }
                     }.addOnFailureListener { e ->
                         Toast.makeText(this@AddTraceabilityActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
@@ -755,6 +809,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
                         "Success upload photo to storage firebase"
                     )
                     uploadData(pid)
+                    uploadDataSummary(pid)
 //                    updateQrCode(pid)
 //                uploadData(imageURL)
                 }

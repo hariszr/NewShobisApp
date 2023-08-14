@@ -128,4 +128,5 @@
     <string name="total_capital">Total Capital</string>
     <string name="total_sell">Total Sell</string>
     <string name="profit">Profit</string>
+    <string name="incoming_weight_kg">Incoming Weight (Kg)</string>
 </resources>

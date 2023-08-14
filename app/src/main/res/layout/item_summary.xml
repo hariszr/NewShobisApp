@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemDetailRecyclerViewLL">
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,203 +14,404 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+            <TableLayout
+                android:id="@+id/itemSummaryRV"
+                android:layout_width="2800dp"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="10dp"
-                app:cardUseCompatPadding="true"
-                tools:cardCornerRadius="10dp">
+                android:layout_margin="10dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/arrivalDateTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="3"
+                        android:background="@color/white"
+                        android:foreground="@drawable/table_border"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:padding="10dp"
+                        android:text="@string/arrival_date"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="0dp">
+                    <TextView
+                        android:id="@+id/shallotVarietyTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/shallot_variety_ET"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/arrivalDateTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="30dp"
-                            android:gravity="center"
-                            android:text="@string/arrival_date"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/productIDTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/product_id"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/shallotVarietyTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="50dp"
-                            android:gravity="center"
-                            android:text="@string/shallot_variety_ET"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/outgoingDateTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/outgoing_date"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/productIDTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="100dp"
-                            android:layout_marginEnd="50dp"
-                            android:gravity="center"
-                            android:text="@string/product_id"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/incomingWeightTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/incoming_weight_kg"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/outgoingDateTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="50dp"
-                            android:gravity="center"
-                            android:text="@string/outgoing_date"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/purchasePriceTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/purchase_price_per_kg"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/incomingDateTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="30dp"
-                            android:gravity="center"
-                            android:text="@string/incoming_weight"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/handlingFeeTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/handling_fee_per_kg"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/purchasePriceTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="30dp"
-                            android:gravity="center"
-                            android:text="@string/purchase_price_per_kg"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/outgoingWeightTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/outgoing_weight_per_kg"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/costPricesTV"
-                            android:layout_width="170dp"
-                            android:layout_height="50dp"
-                            android:lines="2"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="10dp"
-                            android:gravity="center"
-                            android:text="@string/cost_prices_handling_packing_transport_kg"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/sellingPriceTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/selling_price_per_kg"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/outgoingWeightTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="10dp"
-                            android:gravity="center"
-                            android:text="@string/outgoing_weight_per_kg"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/purchaseCapitalTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/purchase_capital"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/sellingPriceTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="30dp"
-                            android:gravity="center"
-                            android:text="@string/selling_price_per_kg"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/capitalCostsTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/capital_cost"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/purchaseCapitalTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="30dp"
-                            android:gravity="center"
-                            android:text="@string/purchase_capital"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/totalCapitalTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/total_capital"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/capitalCostTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="50dp"
-                            android:gravity="center"
-                            android:text="@string/capital_cost"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/totalSellTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/total_sell"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/totalCapitalTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="50dp"
-                            android:gravity="center"
-                            android:text="@string/total_capital"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/profitTV"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:text="@string/profit"
+                        android:foreground="@drawable/table_border"
+                        android:background="@color/salem_1"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:textSize="16sp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal|center_vertical"/>
 
-                        <TextView
-                            android:id="@+id/totalSell"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="50dp"
-                            android:gravity="center"
-                            android:text="@string/total_sell"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
 
-                        <TextView
-                            android:id="@+id/profitTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="70dp"
-                            android:layout_marginEnd="70dp"
-                            android:gravity="center"
-                            android:text="@string/profit"
-                            android:textColor="@color/salem_1"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
     </HorizontalScrollView>
+
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardSummaryRV"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:cardElevation="5dp"-->
+<!--                android:layout_marginVertical="3dp"-->
+<!--                android:layout_marginHorizontal="7dp"-->
+<!--                tools:cardCornerRadius="5dp">-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/arrivalDateTV"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="30dp"-->
+<!--                                android:text="ariival date nih bang dsds"-->
+<!--                                android:gravity="center"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="normal"-->
+<!--                                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                                app:layout_constraintBottom_toTopOf="parent"/>-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/shallotVarietyTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/shallot_variety_ET"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal"-->
+<!--                            tools:layout_editor_absoluteX="250dp" />-->
+
+                        <!--                        <TextView-->
+<!--                            android:id="@+id/productIDTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="100dp"-->
+<!--                            android:layout_marginEnd="50dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/product_id"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/outgoingDateTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="50dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/outgoing_date"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/incomingWeightTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="30dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/incoming_weight"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/purchasePriceTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="30dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/purchase_price_per_kg"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/costPricesTV"-->
+<!--                            android:layout_width="170dp"-->
+<!--                            android:layout_height="50dp"-->
+<!--                            android:lines="2"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/cost_prices_handling_packing_transport_kg"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/outgoingWeightTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/outgoing_weight_per_kg"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/sellingPriceTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="30dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/selling_price_per_kg"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/purchaseCapitalTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="30dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/purchase_capital"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/capitalCostsTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="50dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/capital_cost"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/totalCapitalTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="50dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/total_capital"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/totalSellTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="50dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/total_sell"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/profitTV"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginStart="70dp"-->
+<!--                            android:layout_marginEnd="70dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="@string/profit"-->
+<!--                            android:textColor="@color/salem_1"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
 </LinearLayout>
 

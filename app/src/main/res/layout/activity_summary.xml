@@ -50,203 +50,418 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <HorizontalScrollView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <TableLayout
+                    android:layout_width="2800dp"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="10dp"
-                    app:cardUseCompatPadding="true"
-                    tools:cardCornerRadius="10dp">
+                    android:layout_margin="10dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    <TableRow>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="0dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="3"
+                            android:background="@color/salem_2"
+                            android:foreground="@drawable/table_border"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:padding="10dp"
+                            android:text="@string/arrival_date"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
-                                android:gravity="center"
-                                android:text="Arrival Date"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/shallot_variety_ET"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="50dp"
-                                android:gravity="center"
-                                android:text="@string/shallot_variety_ET"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/product_id"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:id="@+id/productIDTV"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="100dp"
-                                android:layout_marginEnd="50dp"
-                                android:gravity="center"
-                                android:text="@string/product_id"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/outgoing_date"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="50dp"
-                                android:gravity="center"
-                                android:text="Outgoing Date"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/incoming_weight_kg"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
-                                android:gravity="center"
-                                android:text="Incoming Weight"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
-                                android:gravity="center"
-                                android:text="Purchase Price (per Kg)"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/purchase_price_per_kg"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="170dp"
-                                android:layout_height="50dp"
-                                android:lines="2"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="10dp"
-                                android:gravity="center"
-                                android:text="Cost Prices (Handling, Packing, Transport) / Kg"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/handling_fee_per_kg"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="10dp"
-                                android:gravity="center"
-                                android:text="Outgoing Weight (per Kg)"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/outgoing_weight_per_kg"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
-                                android:gravity="center"
-                                android:text="Selling Price (per Kg)"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/selling_price_per_kg"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
-                                android:gravity="center"
-                                android:text="Purchase Capital"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/purchase_capital"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="50dp"
-                                android:gravity="center"
-                                android:text="Capital Cost"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/capital_cost"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="50dp"
-                                android:gravity="center"
-                                android:text="Total Capital"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/total_capital"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="50dp"
-                                android:gravity="center"
-                                android:text="Total Sell"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/total_sell"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_2"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="70dp"
-                                android:layout_marginEnd="70dp"
-                                android:gravity="center"
-                                android:text="PROFIT"
-                                android:textColor="@color/salem_1"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:text="@string/profit"
+                            android:foreground="@drawable/table_border"
+                            android:background="@color/salem_1"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:padding="10dp"
+                            android:textSize="15sp"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal|center_vertical"/>
 
 
-                        </LinearLayout>
+                    </TableRow>
+                </TableLayout>
 
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="true"
+                    android:layout_marginBottom="20dp"/>
             </LinearLayout>
+
         </HorizontalScrollView>
 
     </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="center">-->
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:cardCornerRadius="15dp"-->
+<!--                    app:cardElevation="10dp"-->
+<!--                    app:cardUseCompatPadding="true"-->
+<!--                    tools:cardCornerRadius="10dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="0dp">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="30dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Arrival Date"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="50dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="@string/shallot_variety_ET"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/productIDTV"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="100dp"-->
+<!--                                android:layout_marginEnd="50dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="@string/product_id"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="50dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Outgoing Date"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="30dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Incoming Weight"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="30dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Purchase Price (per Kg)"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="170dp"-->
+<!--                                android:layout_height="50dp"-->
+<!--                                android:lines="2"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="10dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Cost Prices (Handling, Packing, Transport) / Kg"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="10dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Outgoing Weight (per Kg)"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="30dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Selling Price (per Kg)"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="30dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Purchase Capital"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="50dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Capital Cost"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="50dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Total Capital"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="50dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Total Sell"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="70dp"-->
+<!--                                android:layout_marginEnd="70dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="PROFIT"-->
+<!--                                android:textColor="@color/salem_1"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:textStyle="bold" />-->
+
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+
+<!--            </LinearLayout>-->
 
 </LinearLayout>

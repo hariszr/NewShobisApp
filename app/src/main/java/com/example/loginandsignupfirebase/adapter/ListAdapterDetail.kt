@@ -30,6 +30,8 @@ class ListAdapterDetail(private val dataList: List<DataClassAdd>): RecyclerView.
         holder.itemLossProduct.text = dataList[position].dataWeightLoss
         holder.itemOutgoingDate.text = dataList[position].dataOutgoingDate
 
+        holder.itemNotes.text = dataList[position].dataNotes
+
         holder.itemCreator.text = dataList[position].dataNameCreator
         holder.itemActor.text = dataList[position].dataActor
         holder.itemEmail.text = dataList[position].dataEmail
@@ -72,6 +74,8 @@ class MyViewHolderDetail(itemView: View): RecyclerView.ViewHolder(itemView){
     var itemLossProduct : TextView
     var itemOutgoingDate : TextView
 
+    var itemNotes : TextView
+
     var itemCreator : TextView
     var itemActor : TextView
     var itemEmail : TextView
@@ -88,7 +92,9 @@ class MyViewHolderDetail(itemView: View): RecyclerView.ViewHolder(itemView){
         itemPriceSecondary = itemView.findViewById(R.id.priceSecondaryTV)
         itemOutgoingWeight = itemView.findViewById(R.id.outgoingWeightTV)
         itemLossProduct = itemView.findViewById(R.id.weightLossTV)
-        itemOutgoingDate= itemView.findViewById(R.id.outgoingDateTV)
+        itemOutgoingDate = itemView.findViewById(R.id.outgoingDateTV)
+
+        itemNotes = itemView.findViewById(R.id.notesTV)
 
         itemCreator = itemView.findViewById(R.id.creatorTV)
         itemActor = itemView.findViewById(R.id.actorTV)

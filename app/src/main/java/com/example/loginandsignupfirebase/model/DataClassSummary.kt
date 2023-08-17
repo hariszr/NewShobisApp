@@ -7,20 +7,20 @@ class DataClassSummary {
     var dateOut: String? = null
     var weightIn: Int? = null
     var purchasePrice: Int? = null
-    var costPrices: Int? = null
+    var handlingFee: Int? = null
     var weightOut: Int? = null
     var sellingPrice: Int? = null
     var purchaseCapital: Int? = null
-    var capitalCosts: Int? = null
-    var totalCapital: Int? = null
-    var totalSell: Int? = null
+    var totalHandlingFee: Int? = null
+    var capital: Int? = null
+    var income: Int? = null
     var profit: Int? = null
 
     constructor(
         dateIn: String?, variety: String?, pid: String?, dateOut: String?,
-        weightIn: Int?, purchasePrice: Int, costPrices: Int?,
-        weightOut: Int, sellingPrice: Int, purchaseCapital: Int, capitalCosts: Int, totalCapital: Int,
-        totalSell: Int, profit: Int
+        weightIn: Int?, purchasePrice: Int, handlingFee: Int?,
+        weightOut: Int, sellingPrice: Int, purchaseCapital: Int, totalHandlingFee: Int,
+        capital: Int, income: Int, profit: Int
     )
 
     {
@@ -30,13 +30,13 @@ class DataClassSummary {
         this.dateOut = dateOut
         this.weightIn = weightIn
         this.purchasePrice = purchasePrice
-        this.costPrices = costPrices
+        this.handlingFee = handlingFee
         this.weightOut = weightOut
         this.sellingPrice = sellingPrice
         this.purchaseCapital = purchaseCapital
-        this.capitalCosts = capitalCosts
-        this.totalCapital = totalCapital
-        this.totalSell = totalSell
+        this.totalHandlingFee = totalHandlingFee
+        this.capital = capital
+        this.income = income
         this.profit = profit
     }
     constructor()

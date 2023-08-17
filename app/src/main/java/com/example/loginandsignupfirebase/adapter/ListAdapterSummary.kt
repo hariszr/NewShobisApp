@@ -34,12 +34,12 @@ class ListAdapterSummary (private val context: Context, private val dataList:Lis
         customFormat.maximumFractionDigits = 0 // Menghilangkan angka desimal
 
         val formattedPurchasePrice = customFormat.format(list.purchasePrice)
-        val formattedHandlingFee = customFormat.format(list.costPrices)
+        val formattedHandlingFee = customFormat.format(list.handlingFee)
         val formatSellingPrice = customFormat.format(list.sellingPrice)
         val formatPurchaseCapital = customFormat.format(list.purchaseCapital)
-        val formatCapitalCost = customFormat.format(list.capitalCosts)
-        val formatTotalCapital = customFormat.format(list.totalCapital)
-        val formatTotalSell = customFormat.format(list.totalSell)
+        val formatTotalHandlingFee = customFormat.format(list.totalHandlingFee)
+        val formatCapital = customFormat.format(list.capital)
+        val formatIncome = customFormat.format(list.income)
         val formatProfit = customFormat.format(list.profit)
 
         holder.itemArrivalDate.text = dataList[position].dateIn
@@ -52,9 +52,9 @@ class ListAdapterSummary (private val context: Context, private val dataList:Lis
         holder.itemOutWeight.text = dataList[position].weightOut.toString()
         holder.itemSellingPrice.text = formatSellingPrice
         holder.itemPurchaseCapital.text = formatPurchaseCapital
-        holder.itemCapitalCosts.text = formatCapitalCost
-        holder.itemTotalCapital.text = formatTotalCapital
-        holder.itemTotalSell.text = formatTotalSell
+        holder.itemTotalHandlingFee.text = formatTotalHandlingFee
+        holder.itemCapital.text = formatCapital
+        holder.itemIncome.text = formatIncome
         holder.itemProfit.text = formatProfit
     }
 }
@@ -71,9 +71,9 @@ class MyViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
     var itemOutWeight: TextView
     var itemSellingPrice: TextView
     var itemPurchaseCapital: TextView
-    var itemCapitalCosts: TextView
-    var itemTotalCapital: TextView
-    var itemTotalSell: TextView
+    var itemTotalHandlingFee: TextView
+    var itemCapital: TextView
+    var itemIncome: TextView
     var itemProfit: TextView
 
     init {
@@ -88,9 +88,9 @@ class MyViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
         itemOutWeight = itemView.findViewById(R.id.outgoingWeightTV)
         itemSellingPrice = itemView.findViewById(R.id.sellingPriceTV)
         itemPurchaseCapital = itemView.findViewById(R.id.purchaseCapitalTV)
-        itemCapitalCosts = itemView.findViewById(R.id.capitalCostsTV)
-        itemTotalCapital = itemView.findViewById(R.id.capitalTV)
-        itemTotalSell = itemView.findViewById(R.id.incomeTV)
+        itemTotalHandlingFee = itemView.findViewById(R.id.totalHandlingFeeTV)
+        itemCapital = itemView.findViewById(R.id.capitalTV)
+        itemIncome = itemView.findViewById(R.id.incomeTV)
         itemProfit = itemView.findViewById(R.id.profitTV)
     }
 }

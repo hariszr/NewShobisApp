@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,12 +11,12 @@
         android:id="@+id/headerListTraceabilityCL"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@drawable/header_bg_gradient">
+        android:background="@drawable/header_bg_gradient"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@drawable/header_bg_gradient"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="8dp"
@@ -50,8 +50,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toBottomOf="@id/headerListTraceabilityCL"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -162,7 +164,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:text="@string/outgoing_weight_per_kg"
+                            android:text="@string/outgoing_weight_kg"
                             android:foreground="@drawable/table_border"
                             android:background="@color/salem_2"
                             android:textColor="@color/black"
@@ -201,7 +203,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:text="@string/capital_cost"
+                            android:text="@string/total_handling_fee"
                             android:foreground="@drawable/table_border"
                             android:background="@color/salem_2"
                             android:textColor="@color/black"
@@ -214,7 +216,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:text="@string/total_capital"
+                            android:text="@string/capital"
                             android:foreground="@drawable/table_border"
                             android:background="@color/salem_2"
                             android:textColor="@color/black"
@@ -227,7 +229,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:text="@string/total_sell"
+                            android:text="@string/income"
                             android:foreground="@drawable/table_border"
                             android:background="@color/salem_2"
                             android:textColor="@color/black"
@@ -261,12 +263,99 @@
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
                     android:fadeScrollbars="true"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="165dp"/>
             </LinearLayout>
 
         </HorizontalScrollView>
 
     </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            app:cardCornerRadius="15dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="10dp"
+            tools:cardCornerRadius="10dp"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="end|bottom"
+                android:text="@string/total_profit"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/salem_1"/>
+            <TextView
+                android:id="@+id/totalProfitTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="start|bottom"
+                android:text="Rp. Sekian"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/salem_1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="end|bottom"
+                android:text="@string/total_income"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/grey_mid"/>
+            <TextView
+                android:id="@+id/totalIncomeSummTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="start|bottom"
+                android:text="Rp. Sekian"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/grey_mid"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="65dp"
+                android:layout_gravity="end|bottom"
+                android:text="@string/total_capital"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/grey_mid"/>
+            <TextView
+                android:id="@+id/totalCapitalSummTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="65dp"
+                android:layout_gravity="start|bottom"
+                android:text="Rp. Sekian"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/grey_mid"/>
+
+
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 
@@ -464,4 +553,4 @@
 
 <!--            </LinearLayout>-->
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

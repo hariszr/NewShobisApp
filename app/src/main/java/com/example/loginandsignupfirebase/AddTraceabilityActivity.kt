@@ -516,12 +516,9 @@ class AddTraceabilityActivity : AppCompatActivity() {
                 println("Successfully get dataVariety in OLDPID in server PID")
                 Log.i("Get data variety", "Successfully get dataVariety in OLDPID in server PID")
 
-                val dateFormat = SimpleDateFormat("dd-MM-yyyy")
-                val currentDate = Calendar.getInstance().time
-
-                val dateIn = dateFormat.format(currentDate)
+                val dateIn = binding.arriveDateEt.text.toString()
                 //variety
-                val dateOut = dateFormat.format(currentDate)
+                val dateOut = binding.outgoingDateEt.text.toString()
                 val weightIn = binding.incomingWeightEt.text.toString().toInt()
                 val purchasePrice = binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
                 val costPrices = binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()

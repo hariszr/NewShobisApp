@@ -123,7 +123,7 @@
                         android:id="@+id/outgoingWeightTV"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
-                        android:text="@string/outgoing_weight_per_kg"
+                        android:text="@string/outgoing_weight_kg"
                         android:foreground="@drawable/table_border"
                         android:background="@color/white"
                         android:textColor="@color/black"
@@ -165,7 +165,7 @@
                         android:id="@+id/capitalCostsTV"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
-                        android:text="@string/capital_cost"
+                        android:text="@string/total_handling_fee"
                         android:foreground="@drawable/table_border"
                         android:background="@color/white"
                         android:textColor="@color/black"
@@ -176,7 +176,7 @@
                         android:gravity="center_horizontal|center_vertical"/>
 
                     <TextView
-                        android:id="@+id/totalCapitalTV"
+                        android:id="@+id/capitalTV"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
                         android:text="@string/total_capital"
@@ -190,10 +190,10 @@
                         android:gravity="center_horizontal|center_vertical"/>
 
                     <TextView
-                        android:id="@+id/totalSellTV"
+                        android:id="@+id/incomeTV"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
-                        android:text="@string/total_sell"
+                        android:text="@string/total_income"
                         android:foreground="@drawable/table_border"
                         android:background="@color/white"
                         android:textColor="@color/black"

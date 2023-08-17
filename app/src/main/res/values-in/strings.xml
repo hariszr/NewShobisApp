@@ -103,4 +103,19 @@
     <string name="handling_fee_per_kg">Biaya Penanganan (per Kg)</string>
     <string name="purchase_price_from_farmers_per_kg">Harga Beli dari Petani (per Kg)</string>
     <string name="additional_notes_ET">Catatan Tambahan</string>
+    <string name="product_id">ID Produk</string>
+    <string name="outgoing_date">Tanggal Keluar</string>
+    <string name="arrival_date">Tanggal Masuk</string>
+    <string name="incoming_weight">Berat Masuk (per Kg)</string>
+    <string name="purchase_price_per_kg">Harga Beli (per Kg)</string>
+    <string name="outgoing_weight_kg">Berat Keluar (Kg)</string>
+    <string name="purchase_capital">Modal Beli</string>
+    <string name="total_capital">Total Modal</string>
+    <string name="profit">Keuntungan</string>
+    <string name="incoming_weight_kg">Berat Masuk (Kg)</string>
+    <string name="total_income">Total Pendapatan</string>
+    <string name="total_profit">Total Keuntungan</string>
+    <string name="capital">Modal</string>
+    <string name="total_handling_fee">Total Biaya Penanganan</string>
+    <string name="income">Pendapatan</string>
 </resources>

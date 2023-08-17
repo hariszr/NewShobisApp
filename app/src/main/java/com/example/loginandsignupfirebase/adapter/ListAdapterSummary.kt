@@ -89,8 +89,8 @@ class MyViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
         itemSellingPrice = itemView.findViewById(R.id.sellingPriceTV)
         itemPurchaseCapital = itemView.findViewById(R.id.purchaseCapitalTV)
         itemCapitalCosts = itemView.findViewById(R.id.capitalCostsTV)
-        itemTotalCapital = itemView.findViewById(R.id.totalCapitalTV)
-        itemTotalSell = itemView.findViewById(R.id.totalSellTV)
+        itemTotalCapital = itemView.findViewById(R.id.capitalTV)
+        itemTotalSell = itemView.findViewById(R.id.incomeTV)
         itemProfit = itemView.findViewById(R.id.profitTV)
     }
 }

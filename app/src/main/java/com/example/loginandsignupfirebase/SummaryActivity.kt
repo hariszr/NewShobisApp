@@ -52,7 +52,6 @@ class SummaryActivity : AppCompatActivity() {
             finish()
         }
 
-        showSummary()
         spinnerSort()
 
 //        recyclerViewShow()
@@ -200,30 +199,32 @@ class SummaryActivity : AppCompatActivity() {
         val adapterTime = ArrayAdapter(this, com.bumptech.glide.R.layout.support_simple_spinner_dropdown_item, time)
         binding.spinnerSort.adapter = adapterTime
         binding.spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 val selectedOption = time[position]
                 if (selectedOption == "Bulan Ini") {
                     recyclerViewShowThisMonth()
+                    showSummaryThisMonth()
+
+                    return
                 }
 
                 if (selectedOption == "Bulan Lalu") {
                     recyclerViewShowLastMonth()
+                    showSummaryLastMonth()
+                    return
                 }
 
                 if (selectedOption == "Semua Waktu") {
                     recyclerViewShow()
+                    showSummary()
+
+                    return
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 recyclerViewShow()
             }
-
         }
     }
 
@@ -273,4 +274,137 @@ class SummaryActivity : AppCompatActivity() {
 
         summaryRef.addListenerForSingleValueEvent(listener)
     }
+
+    private fun showSummaryThisMonth() {
+
+        database = FirebaseDatabase.getInstance()
+
+        val summaryRef = database.reference.child("users").child(firebaseAuth.uid.toString()).child("summary")
+
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var totalCapitalThisMonth = 0
+                var totalIncomeThisMonth = 0
+                var totalProfitThisMonth = 0
+
+                val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
+                val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+                for (childSnapshot in snapshot.children) {
+                    val childDate = SimpleDateFormat("MMM dd, yyyy HH:mm:ss", Locale.ENGLISH).parse(childSnapshot.key.toString())
+                    val childCalendar = Calendar.getInstance()
+                    if (childDate != null) {
+                        childCalendar.time = childDate
+                    }
+
+                    val childMonth = childCalendar.get(Calendar.MONTH)
+                    val childYear = childCalendar.get(Calendar.YEAR)
+
+                    if (childMonth == currentMonth && childYear == currentYear) {
+                        val capital = childSnapshot.child("capital").getValue(Int::class.java) ?: 0
+                        totalCapitalThisMonth += capital
+
+                        val income = childSnapshot.child("income").getValue(Int::class.java) ?: 0
+                        totalIncomeThisMonth += income
+
+                        val profit = childSnapshot.child("profit").getValue(Int::class.java) ?: 0
+                        totalProfitThisMonth += profit
+                    }
+                }
+
+                // Tampilkan total capital, income, dan profit
+                val customFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID")) as DecimalFormat
+                val symbols = customFormat.decimalFormatSymbols
+                symbols.currencySymbol = "Rp. "
+                customFormat.decimalFormatSymbols = symbols
+                customFormat.maximumFractionDigits = 0  // Mengatur jumlah digit desimal maksimum
+
+
+                val formattedTotalCapital = customFormat.format(totalCapitalThisMonth)
+                val formattedTotalIncome = customFormat.format(totalIncomeThisMonth)
+                val formattedTotalProfit = customFormat.format(totalProfitThisMonth)
+
+                binding.totalCapitalTV.text = formattedTotalCapital
+                binding.totalIncomeTV.text = formattedTotalIncome
+                binding.totalProfitTV.text = formattedTotalProfit
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "Failed to read value summary.", error.toException())
+
+            }
+        }
+        summaryRef.addListenerForSingleValueEvent(listener)
+    }
+
+    private fun showSummaryLastMonth() {
+
+        database = FirebaseDatabase.getInstance()
+
+        val summaryRef = database.reference.child("users").child(firebaseAuth.uid.toString()).child("summary")
+
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var totalCapitalLastMonth = 0
+                var totalIncomeLastMonth = 0
+                var totalProfitLastMonth = 0
+
+                val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
+                val lastMonth = (currentMonth - 1 + 12) % 12 // Menghitung bulan lalu dengan memperhitungkan overflow
+                val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+                for (childSnapshot in snapshot.children) {
+                    val childDate = SimpleDateFormat("MMM dd, yyyy HH:mm:ss", Locale.ENGLISH).parse(childSnapshot.key.toString())
+                    val childCalendar = Calendar.getInstance()
+                    if (childDate != null) {
+                        childCalendar.time = childDate
+                    }
+
+                    val childMonth = childCalendar.get(Calendar.MONTH)
+                    val childYear = childCalendar.get(Calendar.YEAR)
+
+                    if (childMonth == lastMonth && childYear == currentYear) {
+                        val capital = childSnapshot.child("capital").getValue(Int::class.java) ?: 0
+                        totalCapitalLastMonth += capital
+
+                        val income = childSnapshot.child("income").getValue(Int::class.java) ?: 0
+                        totalIncomeLastMonth += income
+
+                        val profit = childSnapshot.child("profit").getValue(Int::class.java) ?: 0
+                        totalProfitLastMonth += profit
+                    }
+                }
+
+                // Tampilkan total capital, income, dan profit
+                val customFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID")) as DecimalFormat
+                val symbols = customFormat.decimalFormatSymbols
+                symbols.currencySymbol = "Rp. "
+                customFormat.decimalFormatSymbols = symbols
+                customFormat.maximumFractionDigits = 0  // Mengatur jumlah digit desimal maksimum
+
+
+                val formattedTotalCapital = customFormat.format(totalCapitalLastMonth)
+                val formattedTotalIncome = customFormat.format(totalIncomeLastMonth)
+                val formattedTotalProfit = customFormat.format(totalProfitLastMonth)
+
+                binding.totalCapitalTV.text = formattedTotalCapital
+                binding.totalIncomeTV.text = formattedTotalIncome
+                binding.totalProfitTV.text = formattedTotalProfit
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "Failed to read value summary.", error.toException())
+
+            }
+        }
+        summaryRef.addListenerForSingleValueEvent(listener)
+    }
+
+
+
+    companion object {
+        private const val TAG = "SummaryActivity"
+    }
+
+
 }

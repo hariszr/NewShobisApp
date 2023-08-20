@@ -161,6 +161,7 @@ class UploadFragment : Fragment() {
                 dataList.addAll(newDataList)
                 adapter.notifyDataSetChanged()
                 dialog?.dismiss()
+
             }
 
             override fun onCancelled(error: DatabaseError) {

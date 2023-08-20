@@ -1,6 +1,7 @@
 package com.example.loginandsignupfirebase
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,10 @@ import com.example.loginandsignupfirebase.fragment.UploadFragment
 import com.example.loginandsignupfirebase.model.DataClassNewAdd
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ListAdapterUpload(private val context: UploadFragment, private val dataList:List<DataClassNewAdd>): RecyclerView.Adapter<ListAdapterUpload.MyViewHolder>() {
     private lateinit var firebaseAuth : FirebaseAuth
@@ -86,13 +90,33 @@ class ListAdapterUpload(private val context: UploadFragment, private val dataLis
         }
         
         holder.itemRec.setOnLongClickListener {
+            Log.i("Click Long", "ini adalah key nya : ${item.key}")
         MaterialAlertDialogBuilder(holder.itemView.context)
             .setTitle("Delete Item")
             .setMessage("Are you sure you want to delete this item?")
             .setPositiveButton("Yes") {_,_ ->
                 firebaseAuth = FirebaseAuth.getInstance()
+
                 val firebaseRef = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString())?.child("pid")
                 firebaseRef?.child(item.key.toString())?.removeValue()
+
+                val deleteSummaryList = FirebaseDatabase.getInstance().getReference("users").child(firebaseAuth.uid.toString())?.child("summary")
+                val query = deleteSummaryList?.orderByChild("pid")?.equalTo(item.key.toString())
+
+                query?.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (childSnapshot in snapshot.children) {
+                            // Hapus child dengan ID yang sesuai
+                            childSnapshot.ref.removeValue()
+                            Log.i("Click Long", "Successfully deleted item in table summary : PID yang dihapus ${item.key}")
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Tangani jika terjadi kesalahan
+                        Log.i("Click Long", "Failed delete item in table summary : PID yang tidak dihapus ${item.key}")
+                    }
+                })
             }
             .setNegativeButton("No") {_,_ ->
 

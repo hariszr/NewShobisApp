@@ -63,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.summaryCV.setOnClickListener {
-            startActivity(Intent(this, SummaryActivity::class.java))
+            checkActorSumamry()
         }
     }
 
@@ -94,7 +94,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                println("Check User for Scan Feature : ${error.message}")
+                Toast.makeText(this@HomeActivity, error.message, Toast.LENGTH_SHORT).show()
                 Log.e("Check User for Scan Feature", "Error when check actor: ${error.message}")
             }
         })
@@ -151,7 +151,64 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                println("Check Actor : ${error.message}")
+                Toast.makeText(this@HomeActivity, error.message, Toast.LENGTH_SHORT).show()
+                Log.e("Check Actor", "Error when check actor: ${error.message}")
+            }
+        })
+    }
+
+    fun checkActorSumamry() {
+
+        firebaseRef2.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
+
+                    println("get actor : ${actor.toString()}")
+
+                    if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" || actor == "E-Commerce") {
+                        dialog = AlertDialog.Builder(this@HomeActivity)
+                            .setTitle("Market Level Actor")
+                            .setMessage("You are not allowed to access this")
+                            .setCancelable(true)
+                            .setPositiveButton("Close") {dialogInterface, it ->
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                        return
+                    }
+
+                    else if (actor == "Konsumen" || actor == "UMKM") {
+                        dialog = AlertDialog.Builder(this@HomeActivity)
+                            .setTitle("Consumer and UMKM")
+                            .setMessage("You are not allowed to access this")
+                            .setCancelable(true)
+                            .setPositiveButton("Close") {dialogInterface, it ->
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                        return
+                    } else {
+                        startActivity(Intent(this@HomeActivity, SummaryActivity::class.java))
+                    }
+                } else {
+                    dialog = AlertDialog.Builder(this@HomeActivity)
+                        .setTitle("User Profile is Empty")
+                        .setMessage("Please, complete your user profile first!")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") {dialogInterface, it ->
+                            startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+                        }
+                        .setNegativeButton("No") {dialogInterface, it ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                    return
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@HomeActivity, error.message, Toast.LENGTH_SHORT).show()
                 Log.e("Check Actor", "Error when check actor: ${error.message}")
             }
         })

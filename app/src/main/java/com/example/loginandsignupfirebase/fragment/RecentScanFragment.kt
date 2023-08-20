@@ -141,18 +141,25 @@ class RecentScanFragment : Fragment() {
         eventListener = databaseReferenceChild!!.addValueEventListener(object : ValueEventListener{
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
-                dataList.clear()
-                for (itemSnapshot in snapshot.children){
+                // Buat list baru untuk menampung data baru
+                val newDataList = ArrayList<DataClassNewAdd>()
+
+                // Ambil anak-anak dalam urutan terbalik
+                val reversedChildren = snapshot.children.toList().reversed()
+
+                for (itemSnapshot in reversedChildren){
                     val dataClassNewAdd = itemSnapshot.getValue(DataClassNewAdd::class.java)
                     if (dataClassNewAdd != null) {
                         dataClassNewAdd.key = itemSnapshot.key
-                    }
-                    if (dataClassNewAdd != null){
-                        dataList.add(dataClassNewAdd)
+                        // Tambahkan data baru ke newDataList
+                        newDataList.add(dataClassNewAdd)
                     }
                 }
+                // Sorting newDataList
                 dataList.sortByDescending { it.dataDateCreate }
-                binding?.listTraceRecyclerView?.setHasFixedSize(true)
+                dataList.clear()
+                // Ganti dataList dengan newDataList yang sudah diurutkan
+                dataList.addAll(newDataList)
                 adapter.notifyDataSetChanged()
                 dialog?.dismiss()
             }

@@ -208,7 +208,6 @@ class DetailRecentActivity : AppCompatActivity() {
                         return
                     } else {
                         binding.downloadBtn.visibility = View.GONE
-                        return
                     }
                 } else {
                     dialog = AlertDialog.Builder(this@DetailRecentActivity)

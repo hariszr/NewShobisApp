@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
         firebaseRef2 = FirebaseDatabase.getInstance().getReference("users")
 
         fetchUserDataHome()
+        checkActorSumamry()
 
         binding.scanCV.setOnClickListener {
             checkDataUser()
@@ -63,7 +65,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.summaryCV.setOnClickListener {
-            checkActorSumamry()
+            startActivity(Intent(this@HomeActivity, SummaryActivity::class.java))
         }
     }
 
@@ -166,30 +168,19 @@ class HomeActivity : AppCompatActivity() {
 
                     println("get actor : ${actor.toString()}")
 
-                    if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" || actor == "E-Commerce") {
-                        dialog = AlertDialog.Builder(this@HomeActivity)
-                            .setTitle("Market Level Actor")
-                            .setMessage("You are not allowed to access this")
-                            .setCancelable(true)
-                            .setPositiveButton("Close") {dialogInterface, it ->
-                                dialogInterface.cancel()
-                            }
-                            .show()
-                        return
-                    }
-
-                    else if (actor == "Konsumen" || actor == "UMKM") {
-                        dialog = AlertDialog.Builder(this@HomeActivity)
-                            .setTitle("Consumer and UMKM")
-                            .setMessage("You are not allowed to access this")
-                            .setCancelable(true)
-                            .setPositiveButton("Close") {dialogInterface, it ->
-                                dialogInterface.cancel()
-                            }
-                            .show()
+                    if (actor == "Konsumen" || actor == "UMKM") {
+//                        dialog = AlertDialog.Builder(this@HomeActivity)
+//                            .setTitle("Consumer and UMKM")
+//                            .setMessage("You are not allowed to access this")
+//                            .setCancelable(true)
+//                            .setPositiveButton("Close") {dialogInterface, it ->
+//                                dialogInterface.cancel()
+//                            }
+//                            .show()
+                        binding.summaryCV.visibility = View.GONE
                         return
                     } else {
-                        startActivity(Intent(this@HomeActivity, SummaryActivity::class.java))
+                        binding.summaryCV.visibility = View.VISIBLE
                     }
                 } else {
                     dialog = AlertDialog.Builder(this@HomeActivity)

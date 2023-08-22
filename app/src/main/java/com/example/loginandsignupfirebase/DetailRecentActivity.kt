@@ -2,8 +2,14 @@ package com.example.loginandsignupfirebase
 
 import android.annotation.SuppressLint
 import android.content.*
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,7 +18,13 @@ import com.example.loginandsignupfirebase.databinding.ActivityDetailRecentBindin
 import com.example.loginandsignupfirebase.model.DataClassAdd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.itextpdf.text.Document
+import com.itextpdf.text.Element
+import com.itextpdf.text.Image
+import com.itextpdf.text.PageSize
+import com.itextpdf.text.pdf.PdfWriter
 import kotlinx.coroutines.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -92,6 +104,12 @@ class DetailRecentActivity : AppCompatActivity() {
             checkConsumer()
         }
 
+        checkActorToDownload()
+
+        binding.downloadBtn.setOnClickListener {
+            getDataQrCodeUpdate()
+        }
+
 //        databaseReference!!.addChildEventListener(object : ChildEventListener {
 //            @SuppressLint("NotifyDataSetChanged")
 //            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -135,14 +153,15 @@ class DetailRecentActivity : AppCompatActivity() {
 
                     println("get actor : ${actor.toString()}")
                     if (actor == "Konsumen" || actor == "UMKM") {
-                        dialog = AlertDialog.Builder(this@DetailRecentActivity)
-                            .setTitle("Consumer and UMKM")
-                            .setMessage("You are not allowed to access this")
-                            .setCancelable(true)
-                            .setPositiveButton("Close") {dialogInterface, it ->
-                                dialogInterface.cancel()
-                            }
-                            .show()
+//                        dialog = AlertDialog.Builder(this@DetailRecentActivity)
+//                            .setTitle("Consumer and UMKM")
+//                            .setMessage("You are not allowed to access this")
+//                            .setCancelable(true)
+//                            .setPositiveButton("Close") {dialogInterface, it ->
+//                                dialogInterface.cancel()
+//                            }
+//                            .show()
+                        binding.addDataBtn.visibility = View.GONE
                         return
                     } else {
                         val intent = Intent(this@DetailRecentActivity, AddTraceabilityActivity::class.java)
@@ -171,6 +190,124 @@ class DetailRecentActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun checkActorToDownload() {
+        databaseReference2.child(firebaseAuth.uid.toString()).child("Profile Users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
+
+                    println("get actor : ${actor.toString()}")
+                    if (actor == "Konsumen" || actor == "UMKM") {
+                        binding.downloadBtn.visibility = View.VISIBLE
+                        binding.addDataBtn.visibility = View.GONE
+                        return
+                    } else if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" ||actor == "E-Commerce"  ) {
+                        binding.downloadBtn.visibility = View.VISIBLE
+                        binding.addDataBtn.visibility = View.VISIBLE
+                        return
+                    } else {
+                        binding.downloadBtn.visibility = View.GONE
+                        return
+                    }
+                } else {
+                    dialog = AlertDialog.Builder(this@DetailRecentActivity)
+                        .setTitle("User Profile is Empty")
+                        .setMessage("Please, complete your user profile first!")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") {dialogInterface, it ->
+                            startActivity(Intent(this@DetailRecentActivity, ProfileActivity::class.java))
+                        }
+                        .setNegativeButton("No") {dialogInterface, it ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                    return
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Check Actor : ${error.message}")
+                Log.e("Check Actor", "Error when check actor: ${error.message}")
+            }
+        })
+    }
+
+    private fun getDataQrCodeUpdate() {
+        databaseReference!!.child("dataQrCodeUpdate").addListenerForSingleValueEvent(object : ValueEventListener {
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // Mendapatkan nilai data dari snapshot
+                val value = snapshot.getValue(String::class.java)
+                downloadImageAndSaveAsPdf(value)
+                // Lakukan sesuatu dengan nilai data, misalnya tampilkan di logcat
+                Log.d("download Qr Code", "Get Value Url: $value")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Tangani kesalahan jika ada
+                Log.e("download Qr Code", "Error: ${error.message}")
+            }
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun downloadImageAndSaveAsPdf(linkUrl : String?) {
+
+        // CoroutineScope untuk melaksanakan tugas di latar belakang
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Mengunduh gambar dari URL menggunakan Glide
+                val bitmap = withContext(Dispatchers.IO) {
+                    Glide.with(applicationContext)
+                        .asBitmap()
+                        .load(linkUrl)
+                        .submit()
+                        .get()
+                }
+
+                // Lokasi penyimpanan file PDF di direktori "Downloads" di penyimpanan eksternal
+                val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault()).format(Date())
+                val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                val pdfFile = File(downloadDir,"ShobisApp_QRCode_$timeStamp.pdf")
+
+                // Membuat dokumen PDF
+                val document = Document(PageSize.A4)
+                val pdfWriter = withContext(Dispatchers.IO) {
+                    PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+                }
+                document.open()
+
+                // Mengonversi gambar menjadi Image dalam dokumen PDF
+                val image = Image.getInstance(bitmapToByteArray(bitmap))
+                image.scaleToFit(PageSize.A4)
+                image.alignment = Element.ALIGN_CENTER
+                document.add(image)
+
+                // Tutup dokumen PDF
+                document.close()
+
+                // Pindah ke thread UI untuk menampilkan pesan selesai jika perlu
+                CoroutineScope(Dispatchers.Main).launch {
+                    // Tampilkan pesan bahwa proses telah selesai
+                    // Misalnya, Anda dapat menampilkan notifikasi atau pesan Toast di sini
+                    Log.d("Convert", "Convert Qr Code to PDF successfully ${pdfFile.absolutePath}")
+                    Toast.makeText(this@DetailRecentActivity, "Berhasil disimpan, lihat ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                // Tangani kesalahan jika ada
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun bitmapToByteArray(bitmap: Bitmap?): ByteArray {
+        val stream = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        return stream.toByteArray()
+    }
+
 
     private fun progressLoad() {
         val builder = AlertDialog.Builder(this@DetailRecentActivity)

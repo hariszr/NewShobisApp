@@ -15,6 +15,7 @@ class DataClassAdd {
     var dataHandlingFee: String? = null
     var dataWeightLoss: String? = null
     var dataSellingPrice: String? = null
+    var dataDistribution: String? = null
 
     var dataDateCreate: String? = null
 
@@ -28,7 +29,7 @@ class DataClassAdd {
     var dataAddress: String? = null
 
     constructor(pid: String?, dataQrCode: String?, dataArriveDate: String?, dataIncomingWeight: String?, dataPurchasePrice: String?,
-                dataOutgoingDate: String?, dataOutgoingWeight: String?, dataGrade: String?, dataHandling: String?, dataHandlingFee: String?, dataWeightLoss: String?, dataSellingPrice: String?,
+                dataOutgoingDate: String?, dataOutgoingWeight: String?, dataGrade: String?, dataHandling: String?, dataHandlingFee: String?, dataWeightLoss: String?, dataSellingPrice: String?, dataDistribution: String?,
                 dataDateCreate: String?,
                 dataNotes: String?,
                 dataNameCreator: String?, dataActor: String?, dataEmail: String?, dataGender: String?, dataCompany: String?, dataAddress: String?
@@ -47,6 +48,7 @@ class DataClassAdd {
         this.dataHandlingFee = dataHandlingFee
         this.dataWeightLoss = dataWeightLoss
         this.dataSellingPrice = dataSellingPrice
+        this.dataDistribution = dataDistribution
 
         this.dataDateCreate = dataDateCreate
 

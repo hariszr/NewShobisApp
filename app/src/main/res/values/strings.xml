@@ -133,4 +133,9 @@
     <string name="income">Income</string>
     <string name="product_information_sub_title">Product Information:</string>
     <string name="distribution">Distribution</string>
+    <string name="selling_price_sub_title">Selling Price (per Kg):</string>
+    <string name="handling_sub_title">Handling:</string>
+    <string name="handling_fee_sub_title">Handling Fee (per Kg):</string>
+    <string name="purchase_price_from_farmers_per_kg_sub_title">Purchase Price from Farmers (per Kg):</string>
+    <string name="product_condition_arrived">Product Condition Arrived:</string>
 </resources>

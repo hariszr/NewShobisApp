@@ -637,6 +637,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
         val handlingFee = binding.handlingFeeEt.text.toString()
         val weightLoss = binding.weightLossEt.text.toString()
         val sellingPrice = binding.sellingPriceEt.text.toString()
+        val distribution = binding.distributionDropDown.text.toString()
 
         val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
 
@@ -663,7 +664,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
                 val dataClassAdd = DataClassAdd(
                     pid, imageURL, arriveDate, incomingWeight, purchasePrice,
-                    outgoingDate, outgoingWeight, grade, handling, handlingFee, weightLoss, sellingPrice,
+                    outgoingDate, outgoingWeight, grade, handling, handlingFee, weightLoss, sellingPrice, distribution,
                     dateCreate,
                     notes,
                     fullName, actor, email, gender, company, address

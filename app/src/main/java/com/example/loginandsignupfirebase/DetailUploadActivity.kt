@@ -251,13 +251,16 @@ class DetailUploadActivity : AppCompatActivity() {
             binding.varietyTV.text = bundle.getString("Variety")
             binding.weightTV.text = bundle.getString("Weight")
             binding.gradeTV.text = bundle.getString("Grade")
-            binding.priceTV.text = bundle.getString("Price")
+            binding.sellingPriceTV.text = bundle.getString("SellingPrice")
+            binding.handlingTV.text = bundle.getString("Handling")
+            binding.handlingFeeTV.text = bundle.getString("HandlingFee")
 
             binding.farmerTV.text = bundle.getString("Farmer")
             binding.dayTV.text = bundle.getString("Day")
             binding.areaTV.text = bundle.getString("Area")
             binding.fertilizerTV.text = bundle.getString("Fertilizer")
             binding.pesticidesTV.text = bundle.getString("Pesticides")
+            binding.purchasePriceFromFarmersTV.text = bundle.getString("PurchasePriceFromFarmers")
 
             binding.dateCreateTV.text = bundle.getString("Date")
             binding.notesTV.text = bundle.getString("Note")

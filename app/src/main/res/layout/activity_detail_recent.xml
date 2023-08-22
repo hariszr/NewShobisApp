@@ -216,7 +216,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <TextView
@@ -225,7 +225,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="30sp"
                                 android:layout_marginBottom="15dp"
-                                android:hint="@string/weight_data"
+                                android:text="@string/weight_data"
                                 android:textColor="@color/black"
                                 android:textSize="17sp"
                                 android:textStyle="normal" />
@@ -266,12 +266,52 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/price_sub_tittle"
+                            android:text="@string/selling_price_sub_title"
                             android:textColor="@color/grey_mid"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                         <TextView
-                            android:id="@+id/priceTV"
+                            android:id="@+id/sellingPriceTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30sp"
+                            android:layout_marginBottom="15dp"
+                            android:hint="@string/your_data_in_here"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/handling_sub_title"
+                            android:textColor="@color/grey_mid"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/handlingTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30sp"
+                            android:layout_marginBottom="15dp"
+                            android:hint="@string/your_data_in_here"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/handling_fee_sub_title"
+                            android:textColor="@color/grey_mid"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/handlingFeeTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"
@@ -420,6 +460,26 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/pesticidesTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30sp"
+                            android:layout_marginBottom="15dp"
+                            android:hint="@string/your_data_in_here"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/purchase_price_from_farmers_per_kg_sub_title"
+                            android:textColor="@color/grey_mid"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/purchasePriceFromFarmersTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30sp"

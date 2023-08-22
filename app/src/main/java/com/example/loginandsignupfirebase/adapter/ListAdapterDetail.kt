@@ -24,11 +24,15 @@ class ListAdapterDetail(private val dataList: List<DataClassAdd>): RecyclerView.
         holder.itemCreateDate.text = dataList[position].dataDateCreate
         holder.itemArrivedDate.text = dataList[position].dataArriveDate
         holder.itemIncomingWeight.text = dataList[position].dataIncomingWeight
-        holder.itemGradeSecondary.text = dataList[position].dataGrade
-        holder.itemPriceSecondary.text = dataList[position].dataSellingPrice
-        holder.itemOutgoingWeight.text = dataList[position].dataOutgoingWeight
-        holder.itemLossProduct.text = dataList[position].dataWeightLoss
+
         holder.itemOutgoingDate.text = dataList[position].dataOutgoingDate
+        holder.itemOutgoingWeight.text = dataList[position].dataOutgoingWeight
+        holder.itemGradeSecondary.text = dataList[position].dataGrade
+        holder.itemHandlingSecondary.text = dataList[position].dataHandling
+        holder.itemHandlingFeeSecondary.text = dataList[position].dataHandlingFee
+        holder.itemLossProduct.text = dataList[position].dataWeightLoss
+        holder.itemSellingPriceSecondary.text = dataList[position].dataSellingPrice
+        holder.itemDistribution.text = dataList[position].dataDistribution
 
         holder.itemNotes.text = dataList[position].dataNotes
 
@@ -68,11 +72,15 @@ class MyViewHolderDetail(itemView: View): RecyclerView.ViewHolder(itemView){
     var itemCreateDate : TextView
     var itemArrivedDate : TextView
     var itemIncomingWeight : TextView
-    var itemGradeSecondary : TextView
-    var itemPriceSecondary : TextView
-    var itemOutgoingWeight : TextView
-    var itemLossProduct : TextView
+
     var itemOutgoingDate : TextView
+    var itemOutgoingWeight : TextView
+    var itemGradeSecondary : TextView
+    var itemHandlingSecondary : TextView
+    var itemHandlingFeeSecondary : TextView
+    var itemLossProduct : TextView
+    var itemSellingPriceSecondary : TextView
+    var itemDistribution : TextView
 
     var itemNotes : TextView
 
@@ -87,12 +95,16 @@ class MyViewHolderDetail(itemView: View): RecyclerView.ViewHolder(itemView){
         itemPID = itemView.findViewById(R.id.productIDSecondaryTV)
         itemCreateDate = itemView.findViewById(R.id.dateCreateSecondaryTV)
         itemArrivedDate = itemView.findViewById(R.id.arrivedDateTV)
-        itemIncomingWeight = itemView.findViewById(R.id.incomingWeightTV)
+        itemIncomingWeight = itemView.findViewById(R.id.incomingWeightSecondaryTV)
+
+        itemOutgoingDate = itemView.findViewById(R.id.outgoingDateSecondaryTV)
+        itemOutgoingWeight = itemView.findViewById(R.id.outgoingWeightSecondaryTV)
         itemGradeSecondary = itemView.findViewById(R.id.gradeSecodaryTV)
-        itemPriceSecondary = itemView.findViewById(R.id.priceSecondaryTV)
-        itemOutgoingWeight = itemView.findViewById(R.id.outgoingWeightTV)
+        itemHandlingSecondary = itemView.findViewById(R.id.handlingSecondaryTV)
+        itemHandlingFeeSecondary = itemView.findViewById(R.id.handlingFeeSecondaryTV)
         itemLossProduct = itemView.findViewById(R.id.weightLossTV)
-        itemOutgoingDate = itemView.findViewById(R.id.outgoingDateTV)
+        itemSellingPriceSecondary = itemView.findViewById(R.id.sellingPriceSecondaryTV)
+        itemDistribution = itemView.findViewById(R.id.distributionTV)
 
         itemNotes = itemView.findViewById(R.id.notesTV)
 

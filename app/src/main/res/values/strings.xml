@@ -131,4 +131,6 @@
     <string name="total_profit">Total Profit</string>
     <string name="total_handling_fee">Total Handling Fee</string>
     <string name="income">Income</string>
+    <string name="product_information_sub_title">Product Information:</string>
+    <string name="distribution">Distribution</string>
 </resources>

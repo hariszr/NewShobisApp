@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/update_product_information"
+                android:text="@string/product_information_sub_title"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="12dp"
                 android:textColor="@color/grey_mid"

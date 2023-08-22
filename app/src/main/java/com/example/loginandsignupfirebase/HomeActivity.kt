@@ -240,5 +240,4 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
     }
-
 }

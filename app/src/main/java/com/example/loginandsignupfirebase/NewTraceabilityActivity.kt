@@ -254,8 +254,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.weightEt.error = "Weight cannot be empty"
             binding.weightEt.requestFocus()
             return
-        } else if (binding.weightEt.text.toString().toInt() > 6000) {
-            binding.weightEt.error = "Maximum weight is 6000 Kg"
+        } else if (binding.weightEt.text.toString().toInt() > 7000) {
+            binding.weightEt.error = "Maximum weight is 7000 Kg"
             binding.weightEt.requestFocus()
             return
         }
@@ -277,8 +277,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.sellingPriceEt.error = "Minimum selling price is Rp 3.000"
             binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
-            binding.sellingPriceEt.error = "Maximum selling price is Rp 60.000"
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 80000) {
+            binding.sellingPriceEt.error = "Maximum selling price is Rp 80.000"
             binding.sellingPriceEt.requestFocus()
             return
         }
@@ -312,7 +312,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.farmerEt.requestFocus()
             return
         } else if (binding.farmerEt.text.toString().length > 30) {
-            binding.farmerEt.error = "Maximum 30 character name"
+            binding.farmerEt.error = "Maximum 30 character"
             binding.farmerEt.requestFocus()
             return
         }
@@ -321,8 +321,8 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.harvestTimeEt.error = "Harvest time cannot be empty"
             binding.harvestTimeEt.requestFocus()
             return
-        } else if (binding.harvestTimeEt.text.toString().length > 150) {
-            binding.harvestTimeEt.error = "Maximum is 150 day"
+        } else if (binding.harvestTimeEt.text.toString().length > 80) {
+            binding.harvestTimeEt.error = "Maximum is 80 day"
             binding.harvestTimeEt.requestFocus()
             return
         }
@@ -331,16 +331,28 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.areaEt.error = "Area planting cannot be empty"
             binding.areaEt.requestFocus()
             return
+        }  else if (binding.areaEt.text.toString().length > 30) {
+            binding.areaEt.error = "Maximum 30 character"
+            binding.areaEt.requestFocus()
+            return
         }
 
         if (binding.fertilizerDropDown.text.toString().isEmpty()) {
             binding.fertilizerLayout.error = "Fertilizer type cannot be empty"
             binding.fertilizerDropDown.requestFocus()
             return
+        } else if (binding.fertilizerDropDown.text.toString().length > 30) {
+            binding.fertilizerDropDown.error = "Maximum 30 character"
+            binding.fertilizerDropDown.requestFocus()
+            return
         }
 
         if (binding.pesticidesEt.text.toString().isEmpty()) {
             binding.pesticidesEt.error = "Pesticide type cannot be empty"
+            binding.pesticidesEt.requestFocus()
+            return
+        } else if (binding.pesticidesEt.text.toString().length > 30) {
+            binding.pesticidesEt.error = "Maximum 30 character"
             binding.pesticidesEt.requestFocus()
             return
         }
@@ -358,7 +370,12 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
         if (binding.noteEt.text.toString().trim().isEmpty()) {
             binding.noteEt.setText("-")
+        } else if (binding.noteEt.text.toString().length > 150) {
+            binding.noteEt.error = "Maximum 150 character"
+            binding.noteEt.requestFocus()
+            return
         }
+
         saveData()
 
     }

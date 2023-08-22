@@ -67,6 +67,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
 
         displayDropDownGrade()
         displayDropDownHandling()
+        displayDropDownDistribution()
 
         binding.purchasePriceEt.setMaskingMoney("Rp. ")
         binding.handlingFeeEt.setMaskingMoney("Rp. ")
@@ -198,6 +199,20 @@ class AddTraceabilityActivity : AppCompatActivity() {
                 validationHandling()
             }
         })
+
+        binding.distributionDropDown.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Tidak diperlukan
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validationDistribution()
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -273,6 +288,17 @@ class AddTraceabilityActivity : AppCompatActivity() {
         }
     }
 
+    private fun validationDistribution() {
+        if (binding.distributionDropDown.text.isEmpty()) {
+            binding.distributionLayout.error = "Distribution cannot be empty"
+            binding.distributionDropDown.requestFocus()
+            return
+        } else {
+            binding.distributionLayout.error = null
+            binding.distributionDropDown.clearFocus()
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun validationInputData() {
         //product condition arrived
@@ -288,8 +314,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.incomingWeightEt.error = "Product weight upon arrival cannot be empty"
             binding.incomingWeightEt.requestFocus()
             return
-        } else if (binding.incomingWeightEt.text.toString().toInt() > 6000) {
-            binding.incomingWeightEt.error = "Maximum weight is 6000 Kg"
+        } else if (binding.incomingWeightEt.text.toString().toInt() > 7000) {
+            binding.incomingWeightEt.error = "Maximum weight is 7000 Kg"
             binding.incomingWeightEt.requestFocus()
             return
         } else if (binding.incomingWeightEt.text.toString().length > 4) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
@@ -305,12 +331,12 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.purchasePriceEt.requestFocus()
             return
         }
-        else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
-            binding.purchasePriceEt.error = "Maximum price is Rp 1.000"
+        else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 5000) {
+            binding.purchasePriceEt.error = "Minimum price is Rp 5.000"
             binding.purchasePriceEt.requestFocus()
             return
-        } else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
-            binding.purchasePriceEt.error = "Maximum price is Rp 60.000"
+        } else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 80000) {
+            binding.purchasePriceEt.error = "Maximum price is Rp 80.000"
             binding.purchasePriceEt.requestFocus()
             return
         }
@@ -333,8 +359,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.outgoingWeightEt.error = "Outgoing weight cannot be empty"
             binding.outgoingWeightEt.requestFocus()
             return
-        } else if (binding.outgoingWeightEt.text.toString().toInt() > 6000) {
-            binding.outgoingWeightEt.error = "Maximum weight is 6000 Kg"
+        } else if (binding.outgoingWeightEt.text.toString().toInt() > 7000) {
+            binding.outgoingWeightEt.error = "Maximum weight is 7000 Kg"
             binding.outgoingWeightEt.requestFocus()
             return
         } else if (binding.outgoingWeightEt.text.toString().length > 4) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
@@ -379,8 +405,8 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.weightLossEt.requestFocus()
             return
         }
-        else if (binding.weightLossEt.text.toString().toInt() > 100) {
-            binding.weightLossEt.error = "Maximum weight loss is 100 Kg"
+        else if (binding.weightLossEt.text.toString().toInt() > 750) {
+            binding.weightLossEt.error = "Maximum weight loss is 750 Kg"
             binding.weightLossEt.requestFocus()
             return
         } else if (binding.weightLossEt.text.toString().length > 3) { /** ini tidak berguna sebenrnya, karena sudah dibawah 6000 dan tidak akan lebih dari 4 digit, isoke buat belajar **/
@@ -394,11 +420,11 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.sellingPriceEt.requestFocus()
             return
         } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
-            binding.sellingPriceEt.error = "Maximum price is Rp 1.000"
+            binding.sellingPriceEt.error = "Minimum price is Rp 1.000"
             binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 60000) {
-            binding.sellingPriceEt.error = "Maximum price is Rp 60.000"
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 80000) {
+            binding.sellingPriceEt.error = "Maximum price is Rp 80.000"
             binding.sellingPriceEt.requestFocus()
             return
         } else {
@@ -408,6 +434,12 @@ class AddTraceabilityActivity : AppCompatActivity() {
         if (binding.noteEt.text.toString().trim().isEmpty()) {
             binding.noteEt.setText("-")
             binding.noteEt.clearFocus()
+        }
+
+        if (binding.distributionDropDown.text.toString().isEmpty()) {
+            binding.distributionLayout.error = "Distribution cannot be empty"
+            binding.distributionDropDown.requestFocus()
+            return
         }
 
 
@@ -524,31 +556,65 @@ class AddTraceabilityActivity : AppCompatActivity() {
                 val costPrices = binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
                 val weightOut = binding.outgoingWeightEt.text.toString().toInt()
                 val sellingPrice = binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toInt()
-                val purchaseCapital = weightIn * purchasePrice
-                val capitalCosts = weightIn * costPrices
-                val totalCapital = purchaseCapital + capitalCosts
-                val totalSell = weightOut * sellingPrice
-                val profit = totalSell - totalCapital
+
 
                 val dateCreate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time)
 
-                val dataClassSummary = DataClassSummary(
-                    dateIn, variety, pid, dateOut, weightIn, purchasePrice, costPrices, weightOut, sellingPrice, purchaseCapital, capitalCosts, totalCapital, totalSell, profit
-                )
+                val weightLoss = binding.weightLossEt.text.toString().toInt()
+                if (binding.distributionDropDown.text.toString() == "Sebagian Produk") {
 
-                firebaseRef.child(firebaseAuth.uid.toString()).child("summary").child(dateCreate)
-                    .setValue(dataClassSummary).addOnCompleteListener {task ->
-                        if (task.isSuccessful) {
-                            println("Successfully Created Summary in The Users")
-                            Log.i("Data Summary", "Successfully Created Summary in The Users")
+                    val resultDistribution = weightIn + weightOut - weightIn + weightLoss
 
-                            startActivity(Intent(this, TraceabilityListActivity::class.java))
-                            finish()
+                    val purchaseCapital = resultDistribution * purchasePrice
+                    val capitalCosts = resultDistribution * costPrices
+                    val totalCapital = purchaseCapital + capitalCosts
+                    val totalSell = weightOut * sellingPrice
+                    val profit = totalSell - totalCapital
+
+                    val dataClassSummary = DataClassSummary(
+                        dateIn, variety, pid, dateOut, resultDistribution, purchasePrice, costPrices, weightOut, sellingPrice, purchaseCapital, capitalCosts, totalCapital, totalSell, profit
+                    )
+
+                    firebaseRef.child(firebaseAuth.uid.toString()).child("summary").child(dateCreate)
+                        .setValue(dataClassSummary).addOnCompleteListener {task ->
+                            if (task.isSuccessful) {
+                                println("Successfully Created Summary in The Users")
+                                Log.i("Data Summary", "Successfully Created Summary in The Users")
+
+                                startActivity(Intent(this, TraceabilityListActivity::class.java))
+                                finish()
+                            }
+                        }.addOnFailureListener {
+                            println("Failed Create Summary in The Users")
+                            Log.i("Data Summary", "Failed Create Summary in The Users")
                         }
-                    }.addOnFailureListener {
-                        println("Failed Create Summary in The Users")
-                        Log.i("Data Summary", "Failed Create Summary in The Users")
-                    }
+                } else {
+                    val resultDistribution = weightIn
+
+                    val purchaseCapital = resultDistribution * purchasePrice
+                    val capitalCosts = resultDistribution * costPrices
+                    val totalCapital = purchaseCapital + capitalCosts
+                    val totalSell = weightOut * sellingPrice
+                    val profit = totalSell - totalCapital
+
+                    val dataClassSummary = DataClassSummary(
+                        dateIn, variety, pid, dateOut, resultDistribution, purchasePrice, costPrices, weightOut, sellingPrice, purchaseCapital, capitalCosts, totalCapital, totalSell, profit
+                    )
+
+                    firebaseRef.child(firebaseAuth.uid.toString()).child("summary").child(dateCreate)
+                        .setValue(dataClassSummary).addOnCompleteListener {task ->
+                            if (task.isSuccessful) {
+                                println("Successfully Created Summary in The Users")
+                                Log.i("Data Summary", "Successfully Created Summary in The Users")
+
+                                startActivity(Intent(this, TraceabilityListActivity::class.java))
+                                finish()
+                            }
+                        }.addOnFailureListener {
+                            println("Failed Create Summary in The Users")
+                            Log.i("Data Summary", "Failed Create Summary in The Users")
+                        }
+                }
 
             }
         }.addOnFailureListener {
@@ -842,9 +908,15 @@ class AddTraceabilityActivity : AppCompatActivity() {
     }
 
     private fun displayDropDownGrade() {
-        val itemsGrade = listOf("Same with Previous", "All Grade", "Super", "A", "AB", "C")
+        val itemsGrade = listOf("Sama dengan sebelumnya", "All Grade", "Super", "A", "AB", "C")
         val adapterGrade = ArrayAdapter(this, R.layout.item_list_dropdown, itemsGrade)
         binding.gradeDropDown.setAdapter(adapterGrade)
+    }
+
+    private fun displayDropDownDistribution() {
+        val itemsDistribution = listOf("Seluruh Produk", "Sebagian Produk")
+        val adapterDistribution = ArrayAdapter(this, R.layout.item_list_dropdown, itemsDistribution)
+        binding.distributionDropDown.setAdapter(adapterDistribution)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

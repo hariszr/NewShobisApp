@@ -58,7 +58,7 @@
     <string name="download_qr_code">Download Kode QR</string>
     <string name="your_data_in_here">Data anda di sini!</string>
     <string name="create_new_traceability">Membuat Ketertelusuran Baru</string>
-    <string name="shallot_variety_ET">Jenis Bawang Merah</string>
+    <string name="shallot_variety_ET">Varietas Bawang Merah</string>
     <string name="product_weight_kilogram">Bobot Produk (Kg)</string>
     <string name="shallot_plating_information_sub_tittle">Informasi Penanaman Bawang Merah</string>
     <string name="farmer_name_ET">Nama Petani</string>
@@ -125,4 +125,5 @@
     <string name="handling_fee_sub_title">Biaya Penanganan (per Kg):</string>
     <string name="purchase_price_from_farmers_per_kg_sub_title">Harga Beli dari Petani (per Kg):</string>
     <string name="product_condition_arrived">Kondisi Produk Saat Sampai :</string>
+    <string name="handling_weight_loss_kg">Susut Bobot Penanganan (Kg)</string>
 </resources>

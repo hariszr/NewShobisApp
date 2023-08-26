@@ -138,4 +138,5 @@
     <string name="handling_fee_sub_title">Handling Fee (per Kg):</string>
     <string name="purchase_price_from_farmers_per_kg_sub_title">Purchase Price from Farmers (per Kg):</string>
     <string name="product_condition_arrived">Product Condition Arrived :</string>
+    <string name="handling_weight_loss_kg">Handling Weight Loss (Kg)</string>
 </resources>

@@ -331,11 +331,11 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.purchasePriceEt.requestFocus()
             return
         }
-        else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 5000) {
+        else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! < 5000) {
             binding.purchasePriceEt.error = "Minimum price is Rp 5.000"
             binding.purchasePriceEt.requestFocus()
             return
-        } else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 80000) {
+        } else if (binding.purchasePriceEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! > 80000) {
             binding.purchasePriceEt.error = "Maximum price is Rp 80.000"
             binding.purchasePriceEt.requestFocus()
             return
@@ -393,7 +393,7 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.handlingFeeEt.error = "Cost prices cannot be empty"
             binding.handlingFeeEt.requestFocus()
             return
-        } else if (binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 3000) {
+        } else if (binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! > 3000) {
             binding.handlingFeeEt.error = "Maximum cost price is Rp 3000"
             binding.handlingFeeEt.requestFocus()
             return
@@ -419,11 +419,11 @@ class AddTraceabilityActivity : AppCompatActivity() {
             binding.sellingPriceEt.error = "Price cannot be empty"
             binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! < 1000) {
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! < 1000) {
             binding.sellingPriceEt.error = "Minimum price is Rp 1.000"
             binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 80000) {
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! > 80000) {
             binding.sellingPriceEt.error = "Maximum price is Rp 80.000"
             binding.sellingPriceEt.requestFocus()
             return

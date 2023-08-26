@@ -273,11 +273,11 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.sellingPriceEt.error = "Selling price cannot be empty"
             binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! <= 3000) {
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! <= 3000) {
             binding.sellingPriceEt.error = "Minimum selling price is Rp 3.000"
             binding.sellingPriceEt.requestFocus()
             return
-        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 80000) {
+        } else if (binding.sellingPriceEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! > 80000) {
             binding.sellingPriceEt.error = "Maximum selling price is Rp 80.000"
             binding.sellingPriceEt.requestFocus()
             return
@@ -297,7 +297,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.handlingFeeEt.error = "Cost prices cannot be empty"
             binding.handlingFeeEt.requestFocus()
             return
-        } else if (binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 3000) {
+        } else if (binding.handlingFeeEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! > 3000) {
             binding.handlingFeeEt.error = "Maximum cost price is Rp 3000"
             binding.handlingFeeEt.requestFocus()
             return
@@ -362,7 +362,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
             binding.priceFromFarmerEt.setText("0")
             binding.priceFromFarmerEt.requestFocus()
             return
-        }  else if (binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").toIntOrNull()!! > 25000) {
+        }  else if (binding.priceFromFarmerEt.text.toString().replace("Rp. ", "").replace(",", "").replace(".", "").toIntOrNull()!! > 25000) {
             binding.priceFromFarmerEt.error = "Maximum selling price is Rp 25.000"
             binding.priceFromFarmerEt.requestFocus()
             return

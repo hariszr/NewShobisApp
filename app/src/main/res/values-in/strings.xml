@@ -34,17 +34,17 @@
     <string name="creator_information">Informasi Pembuat:</string>
     <string name="company_sub_title">Perusahaan:</string>
     <string name="product_weight_upon_arrival_kilogram">Berat Produk Saat Tiba (Kg)</string>
-    <string name="grade">Kelas :</string>
-    <string name="selling_price_per_kg">Harga (per Kg)</string>
+    <string name="grade">Grade :</string>
+    <string name="selling_price_per_kg">Harga Jual (per Kg)</string>
     <string name="outgoing_product_weight_kilogram">Bobot Produk Keluar (Kg)</string>
     <string name="process_weight_loss_kilogram">Susut Bobot Proses (Kg)</string>
     <string name="product_outgoing_date">Tanggal Produk Keluar</string>
-    <string name="grade_title">Kelas</string>
+    <string name="grade_title">Grade</string>
     <string name="product_detail">Detail Produk</string>
     <string name="update_product_information_tittle">Memperbarui Informasi Produk</string>
     <string name="shallot_variety">Jenis Bawang:</string>
     <string name="weight">Bobot:</string>
-    <string name="grade_sub_tittle">Kelas:</string>
+    <string name="grade_sub_tittle">Grade:</string>
     <string name="price_sub_tittle">Harga:</string>
     <string name="shallot_planting_information">Informasi Penanaman Bawang Merah</string>
     <string name="farmer_name">Nama Petani:</string>
@@ -118,4 +118,11 @@
     <string name="capital">Modal</string>
     <string name="total_handling_fee">Total Biaya Penanganan</string>
     <string name="income">Pendapatan</string>
+    <string name="product_information_sub_title">Informasi Produk:</string>
+    <string name="distribution">Distribusi</string>
+    <string name="selling_price_sub_title">Harga Jual (per Kg):</string>
+    <string name="handling_sub_title">Penanganan:</string>
+    <string name="handling_fee_sub_title">Biaya Penanganan (per Kg):</string>
+    <string name="purchase_price_from_farmers_per_kg_sub_title">Harga Beli dari Petani (per Kg):</string>
+    <string name="product_condition_arrived">Kondisi Produk Saat Sampai :</string>
 </resources>

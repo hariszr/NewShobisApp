@@ -198,11 +198,15 @@ class DetailRecentActivity : AppCompatActivity() {
                     val actor = dataSnapshot.child("levelUser").getValue(String::class.java)
 
                     println("get actor : ${actor.toString()}")
-                    if (actor == "Konsumen" || actor == "UMKM") {
+                    if (actor == "UMKM") {
                         binding.downloadBtn.visibility = View.VISIBLE
-                        binding.addDataBtn.visibility = View.GONE
+                        binding.addDataBtn.visibility = View.VISIBLE
                         return
-                    } else if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" ||actor == "E-Commerce"  ) {
+                    } else if (actor == "Konsumen" )  {
+                        binding.downloadBtn.visibility = View.GONE
+                        binding.addDataBtn.visibility = View.GONE
+                    }
+                    else if (actor == "Pasar Induk" || actor == "Pasar Tradisional" || actor == "Pasar Modern" ||actor == "E-Commerce"  ) {
                         binding.downloadBtn.visibility = View.VISIBLE
                         binding.addDataBtn.visibility = View.VISIBLE
                         return

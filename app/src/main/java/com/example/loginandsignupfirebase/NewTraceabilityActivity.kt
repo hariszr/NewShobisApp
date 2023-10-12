@@ -81,6 +81,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
         displayDropDownVariety()
         displayDropDownGrade()
         displayDropDownHandling()
+        displayDropDownProvince()
         displayDropDownFertilizer()
 
         binding.sellingPriceEt.setMaskingMoney("Rp. ")
@@ -327,13 +328,13 @@ class NewTraceabilityActivity : AppCompatActivity() {
             return
         }
 
-        if (binding.areaEt.text.toString().isEmpty()) {
-            binding.areaEt.error = "Area planting cannot be empty"
-            binding.areaEt.requestFocus()
+        if (binding.provinceDropDown.text.toString().isEmpty()) {
+            binding.provinceLayout.error = "Area planting cannot be empty"
+            binding.provinceDropDown.requestFocus()
             return
-        }  else if (binding.areaEt.text.toString().length > 30) {
-            binding.areaEt.error = "Maximum 30 character"
-            binding.areaEt.requestFocus()
+        }  else if (binding.provinceDropDown.text.toString().length > 30) {
+            binding.provinceDropDown.error = "Maximum 30 character"
+            binding.provinceDropDown.requestFocus()
             return
         }
 
@@ -515,7 +516,58 @@ class NewTraceabilityActivity : AppCompatActivity() {
                 keyboardShow.showSoftInput(binding.handlingFeeEt, InputMethodManager.SHOW_IMPLICIT)
                 return@setOnItemClickListener
             }
+        }
+    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun displayDropDownProvince() {
+        val itemProvince = arrayListOf("Jawa Tengah", "Jawa Timur", "Jawa Barat")
+
+        val adapterProvince = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, itemProvince)
+        binding.provinceDropDown.setAdapter(adapterProvince)
+
+        binding.provinceDropDown.setOnItemClickListener { _, _, position, _ ->
+            val selectedProvinsi = adapterProvince.getItem(position) as String
+            val kotaKabArray = when (selectedProvinsi) {
+                "Jawa Tengah" -> arrayOf("Kab. Brebes", "Kab. Demak")
+                "Jawa Timur" -> arrayOf("Kab. Nganjuk", "Kab. Magetan")
+                "Jawa Barat" -> arrayOf("Kab. Bandung", "Kab. Cirebon")
+                else -> arrayOf() // Untuk provinsi lainnya, tidak ada kota/kabupaten yang sesuai
+            }
+
+            val kotaKabAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, kotaKabArray)
+            binding.cityDistrictDropDown.setAdapter(kotaKabAdapter)
+            binding.cityDistrictDropDown.text.clear()
+            binding.subDistrictDropDown.text.clear()
+            binding.villageDropDown.text.clear()
+        }
+
+        binding.cityDistrictDropDown.setOnItemClickListener { _, _, position, _ ->
+            val selectedKotaKab = binding.cityDistrictDropDown.text.toString()
+            val kecamatanArray = when (selectedKotaKab) {
+                "Kab. Brebes" -> arrayOf("Bulakamba", "Losari", "Wanasari" )
+                "Kab. Demak" -> arrayOf("Mijen", "Wonosalam" )
+                else -> arrayOf() // Jika kota/kabupaten tidak sesuai dengan yang ada di sini, maka tidak ada kecamatan yang sesuai.
+            }
+
+            val kecamatanAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, kecamatanArray)
+            binding.subDistrictDropDown.setAdapter(kecamatanAdapter)
+            binding.villageDropDown.text.clear()
+        }
+
+        binding.subDistrictDropDown.setOnItemClickListener { _, _, position, _ ->
+            val selectedKecamatan = binding.subDistrictDropDown.text.toString()
+            val desaArray = when (selectedKecamatan) {
+                "Wanasari" -> arrayOf("Klampok", "Sawojajar", "Siasem", "Sisalam", "Tanjungsari", "Wanacolo")
+                "Bulakamba" -> arrayOf("Bangsri", "Bulusari", "Cipelem", "Karangsari", "Pakijangan", "Pulogading", "Rancawuluh", "Siwuluh")
+                "Losari" -> arrayOf("Babakan", "Bulusari", "Dukuhsalam", "Kalibuntu", "Limbangan", "Losari Kidul", "Mulyasari", "Pekauman")
+                "Mijen" -> arrayOf("Bakung", "Gempolsongo", "Geneng", "Mlaten", "Pasir", "Pecuk", "Rejosari", "Tanggul")
+                "Wonosalam" -> arrayOf("Botorejo", "Getas", "Kalianyar", "Karangrowo", "Mrisen", "Sidomulyo", "Tlogorejo", "Wonosalam")
+                else -> arrayOf() // Jika kecamatan tidak sesuai dengan yang ada di sini, maka tidak ada desa yang sesuai.
+            }
+
+            val desaAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, desaArray)
+            binding.villageDropDown.setAdapter(desaAdapter)
         }
     }
 
@@ -647,7 +699,7 @@ class NewTraceabilityActivity : AppCompatActivity() {
 
         val farmer = binding.farmerEt.text.toString()
         val day = binding.harvestTimeEt.text.toString()
-        val area = binding.areaEt.text.toString()
+        val area = binding.provinceDropDown.text.toString()
         val fertilizer = binding.fertilizerDropDown.text.toString()
         val pesticides = binding.pesticidesEt.text.toString()
         val weightFarmers = binding.weightEt.text.toString()
